@@ -81,13 +81,14 @@
   <body>
     <div class="content">
       <h1>RIAC Firmware Installer</h1>
+      <p>Connect your eBrain via USB to update firmware or check your firmware version.</p>
       <button id="checkfirmware">Check Firmware Version</button><br><br>
-      <p>Please connect Pin0 to GND, before powering on your eBrain. This will put your eBrain into BOOT mode. Then Connect your eBrain via USB to update firmware.</p>
+      <p>Please connect Pin0 to GND, before powering on your eBrain. This will put your eBrain into BOOT mode. Set power switch to 0 for USB mode.</p>
       <img src="eBrain.png" width="200">
       <p>Select firmware to install:</p>
       <ul class="radios">
         <li>
-          <label><input type="radio" name="type" value="RIAC" />RIAC esp8266 - eBrain Firmware for SNAP </label><br>
+          <label><input type="radio" name="type" value="RIAC" />*RIAC esp8266 - eBrain Firmware for SNAP* - recommended </label><br>
           <label><input type="radio" name="type" value="RIAC32" />RIAC esp32 - eBrain Firmware for SNAP </label><br>
           <label><input type="radio" name="type" value="DRONE" />RIAC esp32 - eBrain Firmware for DRONES </label><br>
         </li>
@@ -97,16 +98,27 @@
       </p>
 
       <div class="footer">
-        <a href=""
-          >Online RIAC ESP8266 Firmware Update</a
-        > &mdash;
-        Installer powered by <a href="https://esphome.github.io/esp-web-tools/">ESP Web Tools</a>.
+        <!--<a href="">Web RIAC Firmware Update</a> &mdash;
+        Installer powered by <a href="https://esphome.github.io/esp-web-tools/">ESP Web Tools</a>-->
     </div>
     <script>
       document.querySelectorAll('input[name="type"]').forEach(radio =>
         radio.addEventListener("change", () => {
           const button = document.querySelector('esp-web-install-button');
-          button.manifest = `manifest_RIAC.json`;
+          button.manifest = `{
+  "name": "RIAC for ESP8266",
+  "version": "1.3",
+  "home_assistant_domain": "slim_player",
+  "funding_url": "https://robotinacan.com",
+  "builds": [
+    {
+      "chipFamily": "ESP32",
+      "parts": [
+        { "path": "firmware/firmware.bin", "offset": 0 }
+      ]
+    }
+  ]
+}`;
           button.classList.remove('invisible');
         }
       ));
