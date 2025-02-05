@@ -1,0 +1,45 @@
+        .playlist-container {
+            border: 2px solid black;
+            padding: 20px;
+            width: 400px;
+            background-color: #f9f9f9;
+        }
+        .playlist-title {
+            margin: 0 0 10px;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            text-align: center;
+            border-bottom: 1px solid black;
+            padding-bottom: 5px;
+        }
+        .track {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px dashed black;
+        }
+        .track:last-child {
+            border-bottom: none;
+        }
+        .track-info {
+            flex: 1;
+            padding-right: 10px;
+        }
+        .track-info span {
+            display: block;
+            font-size: 0.9rem;
+        }
+        .controls button {
+            background-color: white;
+            color: black;
+            border: 1px solid black;
+            padding: 2px 5px;
+            cursor: pointer;
+            font-family: monospace;
+            font-size: 0.8rem;
+        }
+        .controls button:hover {
+            background-color: black;
+            color: white;
+        }
