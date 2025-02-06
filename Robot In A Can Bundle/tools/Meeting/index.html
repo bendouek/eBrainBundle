@@ -33,6 +33,12 @@
             font-size: 24px;
             padding: 10px 20px;
             cursor: pointer;
+            background: white;
+        }
+        img {
+            position: absolute;
+            top: 30px;
+            right: 130px;
         }
         .iframe-container {
             position: absolute;
@@ -50,7 +56,9 @@
     </style>
 </head>
 <body>
+    <img src="https://cdn.shopify.com/s/files/1/1927/6949/files/NewRobotLogo_190704_115x.png">
     <div class="input-container" id="inputContainer">
+        
         <input type="text" id="roomName" placeholder="Enter room name">
         <button onclick="openRoom()">Open Room</button>
     </div>
@@ -60,8 +68,8 @@
     <script>
         function openRoom() {
             const roomName = document.getElementById("roomName").value.trim();
-            if (!roomName) return;
-            document.getElementById("meetingFrame").src = `https://meet.jit.si/${roomName}`;
+            if (roomName!="robotinacanvideocall") return;
+            document.getElementById("meetingFrame").src = `https://meet.startr.space/Preville-Online-Robotics#jitsi_meet_external_api_id=0&amp;config.requireDisplayName=true&amp;config.startAudioMuted=6&amp;config.disableAudioLevels=true&amp;interfaceConfig.DISABLE_VIDEO_BACKGROUND=true&interfaceConfig.SHOW_CHROME_EXTENSION_BANNER=false&config.disableDeepLinking=true&setVideoQuality=720`;
             document.getElementById("inputContainer").style.top = "auto";
             document.getElementById("inputContainer").style.bottom = "20px";
             document.getElementById("inputContainer").style.transform = "none";
