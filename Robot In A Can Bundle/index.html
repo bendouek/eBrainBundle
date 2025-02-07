@@ -12,6 +12,9 @@
             width: 100%;
             height: 100%;
             overflow: hidden;
+            font-family: monospace;
+            background-color: white;
+            color: #1A313B;
         }
         iframe {
             position: absolute;
@@ -22,6 +25,18 @@
             border: none;
             z-index: 0;
         }
+        button {
+            text-align: center;
+            margin: 15px 0;
+            margin: 0 5px;
+            padding: 5px 10px;
+            border: 1px solid #1A313B;
+            background-color: #f9f9f9;
+            cursor: pointer;
+        }
+        #connectWizard {
+            font-size: 1.4em;
+        }
         .tabs-container {
             position: absolute;
             bottom: 10px;
@@ -29,12 +44,21 @@
             display: flex;
             gap: 5px;
             z-index: 4;
+            background-color: #1A313B;
+            border: 6px solid #1A313B;
+            border-top-left-radius: 16px;
+            border-top-right-radius: 16px;
         }
         .tab-button {
-            background: lightgray;
-            border: 1px solid #000;
+            background: white;
+            border: 1px solid #1A313B;
             padding: 5px 10px;
+            font-size: 1.3em;
             cursor: pointer;
+        }
+        .tab-button.active {
+            background-color: #1A313B;
+            color: #fff;
         }
         .connected {
             background: lightgreen;
@@ -43,6 +67,12 @@
         .disconnected {
             background: lightsalmon;
             border: 3px solid #f00;
+        }
+        .connectedTXT {
+            color: darkgreen;
+        }
+        .disconnectedTXT {
+            color: darkred;
         }
         .tab-button-intab {
             position: absolute;
@@ -55,7 +85,8 @@
             width: 100%;
             height: 100%;
             background: rgba(255, 255, 255, 0.9);
-            border-left: 5px solid #444;
+            border-left: 5px solid #1A313B;
+            border-right: 5px solid #1A313B;
             display: none;
             padding: 50px;
             z-index: 1;
@@ -64,8 +95,8 @@
             position: absolute;
             bottom: 10px;
             right: 10px;
-            background: lightgray;
-            border: 1px solid #000;
+            background: white;
+            border: 1px solid #1A313B;
             padding: 5px 10px;
             cursor: pointer;
             z-index: 4;
@@ -78,15 +109,72 @@
             width: 50%;
             left: 50%;
         }
-        #output {
-            background-color: black;
-            color: lime;
-            font-family: monospace;
-            padding: 10px;
-            height: 200px;
-            overflow-y: auto;
-            border: 1px solid lime;
+        .accordion {
+            width: 90%;
+            margin: auto;
+            border-radius: 5px;
+            overflow: hidden;
         }
+
+        .accordion-item {
+        }
+
+        .accordion-header {
+            padding: 15px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: left;
+            width: 90%;
+            transition: background 0.3s;
+        }
+
+        .accordion-header:hover {
+            background: #e0e0e0;
+        }
+
+        .accordion-content {
+            display: none;
+            padding: 15px;
+        }
+
+        .active + .accordion-content {
+            display: block;
+        }
+
+        .terminal {
+            background: #000;
+            color: #33ff33;
+            padding: 10px;
+            padding-top: 5px;
+            width: 500px;
+            height: 180px;
+            border-radius: 5px;
+            border: 2px solid #33ff33;
+            overflow: hidden;
+            white-space: pre-line;
+            font-size: 1em;
+        }
+
+        .terminal::before {
+        }
+        #output{
+            overflow-y: scroll;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 10px;
+            height: 16px;
+            background: #33ff33;
+            margin-left: 2px;
+            animation: blink 0.8s infinite;
+        }
+
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+
     </style>
 </head>
 <body>
@@ -97,35 +185,58 @@
         <button class="tab-button" onclick="showTab(2)">Cards</button>
         <button class="tab-button" onclick="showTab(4)">Meeting</button>
     </div>
-    <button class="toggle-button" onclick="toggleTabSize()">Toggle Size</button>
+    <button class="toggle-button" onclick="toggleTabSize()">⛶ Toggle Window ⛶</button>
     
     <div id="tab0" class="tabs">
+        <img src="https://cdn.shopify.com/s/files/1/1927/6949/files/NewRobotLogo_190704_115x.png" style="padding: 20px; position: absolute; bottom: 130px; left: 10px;">
         <iframe src="myProjects/"></iframe>
     </div>
     <div id="tab1" class="tabs">
-        <br><br><br><br>
-        <button id="connectButton">Connect to Device USB</button><br><br><br>
-        <button id="wifichkButton">Scan WiFi</button><br><br>
-        
-        <label for="ssid">SSID:</label>
-        <select name="ssid" id="ssid">
-        </select>
-        <br>
-        <label for="pass">PASS:</label>
-        <input type="text" id="pass" name="pass">
+        <img src="https://cdn.shopify.com/s/files/1/1927/6949/files/NewRobotLogo_190704_115x.png" style="padding: 20px; position: absolute; bottom: 130px; left: 10px;">
+        <h1>eBrain Settings</h1>
+        <button id="connectEasy">Connect to eBrain</button>
         <br><br>
-        <button id="wifiButton">Connect To Router</button><br><br>
-        <button id="getIpButton" onclick="getIpValue()">Get IP</button><br><br>
         <h2 id="robotName"></h2>
-        <h1 id="ip"></h1>
-        <button id="socketButton">Connect To eBrain WebSocket</button><br><br>
-        <button id="closeSocketButton">Close WebSocket</button>
-        <br><br>
-        <pre id="output"></pre>
-        <textarea id="jsonInput" placeholder="Enter JSON to send" rows="2" cols="80"></textarea>
-        <button id="sendButton">Send</button>
-        <br><br><br>
-        <button class="tab-button tab-button-intab" onclick="showTab(3)">Update Firmware</button>
+        <h1 id="ip" ondblclick="makeEditable(this)"></h1>
+        <br> 
+        <div class="terminal">
+            <span id="output"></span><span class="cursor"></span>
+        </div><br><br><br>
+        <button id="wifichkButton">Scan WiFi</button>
+                    <label for="ssid">SSID:</label>
+                    <input list="ssid" id="ssid-select" name="ssid-select" placeholder="Type or select">
+                    <datalist name="ssid" id="ssid">
+                    </datalist>
+                    <label for="pass">PASS:</label>
+                    <input type="text" id="pass" name="pass">
+                    <button id="wifiButton">Connect To Router</button>
+                    <button id="getIpButton" onclick="getIpValue()">Get IP</button>
+                    <br><br>
+        <div class="accordion">
+            <div class="accordion-item">
+                <button class="accordion-header">Advanced</button>
+                <div class="accordion-content">
+                    <button id="connectButton">Connect to Device USB</button>
+                    <button id="closeUsbButton">Close USB Connection</button><br><br>
+                    
+                    <button id="socketButton">Connect To eBrain WebSocket</button>
+                    <button id="closeSocketButton">Close WebSocket</button>
+                    <br><br>
+                    <label for="commandSelect">Select a command:</label>
+                    <select id="commandSelect">
+                        <option value="" disabled selected>-- Choose a command --</option>
+                    </select>
+                    <label for="argInput">Enter arguments:</label>
+                    <input type="text" id="argInput" placeholder="Enter arguments...">
+                    <br>
+                    <textarea id="jsonInput" placeholder="Enter JSON to send" rows="4" cols="90"></textarea>
+                    <button id="sendButton">Send</button>
+                    <br><br><br>
+                    <button class="tab-button tab-button-intab" onclick="showTab(3)" style="margin-left: 130px;">Update Firmware</button>
+                </div>
+            </div>
+        </div>
+        
     </div>
     <div id="tab2" class="tabs">
         <iframe src="tools/Projects/index.html"></iframe>
@@ -135,218 +246,22 @@
         <iframe src="tools/WebUploader/index.html"></iframe>
     </div>
     <div id="tab4" class="tabs">
+        <h1>Online Classroom</h1>
         <iframe src="tools/Meeting/index.html" allow="microphone *; camera *"></iframe>
     </div>
+
+    <script type="text/javascript" src="main.js"></script>
     
     <script>
-        let currentTab = null;
-        let tabSize = "fullscreen";
-        var snapframe = document.getElementById("snapframe");
-        var cbs = {};
-
-        function showTab(tabNum) {
-            if (`tab${tabNum}` == currentTab && document.getElementById(currentTab).style.display == 'block'){
-                document.getElementById(currentTab).style.display = "none";
-                return;
-            }
-            if (currentTab) {
-                document.getElementById(currentTab).style.display = "none";
-            }
-            const tab = document.getElementById(`tab${tabNum}`);
-            tab.style.display = "block";
-            currentTab = `tab${tabNum}`;
-            tab.classList.add("split-right");
-        }
-
-        function toggleTabSize() {
-            if (!currentTab) {
-                return;
-            }
-            const tab = document.getElementById(currentTab);
-            if (tabSize === "fullscreen") {
-                tab.classList.remove("split-right");
-                tab.classList.add("split-left");
-                tabSize = "split-left";
-            } else if (tabSize === "split-left") {
-                tab.classList.remove("split-left");
-                tab.classList.add("split-right");
-                tabSize = "split-right";
-            } else if (tabSize === "split-right") {
-                tab.style.display = "none";
-                tabSize = "hidden";
-            } else {
-                tab.classList.remove("split-left", "split-right");
-                tab.style.display = "block";
-                tabSize = "fullscreen";
-            }
-        }
-
-
-
-
-        function send_msg(msg,cb){
-            const messageId = Math.random().toString(36).substr(2, 9); 
-            msg.id = messageId;
-
-            // Store the callback function
-            cbs[messageId] = cb;
-            snapframe.contentWindow.postMessage(msg, "*");
-        }
-
-
-        window.addEventListener("message", (event) => {
-            if (!event.data || !event.data.id) return;
-                if (typeof cbs[event.data.id] !== "undefined"){
-                    cbs[event.data.id](JSON.parse(JSON.stringify(event.data)));
-                    if(!(event.data.msg == true || event.data.msg == false)) displayMessage(JSON.stringify(event.data));
-                    //delete cbs[event.data.id]; // Clean up
-                }
-        });
-
-
-
-        function displayMessage(data) {
-            document.getElementById("output").textContent += data+"\n";
-        }
-
-        function displayIP(ip) {
-            document.getElementById("ip").innerHTML = ip;
-            saveToLocalStorage("eBrain_ipaddress", ip);
-        }
-
-        function displayRobot(name) {
-            document.getElementById("robotName").innerHTML = name;
-            saveToLocalStorage("eBrain_name", name);
-        }
-
-
-        function getDisplayIP() {
-            return document.getElementById("ip").innerHTML;
-        }
-
-        function getIpValue() {
-            var message = {"cmd": "getConfig"};
-            //JSON Command, Function to do on successful completion (where rtnMsg is the returned message of the complete command)
-            send_msg(message, function(rtnMsg){
-                displayIP(rtnMsg.msg.sta_ip);
-                displayRobot(rtnMsg.msg.ap_ssid);
-            });
-        }
-
-
-        function connectionWizard() {
-            const ssid = document.getElementById("ssid").value;
-            const pass = document.getElementById("pass").value;
-            saveToLocalStorage("eBrain_ssid", ssid);
-            saveToLocalStorage("eBrain_pass", pass);
-            var message = {"cmd": "setConfig", "arg": {"sta_ssid": ssid , "sta_pass": pass}};
-            //JSON Command, Function to do on successful completion (where rtnMsg is the returned message of the complete command)
-            send_msg(message, function(rtnMsg){
-                displayIP(rtnMsg.msg.sta_ip);
-            });
-        }
-
-
-        function wifiCheck() {
-            send_msg({"cmd": "startWifiScan"}, function(rtnMsg){
-                var wifi = "";
-                if(typeof rtnMsg.msg === "undefined"){
-                  return;
-                }
-                for(var i = 0; i < rtnMsg.msg.length; i++) {
-                    wifi += "<option value ='" + rtnMsg.msg[i][0] + "' >";
-                    wifi += rtnMsg.msg[i][0];
-                    wifi += "</option>";
-                }
-                document.getElementById("ssid").innerHTML = wifi;
-            });
-        }
-
-        function connectWS() {
-          var url  = "ws://"+getDisplayIP()+":8899/websocket";
-          displayMessage("...conecting: " + url);
-          var msg = {'cmd':'url','msg':url}
-          send_msg(msg,function(rtnMsg){});
-        }
-
-        function closeWS() {
-          displayMessage("Closing Socket");
-          var msg = {'cmd':'close'};
-          send_msg(msg,function(rtnMsg){});
-        }
-
-        function sendJsonText() {
-          var jsonInput = document.getElementById("jsonInput").value;
-          try {
-            jsonInput = JSON.parse(jsonInput);
-          } catch (e) {
-            displayMessage(e);
-          }
-          send_msg(jsonInput,function(rtnMsg){});
-        }
-
-        function USBmsg(){
-            const messageId = Math.random().toString(36).substr(2, 9); 
-            var msg;
-            msg = {'cmd':'usb','id':messageId};
-            snapframe.contentWindow.postMessage(msg, "*");
-        }
-
-        function chk(){
-            var msg = {'cmd':'chk'};
-            send_msg(msg,function(rtnMsg){
-                const btn = document.getElementById("connectedIndicator");
-                if(rtnMsg.msg == true){
-                    btn.classList.add("connected");
-                    btn.classList.remove("disconnected");
-                } else {
-                    btn.classList.add("disconnected");
-                    btn.classList.remove("connected");
-                }
-            });
-        }
-        // Run check every 18 seconds (18000 milliseconds)
-        setInterval(chk, 8000);
-
-
         document.getElementById("connectButton").addEventListener("click", USBmsg);
         document.getElementById("wifichkButton").addEventListener("click", wifiCheck);
         document.getElementById("sendButton").addEventListener("click", sendJsonText);
         document.getElementById("wifiButton").addEventListener("click", connectionWizard);
         document.getElementById("closeSocketButton").addEventListener("click", closeWS);
+        document.getElementById("closeUsbButton").addEventListener("click", closeSerial);
         document.getElementById("socketButton").addEventListener("click", connectWS);
         document.getElementById("getIpButton").addEventListener("click", getIpValue);
-
-        function saveToLocalStorage(key, value) {
-            localStorage.setItem(key, value);
-        }
-        function getFromLocalStorage(key) {
-            return localStorage.getItem(key);
-        }
-
-
-            let ipSave = getFromLocalStorage("eBrain_ipaddress");
-            let ssidSave = getFromLocalStorage("eBrain_ssid");
-            let ssidPassSave = getFromLocalStorage("eBrain_pass");
-            let nameSave = getFromLocalStorage("eBrain_name");
-
-            if (ipSave) {
-                displayIP(ipSave);
-            } 
-            if (ssidSave) {
-                var wifi = "";
-                    wifi += "<option value ='" + ssidSave + "' >";
-                    wifi += ssidSave;
-                    wifi += "</option>";
-                document.getElementById("ssid").innerHTML = wifi;
-            } 
-            if (ssidPassSave) {
-                document.getElementById("pass").value = ssidPassSave;
-            } 
-            if (nameSave) {
-                document.getElementById("robotName").value = nameSave;
-            }
-
+        document.getElementById("connectEasy").addEventListener("click", connectAuto);
     </script>
 
 
