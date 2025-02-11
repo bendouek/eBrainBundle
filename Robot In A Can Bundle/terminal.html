@@ -3,32 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CSS Terminal with Typing Effect</title>
+    <title>Code Adventure</title>
     <style>
         body {
-            background-color: #111;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            font-family: monospace;
-        }
-
-        .terminal {
-            background: #000;
+            background: black;
             color: #33ff33;
-            padding: 20px;
-            width: 500px;
-            height: 300px;
-            border-radius: 5px;
-            border: 2px solid #33ff33;
-            box-shadow: 0 0 15px #33ff33;
-            overflow-y: scroll;
-            white-space: pre-line;
+            font-family: 'Courier New', monospace;
+            text-align: center;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            overflow: hidden;
         }
 
-        .terminal::before {
-            content: "User@Terminal:~$ ";
+        .crt {
+            width: 80vw;
+            max-width: 800px;
+            height: 60vh;
+            padding: 20px;
+            background: radial-gradient(circle at center, rgba(0, 255, 0, 0.15), transparent);
+            border-radius: 10px;
+            border: 5px solid #00cc00;
+            box-shadow: inset 0 0 30px rgba(0, 255, 0, 0.3);
+            position: relative;
+            text-align: left;
+            overflow: hidden;
+            transition: background 0.2s ease-in-out;
+        }
+
+        .flicker {
+            background: black !important;
+            box-shadow: none !important;
+        }
+
+        #terminal {
+            white-space: pre-wrap;
+            font-size: 1.2em;
+            line-height: 1.4;
+            min-height: 100%;
+            padding: 10px;
         }
 
         .cursor {
@@ -36,50 +52,170 @@
             width: 10px;
             height: 16px;
             background: #33ff33;
-            margin-left: 2px;
-            animation: blink 0.8s infinite;
+            animation: blink 0.8s infinite alternate;
         }
 
         @keyframes blink {
-            50% { opacity: 0; }
+            0% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+
+        .controls {
+            margin-top: 10px;
+        }
+
+        button {
+            background: black;
+            border: 2px solid #33ff33;
+            color: #33ff33;
+            font-size: 1em;
+            padding: 5px 10px;
+            margin: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #33ff33;
+            color: black;
+        }
+
+        #image-display {
+            width: 80vw;
+            max-width: 800px;
+            height: 200px;
+            background: black;
+            border: 3px solid #00cc00;
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        #image-display img {
+            max-width: 100%;
+            max-height: 100%;
+            display: none;
         }
     </style>
 </head>
 <body>
 
-    <div class="terminal">
-        <span id="output"></span><span class="cursor"></span>
+    <div class="crt" id="crt">
+        <div id="terminal"></div><span class="cursor"></span>
+    </div>
+
+    <div id="image-display">
+        <img id="story-image" src="" alt="">
+    </div>
+
+    <div class="controls">
+        <button onclick="adjustSpeed(-10)">Slower</button>
+        <button onclick="adjustSpeed(10)">Faster</button>
+        <button onclick="skipToEnd()">Skip</button>
+        <button onclick="restartText()">Rewind</button>
     </div>
 
     <script>
-        const text = [
-            "Initializing system...",
-            "Loading configuration...",
-            "Connecting to server...",
-            "Access granted!",
-            "Welcome to the terminal."
-        ];
-        
-        let index = 0;
-        let charIndex = 0;
-        let outputElement = document.getElementById("output");
+        let scriptData = [];
+        let currentIndex = 0;
+        let speed = 50;
+        let isSkipping = false;
 
-        function typeWriter() {
-            if (index < text.length) {
-                if (charIndex < text[index].length) {
-                    outputElement.innerHTML += text[index].charAt(charIndex);
-                    charIndex++;
-                    setTimeout(typeWriter, 50);
-                } else {
-                    outputElement.innerHTML += "\nUser@Terminal:~$ ";
-                    index++;
-                    charIndex = 0;
-                    setTimeout(typeWriter, 500);
-                }
+        async function loadScript() {
+            try {
+                const response = await fetch('chapter1.json');
+                const data = await response.json();
+                scriptData = data.script;
+                startTyping();
+            } catch (error) {
+                console.error('Error loading script:', error);
             }
         }
 
-        setTimeout(typeWriter, 1000);
+        function startTyping() {
+            let terminal = document.getElementById("terminal");
+            terminal.innerHTML = "";
+            currentIndex = 0;
+            isSkipping = false;
+            document.querySelector(".cursor").style.display = "inline-block";
+            typeText();
+        }
+
+        function typeText() {
+            if (currentIndex >= scriptData.length) {
+                document.querySelector(".cursor").style.display = "none";
+                return;
+            }
+
+            let entry = scriptData[currentIndex];
+            let text = entry.text;
+            let pauseTime = entry.pause || 2000;
+            let action = entry.action || null;
+            let i = 0;
+            let terminal = document.getElementById("terminal");
+
+            terminal.innerHTML = "";
+
+            function typing() {
+                if (isSkipping) {
+                    terminal.innerHTML = text;
+                    performAction(action);
+                    setTimeout(nextEntry, pauseTime);
+                    return;
+                }
+
+                if (i < text.length) {
+                    terminal.innerHTML += text[i];
+                    i++;
+                    setTimeout(typing, speed);
+                } else {
+                    performAction(action);
+                    setTimeout(nextEntry, pauseTime);
+                }
+            }
+
+            typing();
+        }
+
+        function performAction(action) {
+            if (!action) return;
+
+            if (action === "flickerScreen") {
+                let crt = document.getElementById("crt");
+                crt.classList.add("flicker");
+                setTimeout(() => crt.classList.remove("flicker"), 200);
+            }
+        }
+
+        function nextEntry() {
+            currentIndex++;
+            if (currentIndex < scriptData.length) {
+                typeText();
+            } else {
+                document.querySelector(".cursor").style.display = "none";
+            }
+        }
+
+        function adjustSpeed(change) {
+            speed = Math.max(10, speed + change);
+        }
+
+        function skipToEnd() {
+            isSkipping = true;
+            let terminal = document.getElementById("terminal");
+            terminal.innerHTML = scriptData.map(entry => entry.text).join("\n");
+            document.querySelector(".cursor").style.display = "none";
+        }
+
+        function restartText() {
+            currentIndex = 0;
+            isSkipping = false;
+            document.querySelector(".cursor").style.display = "inline-block";
+            startTyping();
+        }
+
+        window.onload = loadScript;
     </script>
 
 </body>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>eBrain Connection</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+        }
+        #statusDot {
+            width: 50px;
+            height: 50px;
+            background-color: red;
+            border-radius: 50%;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <input type="text" id="ipAddress" placeholder="Enter IP address">
+    <button onclick="connectToEbrain()">Connect</button>
+    <div id="statusDot"></div>
+
+    <script>
+        const statusDot = document.getElementById("statusDot");
+
+        function connectToEbrain() {
+            const ip = document.getElementById("ipAddress").value;
+            if (!ip) {
+                alert("Please enter an IP address");
+                return;
+            }
+
+            const socket = new WebSocket(`ws://${ip}:8899`);
+            
+            socket.onopen = function() {
+                console.log("Connected to eBrain");
+                statusDot.style.backgroundColor = "green";
+            };
+
+            socket.onerror = function() {
+                console.log("WebSocket error");
+            };
+
+            socket.onclose = function() {
+                console.log("WebSocket closed");
+                statusDot.style.backgroundColor = "red";
+            };
+        }
+    </script>
+</body>
+</html>
