@@ -398,48 +398,76 @@ function checkLines() {
 
 
 
+const commands = {
+    "version": {},
+    "set_wifi": { "ssid": "string", "pass": "string" },
+    "get_ip": {},
+    "digital_read": { "pin": "number" },
+    "analog_read": {},
+    "digital_write": { "pin": "number", "value": "string" },
+    "pwm_write": { "pin": "number", "value": "number" },
+    "continuous_servo": { "pin": "number", "speed": "number" },
+    "regular_servo": { "pin": "number", "angle": "number" },
+    "stepper_turn": { "motor": "number", "steps": "number", "direction": "number" },
+    "stepper_turn_multi": { "motors": "array" },
+    "update_settings": { "version": "number", "slackCalibration": "number", "moveCalibration": "number", "turnCalibration": "number", "wheelDiameter": "number", "wheelDistance": "number" },
+    "wifi_scan": {},
+    "beep": { "pin": "number", "frequency": "number", "duration": "number" }
+};
 
- const commands = [
-            "version", "ping", "uptime", "pause", "resume", "stop",
-            "slackCalibration", "moveCalibration", "turnCalibration",
-            "calibrateMove", "calibrateTurn", "forward", "back",
-            "right", "left", "beep", "calibrateSlack", "analogInput",
-            "readSensors", "digitalInput", "digitalNotify",
-            "digitalStopNotify", "gpio_on", "gpio_off", "gpio_pwm_16",
-            "gpio_pwm_5", "gpio_pwm_10", "temperature", "humidity",
-            "distanceSensor", "compassSensor", "postToServer",
-            "leftMotorF", "leftMotorB", "rightMotorF", "rightMotorB",
-            "speedMove", "speedMoveSteps", "servo", "servoII",
-            "pinServo", "getConfig", "setConfig", "resetConfig",
-            "freeHeap", "startWifiScan"
-        ];
+const selectElement = document.getElementById("commandSelect");
+const argsContainer = document.getElementById("argInput");
+const jsonInput = document.getElementById("jsonInput");
 
-        const selectElement = document.getElementById("commandSelect");
-        const argInput = document.getElementById("argInput");
-        const jsonInput = document.getElementById("jsonInput");
+// Populate dropdown with commands
+Object.keys(commands).forEach(cmd => {
+    let option = document.createElement("option");
+    option.value = cmd;
+    option.textContent = cmd;
+    selectElement.appendChild(option);
+});
 
-        // Populate dropdown with commands
-        commands.forEach(cmd => {
-            let option = document.createElement("option");
-            option.value = cmd;
-            option.textContent = cmd;
-            selectElement.appendChild(option);
+function generateJSON() {
+    const selectedCommand = selectElement.value;
+    const argsSchema = commands[selectedCommand];
+    let jsonObject = { cmd: selectedCommand };
+    
+    if (argsSchema) {
+        Object.keys(argsSchema).forEach(arg => {
+            let inputField = document.getElementById(arg);
+            if (inputField) {
+                let value = inputField.value.trim();
+                jsonObject[arg] = argsSchema[arg] === "number" ? parseFloat(value) || 0 : value;
+            }
         });
+    }
+    
+    jsonInput.value = JSON.stringify(jsonObject, null, 2);
+}
 
-        function generateJSON() {
-            const selectedCommand = selectElement.value;
-            const argumentsValue = argInput.value.trim();
+function updateArgFields() {
+    const selectedCommand = selectElement.value;
+    const argsSchema = commands[selectedCommand];
+    argsContainer.value = ""; // Clear previous arguments
+    
+    if (argsSchema) {
+        Object.keys(argsSchema).forEach(arg => {
+            let label = document.createElement("label");
+            label.textContent = arg + ": ";
+            
+            let input = document.createElement("input");
+            input.type = argsSchema[arg] === "number" ? "number" : "text";
+            input.id = arg;
+            input.addEventListener("input", generateJSON);
+            
+            argsContainer.appendChild(label);
+            argsContainer.appendChild(input);
+            argsContainer.appendChild(document.createElement("br"));
+        });
+    }
+    
+    generateJSON();
+}
 
-            if (!selectedCommand) return; // Ignore if nothing is selected
-
-            const jsonObject = {
-                cmd: selectedCommand,
-                arg: argumentsValue
-            };
-
-            jsonInput.value = JSON.stringify(jsonObject, null, 2);
-        }
-
-        // Trigger JSON generation when selecting a command or entering arguments
-        selectElement.addEventListener("change", generateJSON);
-        argInput.addEventListener("input", generateJSON);
+// Event Listeners
+selectElement.addEventListener("change", updateArgFields);

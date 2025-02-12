@@ -147,7 +147,7 @@
             color: #33ff33;
             padding: 10px;
             padding-top: 5px;
-            width: 500px;
+            width: 800px;
             height: 180px;
             border-radius: 5px;
             border: 2px solid #33ff33;
@@ -199,9 +199,6 @@
         <h2 id="robotName"></h2>
         <h1 id="ip" ondblclick="makeEditable(this)"></h1>
         <br> 
-        <div class="terminal">
-            <span id="output"></span><span class="cursor"></span>
-        </div><br><br><br>
         <button id="wifichkButton">Scan WiFi</button>
                     <label for="ssid">SSID:</label>
                     <input list="ssid" id="ssid-select" name="ssid-select" placeholder="Type or select">
@@ -212,6 +209,9 @@
                     <button id="wifiButton">Connect To Router</button>
                     <button id="getIpButton" onclick="getIpValue()">Get IP</button>
                     <br><br>
+        <div class="terminal">
+            <span id="output"></span><span class="cursor"></span>
+        </div><br><br><br>
         <div class="accordion">
             <div class="accordion-item">
                 <button class="accordion-header">Advanced</button>
