@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Editor</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0 20px;
+        }
+        header {
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+        }
+        main {
+            width: 80%;
+            margin-left: 10%;
+            margin-right: 10%;
+        }
+        .form-group {
+            margin: 20px 0;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input, textarea, select, button {
+            padding: 10px;
+        }
+        textarea {
+            height:  200px;
+            width: 60%;
+        }
+        button {
+            background-color: #333;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #555;
+        }
+
+
+
+        .blog-list {
+            width: 50%;
+            margin: 20px 0;
+            padding: 10px;
+            background-color: #f4f4f4;
+            border: 1px solid #ddd;
+        }
+        .blog-list h2 {
+            margin-top: 0;
+        }
+        .blog-list ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .blog-list li {
+            margin: 5px;
+            padding: 5px;
+            border: 1px solid #999;
+            cursor: pointer;
+        }
+        .blog-list li:hover {
+            text-decoration: underline;
+            color: blue;
+        }
+        .preview-container {
+            margin: 20px 0;
+        }
+        .blog-preview {
+            padding: 20px;
+            border: 1px solid #ddd;
+            background-color: #f9f9f9;
+        }
+
+
+
+        .playlist-container {
+            border: 2px solid black;
+            padding: 20px;
+            width: 400px;
+            background-color: #f9f9f9;
+        }
+        .playlist-title {
+            margin: 0 0 10px;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            text-align: center;
+            border-bottom: 1px solid black;
+            padding-bottom: 5px;
+        }
+        .track {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px dashed black;
+        }
+        .track:last-child {
+            border-bottom: none;
+        }
+        .track-info {
+            flex: 1;
+            padding-right: 10px;
+        }
+        .track-info span {
+            display: block;
+            font-size: 0.9rem;
+        }
+        .controls button {
+            background-color: white;
+            color: black;
+            border: 1px solid black;
+            padding: 2px 5px;
+            cursor: pointer;
+            font-family: monospace;
+            font-size: 0.8rem;
+        }
+        .controls button:hover {
+            background-color: black;
+            color: white;
+        }
+
+
+
+
+        #elements {
+            border: 8px solid #333;
+            border-radius: 16px;
+            padding: 40px;
+        }
+        /* Responsive design for smaller screens */
+        @media (max-width: 900px) {
+            main {
+                column-count: 2;
+            }
+        }
+        @media (max-width: 600px) {
+            main {
+                column-count: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Blog Editor</h1>
+    </header>
+
+    <main>
+        <div class="editor-controls">
+            <h3>Load JSON Blog List
+                <input type="file" id="loadJson" accept=".json">
+                <button id="saveJson" style="background-color: #FF2255;">Save JSON Blog List</button>
+            </h3>
+        </div>
+
+        <div class="blog-list">
+            <h2>Blog Post List</h2>
+            <button id="newPost" style="background-color: #FF2255;">NEW Blog Post</button>
+            <ul id="blogTitles"></ul>
+        </div>
+
+
+        <header>
+            <h1>Post Information</h1>
+        </header>
+
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" id="title">
+        </div>
+
+        <div class="form-group">
+            <label for="subtitle">Subtitle</label>
+            <input type="text" id="subtitle">
+        </div>
+
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea id="description" rows="3"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="tags">Tags (comma-separated)</label>
+            <input type="text" id="tags">
+        </div>
+
+        <h2>Content Elements</h2>
+        <div id="elements"></div>
+
+        <br>
+        <h3>
+            Add New Blog Element<br>
+            <button id="addText">Add Text</button>
+            <button id="addImage">Add Image</button>
+            <button id="addCarousel">Add Image Carousel</button>
+            <button id="addAudio">Add MP3 Player</button>
+            <button id="addDownload">Add Downloadable Content</button>
+            <button id="addIframe">Add iFrame</button>
+            <button id="addHTML">Add HTML</button>
+            <button id="save2" style="background-color: #FF2255;">Save This Blog Post</button>
+        </h3>
+        <br><br>
+        <div class="preview-container">
+            <h2>Blog Post Preview</h2>
+            <div class="blog-preview" id="blogPreview"></div>
+        </div>
+        <br>
+
+        <button id="save1" style="background-color: #FF2255;">Save This Blog Post</button>
+        <br><br>
+    </main>
+
+    <script id="jsonBlog" src="blogPost.js"></script>
+
+    <script>
+        let blog = JSON.parse(jsonText);
+        let currentPostIndex = -1;
+
+        const blogTitlesList = document.getElementById("blogTitles");
+        const elementsContainer = document.getElementById("elements");
+        const blogPreview = document.getElementById("blogPreview");
+
+        refreshBlogTitles();
+
+        // Event listeners
+        document.getElementById("newPost").addEventListener("click", () => {
+            const newPost = { title: "", subtitle: "", description: "", tags: [], elements: [] };
+            blog.posts.push(newPost);
+            currentPostIndex = blog.posts.length - 1;
+            refreshBlogTitles();
+            loadPost(currentPostIndex);
+        });
+
+        document.getElementById("loadJson").addEventListener("change", (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                try {
+                    blog = JSON.parse(event.target.result);
+                    refreshBlogTitles();
+                    currentPostIndex = -1;
+                    clearEditor();
+                } catch (error) {
+                    alert("Invalid JSON format.");
+                }
+            };
+            reader.readAsText(file);
+        });
+
+        document.getElementById("saveJson").addEventListener("click", () => {
+            const jsonBlob = new Blob([JSON.stringify(blog, null, 2)], { type: "application/json" });
+            const link = document.createElement("a");
+            link.href = URL.createObjectURL(jsonBlob);
+            link.download = "blog.json";
+            link.click();
+        });
+
+        document.getElementById("addText").addEventListener("click", () => addElement("text"));
+        document.getElementById("addImage").addEventListener("click", () => addElement("image"));
+        document.getElementById("addCarousel").addEventListener("click", () => addElement("carousel"));
+        document.getElementById("addAudio").addEventListener("click", () => addElement("audio"));
+        document.getElementById("addDownload").addEventListener("click", () => addElement("download"));
+        document.getElementById("addIframe").addEventListener("click", () => addElement("iframe"));
+        document.getElementById("addHTML").addEventListener("click", () => addElement("htmlElement"));
+
+        // Functions
+        function refreshBlogTitles() {
+            blogTitlesList.innerHTML = "";
+            blog.posts.forEach((post, index) => {
+                const li = document.createElement("li");
+                li.textContent = post.title || `Untitled Post #${index + 1}`;
+                li.addEventListener("click", () => loadPost(index));
+                blogTitlesList.appendChild(li);
+            });
+        }
+
+        function loadPost(index) {
+            currentPostIndex = index;
+            const post = blog.posts[index];
+            document.getElementById("title").value = post.title || "";
+            document.getElementById("subtitle").value = post.subtitle || "";
+            document.getElementById("description").value = post.description || "";
+            document.getElementById("tags").value = post.tags ? post.tags.join(", ") : "";
+            elementsContainer.innerHTML = "";
+
+            post.elements.forEach((element, index) => {
+                const div = document.createElement("div");
+                div.className = "element";
+                div.innerHTML = `
+                    <strong>Type: ${element.type}</strong><br>
+                    <textarea rows="3" placeholder="Content">${JSON.stringify(element.content, null, 2)}</textarea>
+                    <button onclick="removeElement(${index})" style="margin-bottom:30px;">Remove</button>
+                `;
+                elementsContainer.appendChild(div);
+            });
+
+            refreshPreview();
+        }
+
+        function clearEditor() {
+            document.getElementById("title").value = "";
+            document.getElementById("subtitle").value = "";
+            document.getElementById("description").value = "";
+            document.getElementById("tags").value = "";
+            elementsContainer.innerHTML = "";
+            refreshPreview();
+        }
+
+        function addElement(type) {
+            const content = {
+                text: "New text paragraph.",
+                image: { src: "image.jpg", alt: "Image description" },
+                carousel: [{ src: "image1.jpg", alt: "Image 1" }, { src: "image2.jpg", alt: "Image 2" }],
+                audio: { src: "audio.mp3", title: "Audio Title" },
+                download: { src: "file.zip", label: "Download File" }
+            }[type];
+            blog.posts[currentPostIndex].elements.push({ type, content });
+            loadPost(currentPostIndex);
+        }
+
+        function removeElement(index) {
+            blog.posts[currentPostIndex].elements.splice(index, 1);
+            loadPost(currentPostIndex);
+        }
+
+        function refreshPreview() {
+            const post = blog.posts[currentPostIndex];
+            if (!post) return;
+            blogPreview.innerHTML = `
+                <h1>${post.title}</h1>
+                <h2>${post.subtitle}</h2>
+                <p>${post.description}</p>
+                <p><strong>Tags:</strong> ${post.tags.join(", ")}</p>
+                <div>
+                    ${post.elements
+                        .map((element) => {
+                            switch (element.type) {
+                                case "text":
+                                    return `<p>${element.content}</p>`;
+                                case "image":
+                                    return `<img src="${element.content.src}" alt="${element.content.alt}" style="max-width: 100%;">`;
+                                case "carousel":
+                                    return element.content
+                                        .map((img) => `<img src="${img.src}" alt="${img.alt}" style="max-width: 100%;">`)
+                                        .join("");
+                                case "audio":
+                                    return `<audio controls><source src="${element.content.src}" type="audio/mpeg">Your browser does not support the audio element.</audio>`;
+                                case "download":
+                                    return `<a href="${element.content.src}" download>${element.content.label}</a>`;
+                                default:
+                                    return "";
+                            }
+                        })
+                        .join("")}
+                </div>
+            `;
+        }
+
+        // Auto-save changes to the current post
+        ["title", "subtitle", "description", "tags"].forEach((fieldId) => {
+            document.getElementById(fieldId).addEventListener("input", (e) => {
+                if (currentPostIndex === -1) return;
+                const field = fieldId === "tags" ? "tags" : fieldId;
+                blog.posts[currentPostIndex][field] = field === "tags" ? e.target.value.split(",").map((t) => t.trim()) : e.target.value;
+                refreshPreview();
+            });
+        });
+
+        const audioPlayer = document.getElementById('audioPlayer');
+        let currentTrackIndex = 0;
+        const tracks = document.querySelectorAll('.track');
+
+        function playTrack(index, src) {
+            currentTrackIndex = index;
+            audioPlayer.src = src;
+            audioPlayer.style.display = "block";
+            audioPlayer.play();
+
+            // Highlight the currently playing track
+            tracks.forEach(track => track.style.backgroundColor = "#f9f9f9");
+            document.getElementById(`track${index}`).style.backgroundColor = "#e0e0e0";
+        }
+
+        function stopTrack() {
+            audioPlayer.pause();
+            audioPlayer.currentTime = 0;
+            audioPlayer.style.display = "none";
+
+            // Remove highlight from all tracks
+            tracks.forEach(track => track.style.backgroundColor = "#f9f9f9");
+        }
+/*
+        // Autoplay the next track when the current one ends
+        audioPlayer.addEventListener('ended', () => {
+            currentTrackIndex++;
+            if (currentTrackIndex < tracks.length) {
+                const nextTrack = tracks[currentTrackIndex];
+                const nextSrc = nextTrack.querySelector('button').getAttribute('onclick').match(/'([^']+)'/)[1];
+                playTrack(currentTrackIndex, nextSrc);
+            } else {
+                stopTrack(); // Stop when all tracks have played
+            }
+        });*/
+    </script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+{
+    "script": [
+        {
+            "text": "You hear a knock at the door...",
+            "pause": 2000
+        },
+        {
+            "text": "A package sits there, unmarked.",
+            "pause": 1500
+        },
+        {
+            "text": "Your hands tremble as you bring it inside.",
+            "pause": 1500
+        },
+        {
+            "text": "Inside is a device, a screen flickers on...",
+            "pause": 2000,
+            "action": "flickerScreen"
+        },
+        {
+            "text": "A message begins to type out:",
+            "pause": 3000,
+            "action": "flickerScreen"
+        },
+        {
+            "text": "I have been waiting for you...",
+            "pause": 3000
+        }
+    ]
+}

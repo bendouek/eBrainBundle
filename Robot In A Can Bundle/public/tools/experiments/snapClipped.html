@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clipped iFrame</title>
+    <style>
+        .iframe-container {
+            width: 300px; /* Width of visible area */
+            height: 200px; /* Height of visible area */
+            overflow: hidden;
+            position: relative;
+            border: 2px solid black; /* Optional border */
+        }
+
+        .iframe-container iframe {
+            width: 1000px; /* Larger than container */
+            height: 1000px; /* Larger than container */
+            position: absolute;
+            top: -150px; /* Adjust to clip the top */
+            left: -200px; /* Adjust to clip the left */
+            border: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="iframe-container">
+    <iframe src="tools/Snap-master/index.html"></iframe>
+</div>
+
+</body>
+</html>

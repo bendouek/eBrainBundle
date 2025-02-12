@@ -1,0 +1,45 @@
+        .carousel {
+            display: none;
+            position: relative;
+        }
+        .carousel-box {
+            width: 100%;
+            text-align: center;
+        }
+        .carousel p {
+            display: inline-block; text-align: left;
+        }
+        .carousel img {
+            width: 100%;
+            max-width: 800px;
+            height: auto;
+            border: 1px solid #000;
+            border-radius: 3px;
+            margin: 10px 0px 10px 0px;
+        }
+        .carousel iframe {
+            width: 100%;
+            max-width: 800px;
+            border: 5px solid #000;
+            border-radius: 3px;
+            margin: 10px 0px 10px 0px;
+        }
+        .carousel.active {
+            display: block;
+        }
+        .carousel-controls {
+            margin:auto;
+            width: 100%;
+            max-width: 810px;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(60%);
+            z-index: 200;
+        }
+        .control-button {
+            background-color: #000;
+            color: white;
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+        }
