@@ -110,11 +110,11 @@ function getDisplayIP() {
 }
 
 function getIpValue() {
-    var message = {"cmd": "getConfig"};
+    var message = {"cmd": "get_ip"};
     //JSON Command, Function to do on successful completion (where rtnMsg is the returned message of the complete command)
     send_msg(message, function(rtnMsg){
-        displayIP(rtnMsg.msg.sta_ip);
-        displayRobot(rtnMsg.msg.ap_ssid);
+        displayIP(rtnMsg.ip);
+        displayRobot(rtnMsg);
     });
 }
 
@@ -226,7 +226,7 @@ function connectionWizard() {
     const pass = document.getElementById("pass").value;
     saveToLocalStorage("eBrain_ssid", ssid);
     saveToLocalStorage("eBrain_pass", pass);
-    var message = {"cmd": "setConfig", "arg": {"sta_ssid": ssid , "sta_pass": pass}};
+    var message = {"cmd": "set_wifi", "ssid": ssid , "pass": pass};
     //JSON Command, Function to do on successful completion (where rtnMsg is the returned message of the complete command)
     send_msg(message, function(rtnMsg){
         displayIP(rtnMsg.msg.sta_ip);
@@ -235,14 +235,14 @@ function connectionWizard() {
 
 
 function wifiCheck() {
-    send_msg({"cmd": "startWifiScan"}, function(rtnMsg){
+    send_msg({"cmd": "wifi_scan"}, function(rtnMsg){
         var wifi = "";
-        if(typeof rtnMsg.msg === "undefined"){
+        if(typeof rtnMsg.ssids === "undefined"){
           return;
         }
-        for(var i = 0; i < rtnMsg.msg.length; i++) {
-            wifi += "<option value ='" + rtnMsg.msg[i][0] + "' >";
-            wifi += rtnMsg.msg[i][0];
+        for(var i = 0; i < rtnMsg.ssids.length; i++) {
+            wifi += "<option value ='" + rtnMsg.ssids[i] + "' >";
+            wifi += rtnMsg.ssids[i];
             wifi += "</option>";
         }
         document.getElementById("ssid").innerHTML = wifi;
@@ -448,7 +448,7 @@ function generateJSON() {
 function updateArgFields() {
     const selectedCommand = selectElement.value;
     const argsSchema = commands[selectedCommand];
-    argsContainer.value = ""; // Clear previous arguments
+    argsContainer.innerHTML = ""; // Clear previous arguments
     
     if (argsSchema) {
         Object.keys(argsSchema).forEach(arg => {

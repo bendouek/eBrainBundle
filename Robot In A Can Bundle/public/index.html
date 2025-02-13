@@ -143,17 +143,19 @@
         }
 
         .terminal {
-            background: #000;
-            color: #33ff33;
-            padding: 10px;
-            padding-top: 5px;
-            width: 800px;
-            height: 180px;
-            border-radius: 5px;
-            border: 2px solid #33ff33;
-            overflow: hidden;
-            white-space: pre-line;
-            font-size: 1em;
+            width: 80vw;
+            max-width: 800px;
+            height: 27vh;
+            padding: 20px;
+            background: radial-gradient(#002200, #000000);
+            border-radius: 10px;
+            border: 5px solid #00cc00;
+            box-shadow: inset 0 0 30px rgba(0, 255, 0, 0.3);
+            position: relative;
+            text-align: left;
+            overflow-y: scroll;
+            transition: background 0.2s ease-in-out;
+            color: limegreen;
         }
 
         .terminal::before {
@@ -194,7 +196,30 @@
     <div id="tab1" class="tabs">
         <img src="https://cdn.shopify.com/s/files/1/1927/6949/files/NewRobotLogo_190704_115x.png" style="padding: 20px; position: absolute; bottom: 130px; left: 10px;">
         <h1>eBrain Settings</h1>
-        <button id="connectEasy">Connect to eBrain</button>
+        <div class="accordion">
+            <div class="accordion-item">
+                <button class="accordion-header">Advanced</button>
+                <div class="accordion-content">
+                    <button id="connectButton">Connect to Device USB</button>
+                    <button id="closeUsbButton">Close USB Connection</button><br><br>
+                    
+                    <button id="socketButton">Connect To eBrain WebSocket</button>
+                    <button id="closeSocketButton">Close WebSocket</button>
+                    <br><br>
+                    <label for="commandSelect">Select a command:</label>
+                    <select id="commandSelect">
+                        <option value="" disabled selected>-- Choose a command --</option>
+                    </select><br>
+                    <label for="argInput">**Enter arguments**</label>
+                    <div id="argInput"></diV>
+                    <br>
+                    <textarea id="jsonInput" placeholder="Enter JSON to send" rows="4" cols="90"></textarea>
+                    <button id="sendButton">Send</button>
+                    <br><br><br>
+                    <button class="tab-button tab-button-intab" onclick="showTab(3)" style="margin-left: 130px;">Update Firmware</button>
+                </div>
+            </div>
+        </div>
         <br><br>
         <h2 id="robotName"></h2>
         <h1 id="ip" ondblclick="makeEditable(this)"></h1>
@@ -211,31 +236,9 @@
                     <br><br>
         <div class="terminal">
             <span id="output"></span><span class="cursor"></span>
-        </div><br><br><br>
-        <div class="accordion">
-            <div class="accordion-item">
-                <button class="accordion-header">Advanced</button>
-                <div class="accordion-content">
-                    <button id="connectButton">Connect to Device USB</button>
-                    <button id="closeUsbButton">Close USB Connection</button><br><br>
-                    
-                    <button id="socketButton">Connect To eBrain WebSocket</button>
-                    <button id="closeSocketButton">Close WebSocket</button>
-                    <br><br>
-                    <label for="commandSelect">Select a command:</label>
-                    <select id="commandSelect">
-                        <option value="" disabled selected>-- Choose a command --</option>
-                    </select>
-                    <label for="argInput">Enter arguments:</label>
-                    <input type="text" id="argInput" placeholder="Enter arguments...">
-                    <br>
-                    <textarea id="jsonInput" placeholder="Enter JSON to send" rows="4" cols="90"></textarea>
-                    <button id="sendButton">Send</button>
-                    <br><br><br>
-                    <button class="tab-button tab-button-intab" onclick="showTab(3)" style="margin-left: 130px;">Update Firmware</button>
-                </div>
-            </div>
-        </div>
+        </div><br>
+        <button id="connectEasy">Connect to eBrain</button>
+        <br><br>
         
     </div>
     <div id="tab2" class="tabs">
