@@ -225,6 +225,11 @@
         <h2 id="robotName"></h2>
         <h1 id="ip" ondblclick="makeEditable(this)"></h1>
         <br> 
+        <button id="connectEasy" style="font-size: 1.5em;">Connect to eBrain</button>
+        <br><br>
+        <div class="terminal">
+            <span id="output"></span><span class="cursor"></span>
+        </div><br>
         <button id="wifichkButton">Scan WiFi</button>
                     <label for="ssid">SSID:</label>
                     <input list="ssid" id="ssid-select" name="ssid-select" placeholder="Type or select">
@@ -235,11 +240,7 @@
                     <button id="wifiButton">Connect To Router</button>
                     <button id="getIpButton" onclick="getIpValue()">Get IP</button>
                     <br><br>
-        <div class="terminal">
-            <span id="output"></span><span class="cursor"></span>
-        </div><br>
-        <button id="connectEasy">Connect to eBrain</button>
-        <br><br>
+        
         
     </div>
     <div id="tab2" class="tabs">
