@@ -404,7 +404,10 @@ function wifiCheck() {
             wifi += "</option>";
         }
         document.getElementById("ssid").innerHTML = wifi;
-        document.getElementById("ssid-2").innerHTML = wifi;
+        if(document.getElementById("ssid-2")){
+            document.getElementById("ssid-2").innerHTML = wifi;
+        }
+        
     });
 }
 
@@ -455,6 +458,7 @@ function chk(state){
     const ip = document.getElementById("ip");
     const name = document.getElementById("robotName");
     if(state == true){
+        displayMessage("eBrain Connected");
         btn.classList.add("connected");
         name.classList.add("connectedTXT");
         ip.classList.add("connectedTXT");
@@ -462,6 +466,7 @@ function chk(state){
         name.classList.remove("disconnectedTXT");
         ip.classList.remove("disconnectedTXT");
     } else {
+        displayMessage("eBrain Disconnected");
         btn.classList.add("disconnected");
         name.classList.add("disconnectedTXT");
         ip.classList.add("disconnectedTXT");
@@ -723,3 +728,23 @@ function updateArgFields() {
 
 // When the selected command changes, update the argument fields accordingly
 selectElement.addEventListener("change", updateArgFields);
+
+
+function sendXMLUrlToSnap(xmlUrl) {
+  if (snapframe && snapframe.contentWindow) {
+    // Create a message object
+    const message = {
+      type: 'loadXML',
+      xmlURL: xmlUrl
+    };
+
+    // Send the message. 
+    // Replace '*' with the specific origin of the SNAP! iframe if known for better security.
+    snapframe.contentWindow.postMessage(message, '*');
+  } else {
+    console.error('Snap iframe not found or inaccessible.');
+  }
+}
+
+
+//sendXMLUrlToSnap('../../myProjects/output.xml');

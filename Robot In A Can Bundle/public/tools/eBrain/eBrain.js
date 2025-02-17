@@ -11,6 +11,8 @@ let socket;                     // WebSocket instance for network communication.
 let reconnectInterval = 3000;   // 3 seconds delay between WebSocket reconnection attempts.
 let maxRetries = 5;             // Maximum number of WebSocket reconnection attempts.
 let retryCount = 0;             // Current WebSocket reconnection attempt count.
+let ebMSG = 0;                  // Global variable to pass ansync information to Snap!
+let snapBlocking = 0;           // Global variable to control block flow of Snap!
 
 /**
  * Filters out unwanted Unicode characters from the provided string.
