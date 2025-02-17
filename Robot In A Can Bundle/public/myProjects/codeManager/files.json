@@ -1,6 +1,12 @@
 [
   {
     "name": "ebrainblocks.xml",
-    "type": "file"
+    "type": "file",
+    "url":"../../myProjects/output.xml"
+  },
+  {
+    "name": "output.xml",
+    "type": "file",
+    "url":"../../myProjects/output.xml"
   }
 ]

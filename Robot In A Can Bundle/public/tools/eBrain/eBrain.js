@@ -379,7 +379,7 @@ function connect(url) {
  * @param {string} msg - The message to display.
  */
 function displayMessage(msg) {
-  console.log(msg);
+  //console.log(msg);
 }
 
 /**

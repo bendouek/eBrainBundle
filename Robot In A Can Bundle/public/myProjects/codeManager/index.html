@@ -58,7 +58,7 @@
 <body>
   <div class="container">
     <div class="header">
-      <h1>Directory Listing</h1>
+      <h1>Example Projects</h1>
     </div>
     <ul class="file-list" id="fileList">
       <!-- File items will be inserted here -->
@@ -94,9 +94,9 @@
         const icon = document.createElement("img");
         icon.className = "file-icon";
         if (file.type === "folder") {
-          icon.src = "/icons/folder.png"; // Path to your folder icon
+          icon.src = "/myProjects/codeManager/icons/xml.png"; // Path to your folder icon
         } else {
-          icon.src = "/icons/file.png";   // Path to your file icon
+          icon.src = "/myProjects/codeManager/icons/xml.png";   // Path to your file icon
         }
         li.appendChild(icon);
 
@@ -110,11 +110,21 @@
         li.addEventListener("click", () => {
           // For example, you might load the file in another iframe
           // or navigate into the folder if file.type === "folder"
+          sendXMLUrlToSnap(file.url);
           console.log("Clicked file:", file.name);
         });
 
         fileList.appendChild(li);
       });
+    }
+
+    function sendXMLUrlToSnap(xmlUrl) {
+    // Create a message object
+        const message = {
+          type: 'loadXML',
+          xmlURL: xmlUrl
+        };
+        window.parent.postMessage(message, "*");
     }
 
     // Initialize the directory view when the page loads.

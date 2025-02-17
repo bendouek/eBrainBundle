@@ -82,6 +82,9 @@ window.addEventListener("message", (event) => {
         chk(event.data.msg);
     }
     else if (!event.data || !event.data.id) {
+        if (event.data && event.data.type === 'loadXML' && event.data.xmlURL) {
+            sendXMLUrlToSnap(event.data.xmlURL);
+        }
         // Ignore messages without an id property
         return;
     } else {
@@ -746,5 +749,7 @@ function sendXMLUrlToSnap(xmlUrl) {
   }
 }
 
+//sendXMLUrlToSnap(data.xmlURL);
 
-//sendXMLUrlToSnap('../../myProjects/output.xml');
+
+

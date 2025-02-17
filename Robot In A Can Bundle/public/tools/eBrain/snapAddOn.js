@@ -89,7 +89,6 @@
           })
           .then(xmlText => {
             ide.droppedText(xmlText, "RIAC-xml");
-            localStorage.setItem("RIACproject", xmlText);
           })
           .catch(error => {
             console.error('Failed to load XML:', error);
