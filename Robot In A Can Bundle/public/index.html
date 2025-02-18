@@ -220,7 +220,7 @@
           user-select: none;
           border-top-left-radius: 20px;
         }
-        #menuToggle input {
+        #menuToggle input[type="checkbox"] {
           display: block;
           width: 40px;
           height: 32px;
@@ -339,7 +339,7 @@
     hidden checkbox is used as click reciever,
     so you can use the :checked selector on it.
     -->
-      <input type="checkbox" x-bind:checked="openMenu" class="userin" />
+      <input type="checkbox" x-bind:checked="openMenu" />
 
       <!--
     Some spans to act as a hamburger.
