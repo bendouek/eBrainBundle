@@ -36,7 +36,8 @@ function showTab(tabNum) {
     const tab = document.getElementById(`tab${tabNum}`);
     tab.style.display = "block";
     currentTab = `tab${tabNum}`;
-    tab.classList.add("split-right");
+    tab.classList.remove("split-left", "split-right");
+    tabSize = "fullscreen";;
 }
 
 // Function to toggle the size of the current tab (fullscreen, split, hidden)
@@ -458,10 +459,12 @@ function closeSerial() {
 // Update the connection indicator on the UI based on connection state
 function chk(state){
     const btn = document.getElementById("connectedIndicator");
+    const menu = document.getElementById("menuToggle");
     const ip = document.getElementById("ip");
     const name = document.getElementById("robotName");
     if(state == true){
         displayMessage("eBrain Connected");
+        menu.style.backgroundColor = '#008000';
         btn.classList.add("connected");
         name.classList.add("connectedTXT");
         ip.classList.add("connectedTXT");
@@ -470,6 +473,7 @@ function chk(state){
         ip.classList.remove("disconnectedTXT");
     } else {
         displayMessage("eBrain Disconnected");
+        menu.style.backgroundColor = '#800000';
         btn.classList.add("disconnected");
         name.classList.add("disconnectedTXT");
         ip.classList.add("disconnectedTXT");

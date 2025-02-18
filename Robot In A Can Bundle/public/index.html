@@ -39,8 +39,8 @@
         }
         .tabs-container {
             position: absolute;
-            bottom: 10px;
-            left: 10px;
+            bottom: 0px;
+            left: 12.5vw;
             display: flex;
             gap: 5px;
             z-index: 4;
@@ -163,6 +163,7 @@
         }
         #output{
             overflow-y: scroll;
+            color: limegreen;
         }
 
         .cursor {
@@ -172,25 +173,192 @@
             background: #33ff33;
             margin-left: 2px;
             animation: blink 0.8s infinite;
+            color: limegreen;
         }
 
         @keyframes blink {
             50% { opacity: 0; }
         }
 
+        .container {
+          position:absolute;
+          padding: 5em;
+          width:100%;
+          right:0px;
+          background: #232323;
+        }
+        a {
+          text-decoration: none;
+          color: #232323;
+          transition: color 0.3s ease;
+        }
+        a:hover {
+          color: tomato;
+        }
+
+        a.active {
+          color: slateblue
+        }
+
+        a.active li::before {
+          content: "- ";
+        }
+
+        a.active li::after {
+          content: " - ";
+        }
+        #menuToggle {
+          display: block;
+          position: fixed;
+          bottom: 0;
+          right: 0;
+          padding:1em;
+          padding-bottom:0.4em;
+          paading-top:1em;
+          z-index: 1;
+          background: black;
+          user-select: none;
+          border-top-left-radius: 20px;
+        }
+        #menuToggle input {
+          display: block;
+          width: 40px;
+          height: 32px;
+          position: absolute;
+          cursor: pointer;
+          opacity: 0;
+          /* hide this */
+          z-index: 2;
+          /* and place it over the hamburger */
+          -webkit-touch-callout: none;
+        }
+        /*
+         * hamburger
+         */
+
+        #menuToggle span {
+          display: block;
+          width: 33px;
+          height: 4px;
+          margin-bottom: 5px;
+          position: relative;
+          background: #cdcdcd;
+          border-radius: 3px;
+          z-index: 1;
+          transform-origin: 4px 0px;
+          transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1),
+            background 0.5s cubic-bezier(0.77, 0.2, 0.05, 1), opacity 0.55s ease;
+        }
+        #menuToggle span:first-child {
+          transform-origin: 0% 0%;
+        }
+        #menuToggle span:nth-last-child(2) {
+          transform-origin: 0% 100%;
+        }
+        #menuToggle span.no-inherit {
+          all: unset;       /* Remove all inherited and applied styles */
+          display: inline;  /* Reapply the desired display behavior, e.g. inline for spans */
+        }
+        #menuToggle span.no-inherit.cursor{
+          all: unset;       /* Remove all inherited and applied styles */
+          display: inline-block;
+            width: 10px;
+            height: 16px;
+            background: #33ff33;
+            margin-left: 2px;
+            animation: blink 0.8s infinite;
+            color: limegreen;
+        }
+        #menuToggle input:checked ~ span {
+          opacity: 1;
+          transform: rotate(45deg) translate(-2px, -1px);
+          background: #232323;
+        }
+        #menuToggle input:checked ~ span:nth-last-child(3) {
+          opacity: 0;
+          transform: rotate(0deg) scale(0.2, 0.2);
+        }
+        #menuToggle input:checked ~ span:nth-last-child(2) {
+          transform: rotate(-45deg) translate(0, -1px);
+        }
+        #menu {
+          position: fixed;
+          top:0;
+          right: 0;
+          margin-block-start: 0;
+          margin-block-end: 0;
+          width: 50vw;
+          height: 100vh;
+          /*margin: -150px 0 0 -50px;*/
+          padding-left:0;
+          background: #ededed;
+          list-style-type: none;
+          -webkit-font-smoothing: antialiased;
+          /* stop flickering of text in safari */
+          transform-origin: 0% 0%;
+          transform: translate(200%, 0);
+          transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1);
+        }
+        #menu li {
+          padding: 8px;
+          font-size: 32px;
+          width: 100%;
+          text-align: center;
+          padding-left:0
+        }
+        /*
+         * And let's slide it in from the left
+         */
+
+        #menuToggle input:checked ~ ul {
+          transform: none;
+        }
+
+        [x-cloak] {
+            display: none !important;
+        }
+
     </style>
 </head>
 <body>
     <iframe id="snapframe" src="tools/Snap-master/snap.html"></iframe>
-    <div class="tabs-container">
-        <button class="tab-button" onclick="showTab(0)">Code Bank</button>
-        <button class="tab-button" onclick="showTab(1)" id="connectedIndicator">eBrain</button>
-        <button class="tab-button" onclick="showTab(2)">Cards</button>
-        <button class="tab-button" onclick="showTab(4)">Meeting</button>
-    </div>
-    <button class="toggle-button" onclick="toggleTabSize()">⛶ Toggle Window ⛶</button>
+
+
+
+
+
+<div x-data="{ 
+             openMenu: true ,
+             section: 'Learn',
+             menuItems: ['Connect','Build','Code','Learn','Play']
+             }">
+
+  <nav role="navigation">
+    <div id="menuToggle">
+      <!--
+    hidden checkbox is used as click reciever,
+    so you can use the :checked selector on it.
+    -->
+      <input type="checkbox" x-bind:checked="openMenu" class="userin" />
+
+      <!--
+    Some spans to act as a hamburger.
     
-    <div id="tab0" class="tabs">
+    They are acting like a real hamburger,
+    not that McDonalds stuff.
+    -->
+      <span></span>
+      <span></span>
+      <span></span>
+      <ul id="menu" x-on:click="closeMenu()">
+        <div class="tabs-container">
+            <button class="tab-button" onclick="showTab(0)">Code Bank</button>
+            <button class="tab-button" onclick="showTab(1)" id="connectedIndicator">eBrain</button>
+            <button class="tab-button" onclick="showTab(2)">Cards</button>
+            <button class="tab-button" onclick="showTab(4)">Meeting</button>
+        </div>
+        
+        <div id="tab0" class="tabs">
         <img src="https://cdn.shopify.com/s/files/1/1927/6949/files/NewRobotLogo_190704_115x.png" style="padding: 20px; position: absolute; bottom: 130px; left: 10px;">
         <iframe src="myProjects/codeManager"></iframe>
     </div>
@@ -222,13 +390,13 @@
             </div>
         </div>
         <br><br>
-        <h2 id="robotName"></h2>
+        <h2 id="robotName" ondblclick="makeEditable(this)"></h2>
         <h1 id="ip" ondblclick="makeEditable(this)"></h1>
         <br> 
         <button id="connectEasy" style="font-size: 1.5em;">Connect to eBrain</button>
         <br><br>
-        <div class="terminal">
-            <span id="output"></span><span class="cursor"></span>
+        <div class="no-inherit terminal">
+            <span id="output" class="no-inherit"></span><span class="no-inherit cursor"></span>
         </div><br>
         <button id="wifichkButton">Scan WiFi</button>
                     <label for="ssid">SSID:</label>
@@ -240,8 +408,6 @@
                     <button id="wifiButton">Connect To Router</button>
                     <button id="getIpButton" onclick="getIpValue()">Get IP</button>
                     <br><br>
-        
-        
     </div>
     <div id="tab2" class="tabs">
         <iframe src="tools/Projects/index.html"></iframe>
@@ -255,6 +421,30 @@
         <iframe src="tools/Meeting/index.html" allow="microphone *; camera *"></iframe>
     </div>
 
+      </ul>
+    </div>
+  </nav>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    <!--<button class="toggle-button" onclick="toggleTabSize()">⛶ Toggle Window ⛶</button>-->
+    
+    
+
     <script type="text/javascript" src="main.js"></script>
     
     <script>
@@ -267,6 +457,10 @@
         document.getElementById("socketButton").addEventListener("click", connectWS);
         document.getElementById("getIpButton").addEventListener("click", getIpValue);
         document.getElementById("connectEasy").addEventListener("click", connectAuto);
+
+        function closeMenu(){
+          document.querySelector('#menuToggle > input[type=checkbox]').checked = false
+        }
     </script>
 
 
