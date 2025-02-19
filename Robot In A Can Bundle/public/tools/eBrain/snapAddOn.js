@@ -36,7 +36,7 @@
         var ide = world.children.find(child => child instanceof IDE_Morph);
         Process.prototype.enableJS = true;
         ide.flatDesign();
-        ide.setBlocksScale(1.2);
+        ide.setBlocksScale(1.3);
         ide.setPaletteWidth(235);
         // Only load library from github if NOT hosted
         if (!hasProjectPath()) {

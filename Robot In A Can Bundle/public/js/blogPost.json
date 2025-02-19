@@ -1,0 +1,384 @@
+{
+  "posts": [
+    {
+      "title": "Introduction to eBrain",
+      "subtitle": "Your Gateway to Microcontrollers",
+      "description": "Welcome, young explorer! Today you'll begin your journey into the world of microcontrollers with the eBrain. This remarkable device transforms your code into real-world action.",
+      "tags": ["lesson1"],
+      "elements": [
+        {
+          "type": "image",
+          "src": "/tools/Projects/imgs/eBrain1.6.png",
+          "alt": "eBrain microcontroller",
+          "width": "50"
+        }
+      ]
+    },
+    {
+      "title": "eBrain Features",
+      "subtitle": "Designed for Innovators",
+      "description": "The eBrain is built for inventors and tinkerers. It works seamlessly with Snap!, Python, and Arduino IDE, bridging the digital and physical worlds.",
+      "tags": ["lesson1"],
+      "elements": [
+        {
+          "type": "carousel",
+          "content": [
+            {
+              "image": "",
+              "alt": "Microcontroller Board",
+              "name": "Interactive Projects",
+              "info": "Build systems that respond to automation."
+            },
+            {
+              "image": "",
+              "alt": "Everyday Computing",
+              "name": "Hands-On Learning",
+              "info": "Connect circuits and code for real-world interactions."
+            },
+            {
+              "image": "",
+              "alt": "Development Board",
+              "name": "Prototype Quickly",
+              "info": "Test your ideas without a complex setup."
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "content": "It empowers you to create smart, responsive projects that make your ideas come alive."
+        }
+      ]
+    },
+    {
+      "title": "Board Layout",
+      "subtitle": "Mapping the Microcontroller",
+      "description": "Understanding your board is key. Explore the layout of the eBrain to know where to connect your sensors and peripherals.",
+      "tags": ["lesson1"],
+      "elements": [
+        {
+          "type": "image",
+          "src": "/tools/Projects/imgs/svg/WhatsOnTheBoard.svg",
+          "alt": "eBrain board layout",
+          "width": "70"
+        },
+        {
+          "type": "html",
+          "title": "Parts of the eBrain",
+          "content": "<ol><li>On/Off Switch</li><li>Servo Motor Bay</li><li>Stepper Motor Bay</li><li>GPIO Bay</li><li>USB FTDI Port</li><li>Patch Bay</li><li>Light Sensor</li><li>RGB LED</li><li>Buttons</li><li>Breadboard</li><li>Power</li><li>eBrain Core</li></ol>"
+        }
+      ]
+    },
+    {
+      "title": "Unboxing the Kit",
+      "subtitle": "What's in the Package",
+      "description": "Discover the carefully selected components included in your eBrain kit—everything you need to start building.",
+      "tags": ["lesson1"],
+      "elements": [
+        {
+          "type": "image",
+          "src": "/tools/Projects/imgs/svg/WhatsInTheCan.svg",
+          "alt": "eBrain package contents",
+          "width": "60"
+        },
+        {
+          "type": "html",
+          "title": "Kit Contents",
+          "content": "<ol style=\"font-family: Arial, sans-serif; font-size: 16px; line-height: 1.6; color: #333; padding-left: 20px;\"><li>1x eBrain</li><li>2x Motors</li><li>4x Motor Holders</li><li>2x Robot Bodies</li><li>2x Chassis</li><li>2x Wheels</li><li>30x Cables</li><li>1x Battery Pack</li><li>1x Potentiometer</li><li>2x Bulldog Clips</li><li>1x Distance Sensor</li><li>3x LEDs</li></ol>"
+        }
+      ]
+    },
+    {
+      "title": "Programming with Snap!",
+      "subtitle": "Visual, Block-Based Coding",
+      "description": "Snap! offers an intuitive, visual approach to programming your eBrain. It lets you build complex logic without typing a single line of code.",
+      "tags": ["lesson1"],
+      "elements": [
+        {
+          "type": "image",
+          "src": "/tools/Projects/imgs/snapBasic.png",
+          "alt": "Snap! programming interface",
+          "width": "30"
+        },
+        {
+          "type": "code",
+          "content": [
+            {
+              "name": "ebrainblocks.xml",
+              "type": "file",
+              "url": "../../myProjects/output.xml"
+            },
+            {
+              "name": "output.xml",
+              "type": "file",
+              "url": "../../myProjects/output.xml"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Powering Up",
+      "subtitle": "Battery Setup",
+      "description": "Learn how to power your eBrain. Insert 4 AA batteries correctly to supply the board with the necessary voltage.",
+      "tags": ["lesson1"],
+      "elements": [
+        {
+          "type": "image",
+          "src": "/tools/Projects/imgs/svg/eBrain-05.svg",
+          "alt": "Battery setup illustration",
+          "width": "60"
+        }
+      ]
+    },
+    {
+      "title": "Power Supply Details",
+      "subtitle": "Voltage Regulation",
+      "description": "Your eBrain uses 4 AA batteries (totaling 6V) which is regulated down to a stable 3.3V output.",
+      "tags": ["lesson1"],
+      "elements": [
+        {
+          "type": "image",
+          "src": "/tools/Projects/imgs/svg/eBrain-06.svg",
+          "alt": "Power supply diagram",
+          "width": "60",
+          "note": "Each AA: 1.5V; 4x AA = 6V, regulated to 3.3V"
+        }
+      ]
+    },
+    {
+      "title": "Patch Bay Overview",
+      "subtitle": "Connecting Components",
+      "description": "The patch bay allows you to quickly interface sensors, LEDs, and other peripherals with your eBrain.",
+      "tags": ["lesson1"],
+      "elements": [
+        {
+          "type": "image",
+          "src": "/tools/Projects/imgs/svg/eBrain-08.svg",
+          "alt": "Patch Bay layout",
+          "width": "60"
+        }
+      ]
+    },
+    {
+      "title": "RGB LED",
+      "subtitle": "Vibrant Visuals",
+      "description": "The eBrain features a high-precision RGB LED capable of producing over 16 million colors through additive mixing.",
+      "tags": ["lesson1"],
+      "elements": [
+        {
+          "type": "image",
+          "src": "/tools/Projects/imgs/svg/eBrain-10.svg",
+          "alt": "RGB LED diagram",
+          "width": "60",
+          "note": "255*255*255 = 16M colors"
+        }
+      ]
+    },
+    {
+      "title": "Wiring Overview",
+      "subtitle": "Using Patch Cables",
+      "description": "Patch cables connect your eBrain to various components. Their modular design makes wiring flexible and easy.",
+      "tags": ["lesson1"],
+      "elements": [
+        {
+          "type": "image",
+          "src": "/tools/Projects/imgs/patch.jpg",
+          "alt": "Wiring setup illustration",
+          "width": "60"
+        }
+      ]
+    },
+    {
+      "title": "Button Controls",
+      "subtitle": "Activating Circuits",
+      "description": "Your eBrain's built-in buttons allow you to complete circuits without additional wiring. They are directly connected to the power source.",
+      "tags": ["lesson1"],
+      "elements": [
+        {
+          "type": "image",
+          "src": "/tools/Projects/imgs/svg/eBrain-19.svg",
+          "alt": "Button wiring diagram",
+          "width": "60"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Connect a male-to-male wire between patch bay ports R and 1.",
+            "Press button S1 to complete the circuit."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Quick Challenge: External LED",
+      "subtitle": "Build a Circuit",
+      "description": "Use the breadboard, patch cables, and buttons to build a circuit controlling an external LED. Test your understanding with this hands-on challenge.",
+      "tags": ["lesson1"],
+      "elements": [
+        {
+          "type": "image",
+          "src": "/tools/Projects/imgs/svg/materialschapterone.svg",
+          "alt": "Challenge materials",
+          "width": "60"
+        },
+        {
+          "type": "text",
+          "content": "LED stands for Light Emitting Diode. What is a diode?"
+        }
+      ]
+    },
+    {
+      "title": "Breadboard Basics",
+      "subtitle": "Simplify Your Prototypes",
+      "description": "Breadboards let you quickly assemble and modify circuits without soldering, thanks to their conductive clips.",
+      "tags": ["lesson1"],
+      "elements": [
+        {
+          "type": "image",
+          "src": "/tools/Projects/imgs/svg/eBrain-09.svg",
+          "alt": "Breadboard illustration",
+          "width": "60"
+        },
+        {
+          "type": "text",
+          "content": "Think of a breadboard as a team of helping hands that hold wires together."
+        }
+      ]
+    },
+    {
+      "title": "Using the Breadboard",
+      "subtitle": "Practical Application",
+      "description": "Learn how to use the breadboard to create circuits by plugging wires into its conductive columns.",
+      "tags": ["lesson1"],
+      "elements": [
+        {
+          "type": "image",
+          "src": "/tools/Projects/imgs/svg/eBrain-13.svg",
+          "alt": "Breadboard usage illustration",
+          "width": "60"
+        },
+        {
+          "type": "text",
+          "content": "The breadboard clips wires together so you don’t have to hold them manually."
+        }
+      ]
+    },
+    {
+      "title": "Inside the Breadboard",
+      "subtitle": "The Hidden Structure",
+      "description": "Peek inside the breadboard to see how its metal clips secure your connections and ensure continuity.",
+      "tags": ["lesson1"],
+      "elements": [
+        {
+          "type": "image",
+          "src": "/tools/Projects/imgs/insidebreadboard.png",
+          "alt": "Inside the breadboard",
+          "width": "60"
+        },
+        {
+          "type": "text",
+          "content": "The clips are arranged in rows and columns to transmit electricity efficiently."
+        }
+      ]
+    },
+    {
+      "title": "Wire Connectivity",
+      "subtitle": "Experiment with Circuits",
+      "description": "Test how wire placement affects connectivity on the breadboard. Notice the difference when wires share the same column.",
+      "tags": ["lesson1"],
+      "elements": [
+        {
+          "type": "image",
+          "src": "/tools/Projects/imgs/svg/eBrain-14.svg",
+          "alt": "Breadboard wiring diagram",
+          "width": "60"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Place wires in the same column to complete the circuit and light up an LED.",
+            "Place wires in different columns to break the circuit."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "RGB Color Mixing",
+      "subtitle": "Experiment with Hues",
+      "description": "Mix RGB colors on the breadboard by connecting different colored wires to the power source. Observe the new hues that are formed.",
+      "tags": ["lesson1"],
+      "elements": [
+        {
+          "type": "image",
+          "src": "/tools/Projects/imgs/svg/eBrain-15.svg",
+          "alt": "RGB color mixing on breadboard",
+          "width": "60"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Connect each colored LED to the 3.3V source.",
+            "Experiment with different combinations to see the resulting color."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "RGB Mixing Results",
+      "subtitle": "The Final Hues",
+      "description": "Discover the outcomes of additive color mixing: which combinations yield yellow, magenta, cyan, or white.",
+      "tags": ["lesson1"],
+      "elements": [
+        {
+          "type": "image",
+          "src": "/tools/Projects/imgs/svg/eBrain-17.svg",
+          "alt": "RGB color mixing diagram",
+          "width": "60"
+        },
+        {
+          "type": "text",
+          "content": "Red + Green = Yellow, Red + Blue = Magenta, Green + Blue = Cyan, All three = White.",
+          "note": "Additive color mixing differs from mixing paints."
+        }
+      ]
+    },
+    {
+      "title": "eBrain Buttons",
+      "subtitle": "Built-In Controls",
+      "description": "Your eBrain includes 4 buttons that quickly complete circuits, allowing you to control various functions.",
+      "tags": ["lesson1"],
+      "elements": [
+        {
+          "type": "image",
+          "src": "/tools/Projects/imgs/svg/eBrain-18.svg",
+          "alt": "eBrain buttons",
+          "width": "60"
+        },
+        {
+          "type": "text",
+          "content": "These buttons are directly connected to the battery, so no extra wiring is needed."
+        }
+      ]
+    },
+    {
+      "title": "Final Review",
+      "subtitle": "Recap and Summary",
+      "description": "Congratulations! Let's review the key components and concepts of your eBrain.",
+      "tags": ["lesson1"],
+      "elements": [
+        {
+          "type": "text",
+          "content": "Great Job! You've mastered the essential parts of your eBrain, laying the foundation for advanced projects."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Power bay: Battery connection & voltage regulation.",
+            "Patch bay: Connecting sensors and peripherals.",
+            "Breadboard: Prototyping circuits with ease."
+          ]
+        }
+      ]
+    }
+  ]
+}

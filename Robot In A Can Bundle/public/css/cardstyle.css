@@ -1,0 +1,66 @@
+/* Terminal area for text output */
+#terminal2 {
+  width: 80vw;
+  max-width: 800px;
+  height: 13vh;
+  padding: 20px;
+  background: radial-gradient(#F1f1f1, #FFFFFF);
+  border-radius: 10px;
+  box-shadow: inset 0 0 30px #F1F1F1;
+  position: relative;
+  text-align: left;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  transition: background 0.2s ease-in-out;
+  color: #1A313B;
+  white-space: pre-wrap; /* Preserve newlines */
+}
+/* Media area for images, carousels, audio, quizzes, etc. */
+#media2 {
+  color: #1A313B;
+  max-width: 800px;
+}
+
+.window-cards{
+  overflow-y: scroll;
+}
+
+/* Navigation buttons */
+#controls {
+  text-align: center;
+  margin-top: 20px;
+}
+#controls button {
+  background: #222;
+  color: #33FF33;
+  border: 2px solid #33FF33;
+  padding: 5px 15px;
+  margin: 0 10px;
+  cursor: pointer;
+  font-size: 1em;
+}
+#controls button:hover {
+  background: #33FF33;
+  color: black;
+}
+/* Slider styling */
+#slider {
+  text-align: center;
+  margin-top: 20px;
+}
+.slider-button {
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  line-height: 25px;
+  border: 1px solid #1A313B;
+  margin: 3px;
+  cursor: pointer;
+  font-size: 0.8em;
+  color: #1A313B;
+  background: #e0e0e0;
+}
+.slider-button.active {
+  background: #1A313B;
+  color: white;
+}
