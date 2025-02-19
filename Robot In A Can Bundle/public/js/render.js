@@ -78,6 +78,7 @@
         btn.classList.add('slider-button');
         if(index === currentSlideIndex) btn.classList.add('active');
         btn.innerText = index + 1;
+        btn.title = post.title;
         btn.addEventListener('click', function() {
           abortCurrentSlide();
           currentSlideIndex = index;
@@ -472,14 +473,6 @@
         fileContainer.appendChild(li);
       });
       return fileContainer;
-    }
-
-    function sendXMLUrlToSnap(xmlUrl) {
-      const message = {
-        type: 'loadXML',
-        xmlURL: xmlUrl
-      };
-      window.parent.postMessage(message, "*");
     }
 
     // ===== Fetch and Display Slide Data =====
