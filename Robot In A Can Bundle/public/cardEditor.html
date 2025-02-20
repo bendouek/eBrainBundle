@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Tutorial Authoring Tool Prototype</title>
+  <!-- Include system.css for styling -->
+   <link rel="stylesheet" href="https://sakofchit.github.io/system.css/system.css">
+   <link rel="stylesheet" href="css/mp3.css">
+  <link rel="stylesheet" href="css/carousel.css">
+  <link rel="stylesheet" href="css/files.css">
+  <link rel="stylesheet" href="css/cardstyle.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <style>
+  #container {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    margin: 0;
+    padding: 0;
+  }
+  #captureModal{
+    display: none;
+  }
+  .window {
+  }
+  .popup {
+    width: 50vw;
+    height:  70vh;
+    margin: auto;
+    display: none;
+    position: fixed;
+    overflow-y: scroll;
+  }
+  .window-body{
+    padding: 40px;
+  }
+  .imgcanvas {
+    width: 40vw;
+    height: 40vh;
+    display: block;
+  }
+  body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    height: 100vh;
+    font-family: 'Chicago', sans-serif;
+  }
+  /* Left pane: Editor, Controls, and Image Gallery */
+  #editorPane {
+    width: 50%;
+    padding: 10px;
+    box-sizing: border-box;
+    border-right: 1px solid #ccc;
+    display: flex;
+    flex-direction: column;
+  }
+  #dslEditor {
+    width: 100%;
+    height: 45vh;
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+  #controls {
+    margin-bottom: 10px;
+  }
+  #controls select, #controls button {
+    margin-right: 5px;
+  }
+  #gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    overflow-y: auto;
+    border-top: 1px solid #ccc;
+    padding-top: 10px;
+    height: 200px;
+  }
+  #gallery img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    cursor: pointer;
+    border: 1px solid #ddd;
+    transition: border 0.3s;
+  }
+  #gallery img:hover {
+    border-color: #333;
+  }
+  /* Right pane: Preview */
+  #previewPane {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 50%;
+    padding: 10px;
+    box-sizing: border-box;
+    overflow-y: auto;
+  }
+  #preview h1 {
+    font-size: 24px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 5px;
+  }
+  #preview p {
+    margin: 10px 0;
+  }
+  #preview img {
+    max-width: 100%;
+    margin: 5px 0;
+  }
+
+  </style>
+</head>
+<body>
+
+  <div class="window" id="container">
+    <div class="title-bar">
+      <h1 class="title">Card Editor</h1>
+    </div>
+     <!-- Left Pane: DSL Editor, Controls, File Loader, and Image Gallery -->
+    <div id="editorPane">
+      <div id="controls">
+        <!-- File Input for loading the .txt file with image paths -->
+        <label>Load Resource Gallery</label>
+        <input type="file" id="fileInput" accept=".txt"><br><br><br>
+        <!-- Voice-to-Text Button -->
+        <button class="btn" onclick="startVoiceToText()">Voice to Text</button>
+          <!-- Button to show the pop-up -->
+        <button class="btn" class="btn" onclick="showPopup()">Camera</button>
+        <button class="btn" onclick="getClipboardImage()">Get Clipboard</button>
+        <!-- Dropdown for element types -->
+        <select id="elementType">
+          <option value="">Insert Element-</option>
+          <option value="IMAGE">IMAGE</option>
+          <option value="CAROUSEL">CAROUSEL</option>
+          <option value="QUIZ">QUIZ</option>
+          <option value="CODE">CODE</option>
+          <option value="IFRAME">IFRAME</option>
+        </select>
+        <button class="btn" onclick="insertElementTemplate()">Insert Template</button>
+      </div>
+      <textarea id="dslEditor" placeholder="Write your DSL here..."></textarea>
+      <button class="btn" onclick="renderPreview()">Render Preview</button>
+      <h3>Resource Gallery</h3>
+      <div id="gallery">
+        <!-- The gallery will be populated after the file is loaded -->
+      </div>
+    </div>
+
+    <!-- Right Pane: DSL Preview -->
+    <div id="previewPane">
+      <div id="preview">
+        <center>
+          <h1 id="slideTitle2" style="font-size: 2em;"></h1>
+          <div id="media2"></div><br>
+          <div id="terminal2"></div><br>
+          <div id="controls2">
+            <button id="prevBtn" class="btn">Previous</button>
+            <button id="skipBtn" class="btn">Show</button>
+            <button id="nextBtn" class="btn">Next</button>
+          </div><br><br>
+          <!-- Slider: displays numbered squares for each slide -->
+          <div id="slider2"></div>
+        </center>
+      </div>
+    </div>
+
+  </div>
+    
+  <!-- Popup modal -->
+  <div id="popup" class="window popup">
+    <div class="title-bar">
+      <h1 class="title">Camera Tool</h1>
+      <button aria-label="Close" onclick="closePopup()"></button>
+    </div>
+    <ul role="menu-bar">
+      <li role="menu-item" tabindex="0" aria-haspopup="true">
+        Effects
+        <ul role="menu">
+          <li role="menu-item" class="divider" onclick="updateStyleNumber(1)"><a>No Effects</a></li>
+          <li role="menu-item" class="divider" onclick="updateStyleNumber(2)"><a>Cartoon 1</a></li>
+          <li role="menu-item" class="divider" onclick="updateStyleNumber(3)"><a>Cartoon 2</a></li>
+          <li role="menu-item" class="divider" onclick="updateStyleNumber(4)"><a>Cartoon 3</a></li>
+          <li role="menu-item" class="divider" onclick="updateStyleNumber(5)"><a>BW</a></li>
+          <li role="menu-item" class="divider" onclick="updateStyleNumber(6)"><a>Diagram</a></li>
+        </ul>
+      </li>
+    </ul>
+    <div class="window-body">
+      <p>This pop-up can host your webcam tool interface, which transforms your webcam feed into a pixelated, comic‐dithered image. Use the controls below to capture, save, and add images to your tutorial.</p>
+      <div id="controls">
+        <button onclick="toggleVideo()" class="btn">Toggle Video</button>
+        <button onclick="captureImage()" class="btn">Capture Image</button>
+      </div>
+      
+      <video id="video" autoplay playsinline style="display:none;"></video>
+      <canvas id="glcanvas" class="imgcanvas"></canvas>
+      <!-- You could later integrate the camera tool UI here -->
+    </div>
+  </div>
+
+    <!-- Modal for captured image preview and saving -->
+  <div id="captureModal" class="window popup">
+    <div class="title-bar">
+      <h1 class="title">Save Image?</h1>
+      <button aria-label="Close" onclick="closeModal()"></button>
+    </div>
+    <div id="modalContent" class="window-body">
+      <div id="modalImageContainer">
+        <img id="modalImage" src="" alt="Captured" class="imgcanvas">
+      </div>
+      <div id="modalButtons">
+        <button onclick="saveCapturedImage()" class="btn">Save Image</button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Gallery: Captured images will be added here -->
+  <div id="gallery"></div>
+
+  <script type="text/javascript" src="/js/render.js"></script>
+  
+  <script>
+    function showPopup() {
+      document.getElementById('popup').style.display = 'flex';
+    }
+    function closePopup() {
+      document.getElementById('popup').style.display = 'none';
+    }
+
+    /* =======================
+       Auto-Recover via Local Storage
+       ======================= */
+    const LOCAL_KEY = "tutorialAuthoringData";
+    function autoSave() {
+      const data = {
+        dsl: document.getElementById("dslEditor").value,
+        //gallery: document.getElementById("gallery").innerHTML
+      };
+      localStorage.setItem(LOCAL_KEY, JSON.stringify(data));
+      console.log("Auto-saved at " + new Date().toLocaleTimeString());
+    }
+    // Auto-save every 30 seconds.
+    setInterval(autoSave, 30000);
+    
+    function loadFromLocalStorage() {
+      const dataStr = localStorage.getItem(LOCAL_KEY);
+      if (dataStr) {
+        const data = JSON.parse(dataStr);
+        document.getElementById("dslEditor").value = data.dsl || "";
+        //document.getElementById("gallery").innerHTML = data.gallery || "";
+      }
+    }
+    // Load saved data on page load.
+    window.addEventListener("load", loadFromLocalStorage);
+
+
+
+
+ // --- Webcam Setup ---
+
+    //render Style
+    var renderStyle = 1;
+
+    const video = document.getElementById("video");
+    navigator.mediaDevices.getUserMedia({ video: true })
+      .then(stream => {
+        video.srcObject = stream;
+        video.play();
+      })
+      .catch(err => console.error("Error accessing webcam:", err));
+    
+    // --- WebGL Setup ---
+    const canvas = document.getElementById("glcanvas");
+    // Request context with preserveDrawingBuffer: true (for capturing images later if needed)
+    const gl = canvas.getContext("webgl", { preserveDrawingBuffer: true });
+    if (!gl) {
+      alert("WebGL not supported");
+    }
+    
+    // Vertex shader: full-screen quad; flip texture coordinates.
+    const vsSource = `
+      attribute vec2 a_position;
+      attribute vec2 a_texCoord;
+      varying vec2 v_texCoord;
+      void main() {
+          gl_Position = vec4(a_position, 0, 1);
+          v_texCoord = vec2(1.0 - a_texCoord.x, 1.0 - a_texCoord.y);
+      }
+    `;
+    
+    // Fragment shader: supports 6 effects.
+const fsSource = `
+precision mediump float;
+varying vec2 v_texCoord;
+uniform sampler2D u_video;
+uniform vec2 u_resolution;
+uniform float u_pixelSize;
+uniform int u_style;
+
+
+// Custom round function (since round() may be unsupported)
+float myround(float x) {
+  return floor(x + 0.5);
+}
+
+// Quantize a float into discrete steps.
+float quantize(float col, float steps) {
+  return myround(col * steps) / steps;
+}
+
+// Quantize each channel of a vec3.
+vec3 quantizeVec3(vec3 color, float steps) {
+  return vec3(quantize(color.r, steps),
+              quantize(color.g, steps),
+              quantize(color.b, steps));
+}
+
+// Pseudo-random function based on coordinates.
+float rand(vec2 co) {
+  return fract(sin(dot(co, vec2(12.9898, 78.233))) * 43758.5453);
+}
+
+// ✅ Bayer dithering function without dynamic array indexing
+float getBayerThreshold(int x, int y) {
+    if (x == 0 && y == 0) return  0.0 / 17.0;
+    if (x == 1 && y == 0) return  8.0 / 17.0;
+    if (x == 2 && y == 0) return  2.0 / 17.0;
+    if (x == 3 && y == 0) return 10.0 / 17.0;
+    
+    if (x == 0 && y == 1) return 12.0 / 17.0;
+    if (x == 1 && y == 1) return  4.0 / 17.0;
+    if (x == 2 && y == 1) return 14.0 / 17.0;
+    if (x == 3 && y == 1) return  6.0 / 17.0;
+    
+    if (x == 0 && y == 2) return  3.0 / 17.0;
+    if (x == 1 && y == 2) return 11.0 / 17.0;
+    if (x == 2 && y == 2) return  1.0 / 17.0;
+    if (x == 3 && y == 2) return  9.0 / 17.0;
+    
+    if (x == 0 && y == 3) return 15.0 / 17.0;
+    if (x == 1 && y == 3) return  7.0 / 17.0;
+    if (x == 2 && y == 3) return 13.0 / 17.0;
+    if (x == 3 && y == 3) return  5.0 / 17.0;
+    
+    return 0.0; // Default fallback (should never be reached)
+}
+
+// ✅ Updated Bayer dithering function
+vec3 getBayerDitheredBW(vec3 color, vec2 uv) {
+    float gray = dot(color, vec3(0.299, 0.587, 0.114)); // Convert to grayscale
+
+    // Get Bayer matrix index based on pixel position (mod 4)
+    int x = int(mod(gl_FragCoord.x, 4.0));
+    int y = int(mod(gl_FragCoord.y, 4.0));
+
+    // Lookup the threshold using a function (fixes the indexing issue)
+    float threshold = getBayerThreshold(x, y);
+
+    // Dithered output: White if above threshold, Black otherwise
+    return (gray > threshold) ? vec3(1.0) : vec3(0.0);
+}
+
+void main() {
+    vec3 color;
+    if(u_style == 1) {
+        // Style 1: No effects – normal video.
+        color = texture2D(u_video, v_texCoord).rgb;
+    } else if(u_style == 2) {
+        vec3 col = texture2D(u_video, v_texCoord).rgb;
+        color = getBayerDitheredBW(col, v_texCoord); 
+    } else if(u_style == 3) {
+        // Style 3: Cartoon 2 – unchanged.
+        vec2 pixelPos = floor(v_texCoord * u_resolution / (u_pixelSize * 1.5)) * (u_pixelSize * 1.5);
+        vec2 uv = pixelPos / u_resolution;
+        color = quantizeVec3(texture2D(u_video, uv).rgb, 6.0);  
+    } else if(u_style == 4) {
+        // Style 4: Cartoon 3 – more aggressive pixelation,
+        // with brighter colors, increased contrast, and fine dithering.
+        vec2 pixelPos = floor(v_texCoord * u_resolution / (u_pixelSize * 1.5)) * (u_pixelSize * 1.5);
+        vec2 uv = pixelPos / u_resolution;
+        vec3 col = texture2D(u_video, uv).rgb;
+        col = clamp(col * 1.4, 0.0, 1.0);  // Even brighter
+        col = pow(col, vec3(0.7));           // More contrast
+        float d = rand(v_texCoord * u_resolution / 4.0) * 0.05; // Fine dithering
+        col += d;
+        color = quantizeVec3(col, 3.0);      // 3 levels per channel
+       
+    } else if(u_style == 5) {
+        // Style 5: Black & White.
+        vec3 col = texture2D(u_video, v_texCoord).rgb;
+        float gray = dot(col, vec3(0.299, 0.587, 0.114));
+        color = vec3(gray);
+        
+    } else if(u_style == 6) {
+      // Style 6: Black, White, and Blue (#1479BD replaces black, brightness reduced)
+      vec3 col = texture2D(u_video, v_texCoord).rgb;
+
+      // Reduce brightness by multiplying grayscale value
+      float brightnessFactor = 0.44; // Adjust between 0.0 (dark) to 1.0 (original brightness)
+      float gray = dot(col, vec3(0.299, 0.587, 0.114)) * brightnessFactor;
+
+      // Quantize into 3 levels: ideally 0.0, 0.5, and 1.0.
+      float q = quantize(gray, 2.0);
+
+      if (abs(q - 0.5) < 0.01) {
+          color = vec3(1.0, 1.0, 1.0); // White for mid-tone.
+      } else if (q == 0.0) {
+          color = vec3(20.0 / 255.0, 121.0 / 255.0, 189.0 / 255.0); // Blue for dark areas.
+      } else {
+          color = vec3(1.0); // Keep white for bright areas.
+      }
+    } else {
+        color = texture2D(u_video, v_texCoord).rgb;
+    }
+    
+    gl_FragColor = vec4(color, 1.0);
+}
+
+`;
+
+    
+    function compileShader(source, type) {
+      const shader = gl.createShader(type);
+      gl.shaderSource(shader, source);
+      gl.compileShader(shader);
+      if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+        console.error("Shader compile error: " + gl.getShaderInfoLog(shader));
+        gl.deleteShader(shader);
+        return null;
+      }
+      return shader;
+    }
+    
+    const vertexShader = compileShader(vsSource, gl.VERTEX_SHADER);
+    const fragmentShader = compileShader(fsSource, gl.FRAGMENT_SHADER);
+    
+    const shaderProgram = gl.createProgram();
+    gl.attachShader(shaderProgram, vertexShader);
+    gl.attachShader(shaderProgram, fragmentShader);
+    gl.linkProgram(shaderProgram);
+    if (!gl.getProgramParameter(shaderProgram, gl.LINK_STATUS)) {
+      console.error("Program linking error: " + gl.getProgramInfoLog(shaderProgram));
+    }
+    gl.useProgram(shaderProgram);
+    
+    // Set up full-screen quad.
+    const vertices = new Float32Array([
+      //  x,    y,    u,   v
+      -1, -1,   0, 0,
+       1, -1,   1, 0,
+      -1,  1,   0, 1,
+      -1,  1,   0, 1,
+       1, -1,   1, 0,
+       1,  1,   1, 1
+    ]);
+    const buffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+    gl.bufferData(gl.ARRAY_BUFFER, vertices, gl.STATIC_DRAW);
+    
+    const aPosition = gl.getAttribLocation(shaderProgram, "a_position");
+    gl.enableVertexAttribArray(aPosition);
+    gl.vertexAttribPointer(aPosition, 2, gl.FLOAT, false, 16, 0);
+    
+    const aTexCoord = gl.getAttribLocation(shaderProgram, "a_texCoord");
+    gl.enableVertexAttribArray(aTexCoord);
+    gl.vertexAttribPointer(aTexCoord, 2, gl.FLOAT, false, 16, 8);
+    
+    const texture = gl.createTexture();
+    gl.bindTexture(gl.TEXTURE_2D, texture);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+    
+    const uResolution = gl.getUniformLocation(shaderProgram, "u_resolution");
+    const uPixelSize = gl.getUniformLocation(shaderProgram, "u_pixelSize");
+    const uStyle = gl.getUniformLocation(shaderProgram, "u_style");
+    gl.uniform1f(uPixelSize, 4.0);
+    // Set initial style (e.g., Cartoon 1)
+    gl.uniform1i(uStyle, 2);
+    
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      gl.viewport(0, 0, canvas.width, canvas.height);
+      gl.uniform2f(uResolution, canvas.width, canvas.height);
+    }
+    window.addEventListener("resize", resizeCanvas);
+    resizeCanvas();
+    
+    function render() {
+      // Update the u_style uniform from the select element.
+      updateStyle();
+      
+      if (video.readyState >= video.HAVE_CURRENT_DATA) {
+        gl.bindTexture(gl.TEXTURE_2D, texture);
+        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB, gl.RGB, gl.UNSIGNED_BYTE, video);
+        gl.drawArrays(gl.TRIANGLES, 0, 6);
+      }
+      requestAnimationFrame(render);
+    }
+    render();
+    
+    function toggleVideo() {
+      if (video.paused) {
+        video.play();
+      } else {
+        video.pause();
+      }
+    }
+
+    document.addEventListener('keydown', function(e) {
+      // Check if the space key (keyCode 32) is pressed.
+      if(captureModal.style.display == "block"){
+        if (e.code === "Space" || e.keyCode === 32) {
+          e.preventDefault(); // Prevent default scrolling behavior.
+          captureImage();
+        }
+      }
+    });
+    
+    // Update the u_style uniform from the dropdown selection.
+    function updateStyle() {
+      gl.uniform1i(uStyle, renderStyle);
+    }
+
+    function updateStyleNumber(number) {
+      renderStyle = number;
+    }
+    
+    // --- Capture Modal and Save Functionality ---
+    const captureModal = document.getElementById("captureModal");
+    const modalImage = document.getElementById("modalImage");
+    let capturedDataURL = "";
+    let captureCounter = 1; // For simulated file names.
+    
+    function captureImage() {
+      capturedDataURL = canvas.toDataURL("image/png");
+      modalImage.src = capturedDataURL;
+      captureModal.style.display = "flex";
+    }
+    
+    function closeModal() {
+      captureModal.style.display = "none";
+    }
+    
+    function saveCapturedImage() {
+      // Simulate a file path for the captured image.
+      const simulatedPath = `\\tools\\Projects\\imgs\\captures\\captured_image_${captureCounter}.png`;
+      // Trigger a download.
+      const link = document.createElement("a");
+      link.href = capturedDataURL;
+      link.download = `captured_image_${captureCounter}.png`;
+      link.click();
+      
+      // Add the image to the gallery.
+      const galleryDiv = document.getElementById("gallery");
+      const img = document.createElement("img");
+      img.src = capturedDataURL;
+      img.alt = `captured_image_${captureCounter}.png`;
+      img.onClick = insertImageElement(simulatedPath);
+
+      galleryDiv.appendChild(img);
+      
+      captureCounter++;
+      closeModal();
+    }
+
+
+    // --- DSL Editor Preview Rendering (supports TITLE, TEXT, IMAGE) ---
+    function renderPreview() {
+      const dslText = document.getElementById('dslEditor').value;
+      previewLoad(dslText);
+    }
+
+    // Insert an IMAGE DSL snippet into the editor at the cursor position.
+    function insertImageElement(path) {
+      console.log(path);
+      const editor = document.getElementById('dslEditor');
+      const snippet = 'IMAGE: "' + path + '",50, "Your image caption"\n';
+      const start = editor.selectionStart;
+      const end = editor.selectionEnd;
+      const text = editor.value;
+      editor.value = text.substring(0, start) + snippet + text.substring(end);
+      editor.focus();
+      editor.selectionStart = editor.selectionEnd = start + snippet.length;
+    }
+
+     function insertXMLElement(path) {
+        // Create the formatted text using the provided path for IMAGE and XMLURL
+        const formattedText = 
+`[CODE]
+IMAGE: "${path}",40, "Click to view code"
+DESCRIPTION: "Your description here"
+XMLURL: "${path}"
+[/CODE]`;
+        // Output the formatted text (for example, logging it to the console)
+        console.log(formattedText);
+        // Additional functionality (e.g., accessing an editor element)
+        const editor = document.getElementById('dslEditor');
+        // You might insert formattedText into the editor or perform other operations here
+        const start = editor.selectionStart;
+        const end = editor.selectionEnd;
+        const text = editor.value;
+        editor.value = text.substring(0, start) + formattedText + text.substring(end);
+        editor.focus();
+        editor.selectionStart = editor.selectionEnd = start + formattedText.length;
+      }
+
+     function insertTXTElement(path) {
+      fetch(path)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(`Error fetching the file: ${response.statusText}`);
+          }
+          return response.text();
+        })
+        .then(txtContent => {
+          console.log("Loaded text content:", txtContent);  // Debug: Check fetched text
+          const editor = document.getElementById('dslEditor');
+          if (!editor) {
+            console.error("Editor element not found!");
+            return;
+          }
+          const start = editor.selectionStart;
+          const end = editor.selectionEnd;
+          const text = editor.value;
+          editor.value = text.substring(0, start) + txtContent + text.substring(end);
+          editor.focus();
+          editor.selectionStart = editor.selectionEnd = start + txtContent.length;
+        })
+        .catch(error => {
+          console.error("Failed to load the text file:", error);
+        });
+    }
+
+    // Insert a template snippet for a given element type based on dropdown selection.
+    function insertElementTemplate() {
+      const select = document.getElementById('elementType');
+      const type = select.value;
+      const editor = document.getElementById('dslEditor');
+      let template = "";
+      switch (type) {
+        case "IMAGE":
+          template = 'IMAGE: "path",50, "alt text"\n';
+          break;
+        case "CAROUSEL":
+          template = "[CAROUSEL]\n- SLIDE: \"path\",\"alt\",\"Image title\",\"image description\"\n[/CAROUSEL]\n";
+          break;
+        case "QUIZ":
+          template = "[QUIZ]\nQUESTION: \"Your question here?\"\nOPTIONS: \"Option1\",\"Option2\",\"Option3\",\"Option4\"\nANSWER: \"Correct Option\"\n[/QUIZ]\n";
+          break;
+        case "CODE":
+          template = "[CODE]\nIMAGE: \"path\",40, \"Click to view code\"\nDESCRIPTION: \"Your description here\"\nXMLURL: \"xml/yourfile.xml\"\n[/CODE]\n";
+          break;
+        case "IFRAME":
+          template = "[IFRAME]\nSRC: \"http://example.com/yourmedia\"\nCROP: x=0, y=0, width=600, height=400\nDESCRIPTION: \"Your description here\"\n[/IFRAME]\n";
+          break;
+        default:
+          template = "";
+      }
+      if (template !== "") {
+        const start = editor.selectionStart;
+        const end = editor.selectionEnd;
+        const text = editor.value;
+        editor.value = text.substring(0, start) + template + text.substring(end);
+        editor.focus();
+        editor.selectionStart = editor.selectionEnd = start + template.length;
+      }
+    }
+
+    // --- Voice-to-Text: Use Web Speech API to insert dialogue ---
+    function startVoiceToText() {
+      if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+        alert("Speech recognition is not supported in this browser.");
+        return;
+      }
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      const recognition = new SpeechRecognition();
+      recognition.lang = "en-US";
+      recognition.interimResults = false;
+      recognition.maxAlternatives = 1;
+      
+      recognition.start();
+      recognition.onresult = function(event) {
+        const transcript = event.results[0][0].transcript;
+        insertDialogueText(transcript);
+      };
+      recognition.onerror = function(event) {
+        console.error("Speech recognition error: " + event.error);
+      };
+    }
+
+    // Insert a TEXT DSL snippet with the provided text.
+    function insertDialogueText(text) {
+      const editor = document.getElementById('dslEditor');
+      const snippet = 'TEXT: ' + text + '\n';
+      const start = editor.selectionStart;
+      const end = editor.selectionEnd;
+      const currentText = editor.value;
+      editor.value = currentText.substring(0, start) + snippet + currentText.substring(end);
+      editor.focus();
+      editor.selectionStart = editor.selectionEnd = start + snippet.length;
+    }
+
+    // --- Image Gallery File Loader ---
+    document.getElementById('fileInput').addEventListener('change', function(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const content = e.target.result;
+        generateGallery(content);
+      };
+      reader.readAsText(file);
+    });
+
+    // Generate gallery from file content: Truncate path to start with "\tools"
+function generateGallery(fileContent) {
+  const galleryDiv = document.getElementById('gallery');
+  galleryDiv.innerHTML = ""; // Clear existing gallery
+  const lines = fileContent.split(/\r?\n/);
+  
+  lines.forEach(line => {
+    line = line.trim();
+    if (!line) return;
+    const index = line.indexOf("\\tools");
+    if (index === -1) return;
+    const truncatedPath = line.substring(index);
+    const parts = truncatedPath.split("\\");
+    const fileName = parts[parts.length - 1];
+    let ext = "";
+    if(fileName.indexOf('.') !== -1) {
+      ext = fileName.substring(fileName.lastIndexOf('.') + 1).toLowerCase();
+    }
+    
+    // Default: if file is an image, use its own thumbnail.
+    let thumbSrc = truncatedPath;
+    const img = document.createElement('img');
+
+    // Check file type.
+    if(ext === "jpg" || ext === "jpeg" || ext === "png" || ext === "gif" || ext === "bmp" || ext === "webp" || ext === "svg") {
+      thumbSrc = truncatedPath;
+      img.addEventListener('click', () => {
+        // Insert an IMAGE DSL snippet with the original truncated path.
+        // Even if it's not an image, you might want to reference it.
+        insertImageElement(truncatedPath);
+      });
+    } else if(ext === "") {
+      // Likely a folder
+      thumbSrc = "/tools/Projects/imgs/folderimg.png";
+    } else if(ext === "txt") {
+      thumbSrc = "/tools/Projects/imgs/txtimg.png";
+      img.addEventListener('click', () => {
+        // Insert an IMAGE DSL snippet with the original truncated path.
+        // Even if it's not an image, you might want to reference it.
+        insertTXTElement(truncatedPath);
+      });
+    } else if(ext === "xml") {
+      thumbSrc = "/tools/Projects/imgs/xmlimg.webp";
+      img.addEventListener('click', () => {
+        // Insert an IMAGE DSL snippet with the original truncated path.
+        // Even if it's not an image, you might want to reference it.
+        insertXMLElement(truncatedPath);
+      });
+    } else {
+      thumbSrc = "/tools/Projects/imgs/otherimg.png";
+    }
+    
+    img.src = thumbSrc;
+    img.alt = fileName;
+    img.title = fileName;
+    
+    galleryDiv.appendChild(img);
+  });
+}
+
+    // --- Get Clipboard Image Functionality ---
+function getClipboardImage() {
+  if (!navigator.clipboard) {
+    alert("Clipboard API not supported in this browser.");
+    return;
+  }
+  navigator.clipboard.read().then(items => {
+    for (const item of items) {
+      for (const type of item.types) {
+        if (type.startsWith("image/")) {
+          item.getType(type).then(blob => {
+            const url = URL.createObjectURL(blob);
+            if (confirm("Image found in clipboard. Do you want to save it?")) {
+              // Trigger download of the image.
+              const downloadLink = document.createElement("a");
+              downloadLink.href = url;
+              downloadLink.download = "clipboard_image.png";
+              downloadLink.click();
+              
+              // Simulate a file path for use in DSL
+              const simulatedPath = `\\tools\\Projects\\imgs\\snap\\clipboard_image_${captureCounter}.png`;
+              
+              // Add image to the gallery.
+              const galleryDiv = document.getElementById("gallery");
+              const img = document.createElement("img");
+              img.src = url;
+              img.alt = `clipboard_image_${captureCounter}.png`;
+              img.addEventListener("click", () => {
+                insertImageElement(simulatedPath);
+              });
+              galleryDiv.appendChild(img);
+              captureCounter++;
+            }
+          });
+          return; // Only handle the first found image.
+        }
+      }
+    }
+    alert("No image found in the clipboard.");
+  }).catch(err => {
+    console.error("Error reading clipboard:", err);
+    alert("Failed to read the clipboard.");
+  });
+}
+
+  </script>
+</body>
+</html>

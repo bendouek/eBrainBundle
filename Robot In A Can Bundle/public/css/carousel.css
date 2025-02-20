@@ -12,6 +12,7 @@
         .carousel img {
             width: 100%;
             max-width: 800px;
+            max-height: 400px;
             height: auto;
             border: 1px solid #000;
             border-radius: 3px;

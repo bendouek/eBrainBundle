@@ -1,18 +1,22 @@
 /* Terminal area for text output */
 #terminal2 {
+  font-family: "Roboto", serif;
+  font-weight: 500;
   width: 80vw;
   max-width: 800px;
   height: 13vh;
   padding: 20px;
   background: radial-gradient(#F1f1f1, #FFFFFF);
+  /*background: radial-gradient(#3A515B, #1A313B);*/
   border-radius: 10px;
   box-shadow: inset 0 0 30px #F1F1F1;
+  /*box-shadow: inset 0 0 30px #3A515B;*/
   position: relative;
   text-align: left;
-  overflow-y: scroll;
   overflow-x: hidden;
   transition: background 0.2s ease-in-out;
   color: #1A313B;
+  /*color: white;*/
   white-space: pre-wrap; /* Preserve newlines */
 }
 /* Media area for images, carousels, audio, quizzes, etc. */
@@ -21,28 +25,15 @@
   max-width: 800px;
 }
 
+#media2 img{
+  max-height: 400px;
+}
+
 .window-cards{
   overflow-y: scroll;
 }
 
-/* Navigation buttons */
-#controls {
-  text-align: center;
-  margin-top: 20px;
-}
-#controls button {
-  background: #222;
-  color: #33FF33;
-  border: 2px solid #33FF33;
-  padding: 5px 15px;
-  margin: 0 10px;
-  cursor: pointer;
-  font-size: 1em;
-}
-#controls button:hover {
-  background: #33FF33;
-  color: black;
-}
+
 /* Slider styling */
 #slider {
   text-align: center;
@@ -63,4 +54,16 @@
 .slider-button.active {
   background: #1A313B;
   color: white;
+}
+
+.quiz {
+  padding: 30px;
+  font-family: "Roboto", serif;
+  font-weight: 600;
+  border: 1px solid #CCC;
+}
+
+.quiz-form {
+  font-family: "Roboto", serif;
+  font-weight: 400;
 }
