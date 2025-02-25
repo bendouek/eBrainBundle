@@ -41,7 +41,7 @@
         // Only load library from github if NOT hosted
         if (!hasProjectPath()) {
           // Load in library from github
-          fetch("../../myProjects/ebrainblocks.xml")
+          fetch("../Projects/xmls/ebrainblocks.xml")
           .then(response => {
             if (!response.ok) {
               throw new Error('could not fetch RIAC blocks');

@@ -156,18 +156,22 @@ function typeWriter2(element, text, speed = 30) {
       if (abortSlide) {
         clearInterval(activeInterval);
         activeInterval = null;
+        nextBtn.disabled = false;
         resolve();
       } else {
         element.textContent += text.charAt(i);
         i++;
+        nextBtn.disabled = true;
         if (i >= text.length) {
           clearInterval(activeInterval);
           activeInterval = null;
+          nextBtn.disabled = false;
           resolve();
         }
       }
     }, speed);
   });
+  nextBtn.disabled = false;
 }
 
 // Delay helper (returns a promise)
@@ -348,6 +352,7 @@ function abortCurrentSlide() {
     clearInterval(activeInterval);
     activeInterval = null;
   }
+  nextBtn.disabled = false;
   terminalDiv.textContent = "";
   mediaDiv.innerHTML = "";
 }
@@ -529,6 +534,7 @@ function generateQuizElement(quiz) {
 
 
 function loadCards(url) {
+abortCurrentSlide();
   // ===== Fetch and Parse Slide Data from DSL File =====
 fetch(url)
   .then(response => response.text())

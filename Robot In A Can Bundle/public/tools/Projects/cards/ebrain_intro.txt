@@ -1,5 +1,3 @@
-
-
 === Introduction_to_RobotInACan
 TITLE: Introduction to The Robot In A Can!
 TEXT: Welcome, young explorer! Today you'll begin your journey into the world of computers and electronics with The Robot In A Can. With this kit you will learn to transform your code into real-world action.
@@ -21,17 +19,6 @@ TEXT: Your Gateway to Microcontrollers - This is the brain of the kit. It's call
 IMAGE: "/tools/Projects/imgs/eBrain1.6.png",50, "eBrain microcontroller"
 ===
 
-
-=== Quick_Challenge_External_LED
-TITLE: Challenge: External LED
-TEXT: Build a Circuit - Use the breadboard, patch cables, and buttons to build a circuit controlling an external LED. Test your understanding with this hands-on challenge.
-IMAGE: "/tools/Projects/imgs/svg/materialschapterone.svg",60, "Challenge materials"
-TEXT: 
-TEXT: Fact: LED stands for Light Emitting Diode. 
-TEXT: Research points: Bonus points if you know or find out what a diode is!
-===
-
-
 === eBrain_Features
 TITLE: eBrain Features
 TEXT: Designed for Innovators - The eBrain is built for inventors and tinkerers. With it you can build and control tons of electronic projects. 
@@ -39,7 +26,7 @@ TEXT: Designed for Innovators - The eBrain is built for inventors and tinkerers.
 - SLIDE: "\tools\Projects\imgs\svg\eBrain-01.svg","Microcontroller Board","Interactive Projects","Build systems that respond using actuators and sensors"
 - SLIDE: "\tools\Projects\imgs\svg\eBrain-02.svg","Everyday Computing","Hands-On Learning","Connect circuits and code for real-world interactions. Control it wirelessly."
 - SLIDE: "/tools/Projects/imgs/svg/eBrain-03.svg","Development Board","Prototype Quickly","Test your ideas without a complex setup and spend more time inventing."
-- SLIDE: "\tools\Projects\imgs\svg\eBrain-04.svg","Development Board","Prototype Quickly","It can be programmed seamlessly with Snap Python and Arduino IDE."
+- SLIDE: "\tools\Projects\imgs\svg\eBrain-04.svg","Development Board","For all skill levels","It can be programmed seamlessly with Snap Python and Arduino IDE."
 [/CAROUSEL]
 TEXT: Make your ideas come alive!
 ===
@@ -68,73 +55,37 @@ IMAGE: "/tools/Projects/imgs/svg/WhatsOnTheBoard.svg",70, "eBrain board layout"
 
 === Board_Layout
 TITLE: Board Layout
-TEXT: (10.) Breadboard -- A tool for building circuits (it's glued on and isn't an electronic)
+TEXT: (10.) Breadboard -- A tool for building circuits (it's glued on and isn't directly connected to the eBrain)
 TEXT: (11.) Power -- For connecting the battery pack
 TEXT:
-TEXT: (12.) eBrain Core -- THIS IS THE MICROCOMPUTER -- check out the squiggly copper trace, that is the WiFi antenna that allows you to communicate with the eBrain through radio waves (WiFi)
+TEXT: (12.) eBrain Core -- THIS IS THE MICROCOMPUTER -- check out the squiggly copper trace.
+TEXT: That is the WiFi antenna that allows you to communicate with the eBrain through radio waves (WiFi) 
+TEXT: also notice all the tiny copper legs (little squares) around the edges those are the GPIO... but more on that later.
 IMAGE: "/tools/Projects/imgs/svg/WhatsOnTheBoard.svg",70, "eBrain board layout"
 ===
 
-===Quiz1
+===Quiz_1
 TITLE: Computer Question
+TEXT: What do we know about the eBrain?
 [QUIZ]
 QUESTION: "is the eBrain a Computer?"
 OPTIONS: "Yes","No"
 ANSWER: "Yes"
 [/QUIZ]
 [QUIZ]
-QUESTION: "Do all computers have screens??"
+QUESTION: "Do all computers have screens?"
 OPTIONS: "Yes","No"
 ANSWER: "No"
 [/QUIZ]
-===
-
-
-
-
-
-
-
-
-=== What_is_a_Computer
-TITLE: What is a computer?
-TEXT: Computers are all around us. We use them to communicate, play games, navigate with GPS, and even control robots! They are also sometimes smaller and simpler than we might expect, you can find computers in a car or a washing machine, even your microwave has a computer to control it. What exactly is a computer, and how does it work?
-IMAGE: "\tools\Projects\imgs\theory\applications.png",50, "Your image caption"
-===
-
-=== What_Computers_Do
-TITLE: What Computers Do
-TEXT: A computer is a machine that takes inputs, processes them, and produces outputs. This simple idea is the foundation of all computing. Input, Processing, Output. What do you think this means? Let's try some experiments and come back to this.
-IMAGE: "\tools\Projects\imgs\theory\computersdo.png",50, "Your image caption"
-===
-
-
-
-
-
-
-
-
-=== Programming_with_Snap!
-TITLE: Programming with Snap!
-TEXT: Visual, Block-Based Coding - Snap! offers an intuitive, visual approach to programming your eBrain. It lets you build complex logic without typing a single line of code.
-[CODE]
-IMAGE: "/tools/Projects/imgs/snapBasic.png",40, "Click to view code"
-DESCRIPTION: "Click here to try this code in Snap!"
-XMLURL: "../../myProjects/square.xml"
-[/CODE]
-===
-
-=== quiz_intro_eBrain
-TITLE: Quiz: Introduction to eBrain
-TEXT: Let's test your knowledge on the eBrain introduction.
 [QUIZ]
-QUESTION: "What does the eBrain do?"
-OPTIONS: "Transforms code into real-world action","Transforms electricity into code","Stores data","None of the above"
-ANSWER: "Transforms code into real-world action"
+QUESTION: "What is the squiggly copper trace on the eBrain core?"
+OPTIONS: "A worm","WiFi antenna","electric wire","a battery connector"
+ANSWER: "WiFi antenna"
 [/QUIZ]
 ===
 
 
-
-
+===End_Lesson
+TITLE: END
+TEXT: Choose your next lesson!
+===

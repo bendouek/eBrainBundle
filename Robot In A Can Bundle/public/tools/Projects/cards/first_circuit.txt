@@ -1,0 +1,168 @@
+=== Powering_Up
+TITLE: Powering Up
+TEXT: Battery Setup - Learn how to power your eBrain. 
+TEXT: Insert 4 AA batteries correctly (flat side on the springs) and plug the battery holder into the bottom of the eBrain to supply the board with the necessary voltage (5-6V).
+TEXT: Turn the eBrain on by sliding the power switch to the 1 position.
+TEXT:
+TEXT: Note: You can also use the USB port to power the eBrain instead.
+IMAGE: "/tools/Projects/imgs/svg/eBrain-05.svg",60, "Battery setup illustration"
+===
+
+=== Powering_Up_USB
+TITLE: Powering Up - USB
+TEXT: USB Power Setup - Your eBrain can also be powered with a USB cable. You can use a usb battery, a plug-in charger (5V - 1 Amp preferred), or you can power it directly from your computer.
+TEXT:
+TEXT: Note: To power from a USB source turn the power switch to 0
+IMAGE: "\tools\Projects\imgs\captures\captured_image_usb.png",50, "Your image caption"
+===
+
+=== Patch_Bay_Overview
+TITLE: Patch Bay Overview
+TEXT: Connecting Components - The patch bay allows you to quickly interface sensors, LEDs, and other peripherals with your eBrain.
+TEXT: See the markings below the connectors LS - R G B - 1 2 3 4
+TEXT: This is for the: Light Sensor - Red, Green, and Blue LEDS - and the Switches S1, S2, S3, S4.
+IMAGE: "/tools/Projects/imgs/svg/eBrain-08.svg",60, "Patch Bay layout"
+===
+
+=== RGB_LED
+TITLE: RGB LED
+TEXT: Vibrant Visuals - The eBrain features a high-precision RGB LED capable of producing over 16 million colors through additive mixing.
+IMAGE: "/tools/Projects/imgs/svg/eBrain-10.svg",60, "RGB LED diagram"
+TEXT: Note: 255*255*255 = 16M colors.
+TEXT: Red: 0-255, Green: 0-255, Blue: 0-255
+===
+
+=== Wiring_Overview
+TITLE: Wiring Overview
+TEXT: Using Patch Cables - Patch cables connect your eBrain to various components. Their modular design makes wiring flexible and easy.
+IMAGE: "\tools\Projects\imgs\theory\patch.jpg",30, "Wiring setup illustration"
+IMAGE: "\tools\Projects\imgs\theory\cables.jpg",30, "Wiring setup illustration"
+===
+
+=== eBrain_Buttons
+TITLE: eBrain Buttons
+TEXT: Built-In Controls - Your eBrain includes 4 buttons that quickly complete circuits, allowing you to control various functions.
+IMAGE: "/tools/Projects/imgs/svg/eBrain-18.svg",60, "eBrain buttons"
+TEXT: These buttons are directly connected to the battery, so no extra wiring is needed.
+===
+
+=== Button_Controls
+TITLE: Button Controls
+TEXT: Activating Circuits - Your eBrain's built-in buttons allow you to complete circuits using modular wiring. 
+TEXT: Connect a male-to-male wire between patch bay ports R and 1; 
+TEXT: Press button S1 to complete the circuit.
+TEXT: 
+TEXT:The switches are directly connected to the power source with a resistor to make wiring easier for your projects.
+IMAGE: "/tools/Projects/imgs/svg/eBrain-19.svg",60, "Button wiring diagram"
+===
+
+=== Power_Supply_Details
+TITLE: eBrain Power Supply
+TEXT: Voltage Regulation - Your eBrain uses 4 AA batteries (totaling 6V) which is regulated down to a stable 3.3V output. 
+TEXT: It is located at the top of the vertical black cable connector. Like a battery, it has two connections positive (+) and negative (-). The connector marked "3.3V" (3.3 volts) is POSITIVE, and the other "GND" (ground) is NEGATIVE.
+IMAGE: "/tools/Projects/imgs/svg/eBrain-06.svg",60, "Power supply diagram"
+TEXT: 
+TEXT: You can tap into to this regulated power to use it for your projects!
+===
+
+===Make_A_Button
+TEXT: Let's use wires and the power supply to create our own button to turn on and off an LED.
+IMAGE: "\tools\Projects\imgs\svg\eBrain-12.svg",50, "Your image caption"
+TEXT: If you connect the two cables together the electricity will flow and the light will turn on.
+TEXT: when you detach the wires the electricity will stop flowing and the LED will turn off.
+===
+
+=== Breadboard_Basics
+TITLE: Breadboard Basics
+TEXT: Simplify Your Prototypes - Breadboards let you quickly assemble and modify circuits without soldering, thanks to their conductive clips.
+IMAGE: "/tools/Projects/imgs/svg/eBrain-09.svg",60, "Breadboard illustration"
+TEXT: 
+TEXT: Think of a breadboard as a team of helping hands that hold wires together, joining them so they can send electricity between them.
+===
+
+=== Using_the_Breadboard
+TITLE: Using the Breadboard
+TEXT: The Breadboard ONLY joins wires in the same COLUMN. The columns are marked in the image above, each column is a metal spring that holds the wires.
+IMAGE: "/tools/Projects/imgs/svg/eBrain-13.svg",60, "Breadboard usage illustration"
+===
+
+=== Inside_the_Breadboard
+TITLE: Inside the Breadboard
+TEXT: The Hidden Structure - Peek inside the breadboard to see how its metal clips secure your connections and ensure that the electricity conducts between wires.
+TEXT: The clips are arranged in rows and columns to keep your wiring organized.
+IMAGE: "\tools\Projects\imgs\theory\insidebreadboard.png",50, "Inside the breadboard"
+===
+
+=== Wire_Connectivity
+TITLE: Wire Connectivity
+TEXT: Experiment with Circuits
+TEXT: Connect a wire to the 3.3V Power Supply and another wire to the R in the Patch Bay, as in the picture above.
+TEXT: Use The Breadboard:
+IMAGE: "/tools/Projects/imgs/svg/eBrain-14.svg", 100, "Breadboard wiring diagram"
+TEXT: Place wires in the same column to complete the circuit and light up an LED.
+TEXT: Place wires in different columns to break the circuit.
+===
+
+=== RGB_Color_Mixing
+TITLE: RGB Color Mixing
+TEXT: Experiment with Hues - Mix RGB colors using the breadboard. By connecting a wire to the power source and then using the Breadboard we can split the current to more than one LED at a time. Observe the new hues that are formed.
+IMAGE: "/tools/Projects/imgs/svg/eBrain-15.svg",60, "RGB color mixing on breadboard"
+TEXT: Connect each colored LED to the 3.3V source; Experiment with different combinations to see the resulting colors.
+===
+
+=== RGB_Mixing_Question
+TITLE: RGB Mixing Results
+TEXT: The Final Hues - Discover the outcomes of additive color mixing: which combinations will yield which color?
+IMAGE: "\tools\Projects\imgs\svg\eBrain-16.svg",50, "How do colors mix?"
+
+===
+
+=== RGB_Mixing_Results
+TITLE: RGB Mixing Results
+IMAGE: "/tools/Projects/imgs/svg/eBrain-17.svg",60, "RGB color mixing diagram"
+TEXT: Red + Green = Yellow
+TEXT: Red + Blue = Magenta
+TEXT: Green + Blue = Cyan 
+TEXT: All three = White. 
+TEXT: Note: Additive color mixing differs from mixing paints! (...and the primary colors are different!?)
+===
+
+===Quiz_1
+TITLE: Computer Question
+TEXT: What do we know about the eBrain?
+[QUIZ]
+QUESTION: "is the eBrain a Computer?"
+OPTIONS: "Yes","No"
+ANSWER: "Yes"
+[/QUIZ]
+[QUIZ]
+QUESTION: "Do all computers have screens?"
+OPTIONS: "Yes","No"
+ANSWER: "No"
+[/QUIZ]
+[QUIZ]
+QUESTION: "What is the squiggly copper trace on the eBrain core?"
+OPTIONS: "A worm","WiFi antenna","electric wire","a battery connector"
+ANSWER: "WiFi antenna"
+[/QUIZ]
+===
+
+=== Final_Review
+TITLE: Final Review
+IMAGE: "/tools/Projects/imgs/svg/eBrain-09.svg",25, "Breadboard usage illustration"
+IMAGE: "/tools/Projects/imgs/svg/eBrain-08.svg",25, "Patch Bay layout"
+IMAGE: "/tools/Projects/imgs/svg/eBrain-06.svg",25, "Power supply diagram"
+TEXT: Recap and Summary - Congratulations! Let's review the key components and concepts of your eBrain.
+TEXT: Great Job! You've mastered the essential parts of your eBrain, laying the foundation for advanced projects.
+TEXT: 
+TEXT: Power bay: Battery connection & voltage regulation; 
+TEXT: 
+TEXT: Patch bay: Connecting sensors and peripherals; 
+TEXT: 
+TEXT: Breadboard: Holding wires and electric connections together.
+===
+
+===End_Lesson_2
+TITLE: END
+TEXT: Choose your next lesson!
+==
