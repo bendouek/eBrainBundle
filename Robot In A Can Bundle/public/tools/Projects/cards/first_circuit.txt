@@ -129,21 +129,21 @@ TEXT: Note: Additive color mixing differs from mixing paints! (...and the primar
 
 ===Quiz_1
 TITLE: Computer Question
-TEXT: What do we know about the eBrain?
+TEXT: What did we do in this lesson?
 [QUIZ]
-QUESTION: "is the eBrain a Computer?"
-OPTIONS: "Yes","No"
-ANSWER: "Yes"
+QUESTION: "What is a Breadboard for?"
+OPTIONS: "Electrically joins wires","Cut Bread","To hold cables","It's a part of the computer"
+ANSWER: "Electrically joins wires"
 [/QUIZ]
 [QUIZ]
-QUESTION: "Do all computers have screens?"
-OPTIONS: "Yes","No"
-ANSWER: "No"
+QUESTION: "What do buttons do?"
+OPTIONS: "They are for pressing","They can break or connect a circuit","They make electricity","They are for lights"
+ANSWER: "They can break or connect a circuit"
 [/QUIZ]
 [QUIZ]
-QUESTION: "What is the squiggly copper trace on the eBrain core?"
-OPTIONS: "A worm","WiFi antenna","electric wire","a battery connector"
-ANSWER: "WiFi antenna"
+QUESTION: "How many colors can we make with the RGB LED?"
+OPTIONS: "8","128","1000","16000000"
+ANSWER: "16000000"
 [/QUIZ]
 ===
 
