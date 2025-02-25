@@ -4,6 +4,7 @@ F:\AI\eBrainBundle\Robot In A Can Bundle\public\tools\Projects\imgs
 F:\AI\eBrainBundle\Robot In A Can Bundle\public\tools\Projects\updateFiles.bat
 F:\AI\eBrainBundle\Robot In A Can Bundle\public\tools\Projects\xmls
 F:\AI\eBrainBundle\Robot In A Can Bundle\public\tools\Projects\cards\first_circuits.txt
+F:\AI\eBrainBundle\Robot In A Can Bundle\public\tools\Projects\cards\ideas.txt
 F:\AI\eBrainBundle\Robot In A Can Bundle\public\tools\Projects\cards\introduction.txt
 F:\AI\eBrainBundle\Robot In A Can Bundle\public\tools\Projects\imgs\bg.png
 F:\AI\eBrainBundle\Robot In A Can Bundle\public\tools\Projects\imgs\captures
@@ -23,6 +24,7 @@ F:\AI\eBrainBundle\Robot In A Can Bundle\public\tools\Projects\imgs\captures\cap
 F:\AI\eBrainBundle\Robot In A Can Bundle\public\tools\Projects\imgs\captures\captured_image_usb.png
 F:\AI\eBrainBundle\Robot In A Can Bundle\public\tools\Projects\imgs\snap\analog.png
 F:\AI\eBrainBundle\Robot In A Can Bundle\public\tools\Projects\imgs\snap\blink.png
+F:\AI\eBrainBundle\Robot In A Can Bundle\public\tools\Projects\imgs\snap\clipboard_image.png
 F:\AI\eBrainBundle\Robot In A Can Bundle\public\tools\Projects\imgs\snap\clipboard_imagetst.png
 F:\AI\eBrainBundle\Robot In A Can Bundle\public\tools\Projects\imgs\snap\graphscript.png
 F:\AI\eBrainBundle\Robot In A Can Bundle\public\tools\Projects\imgs\snap\inputbutton.png

@@ -1,1 +1,1 @@
-dir /s /b "F:\AI\eBrainBundle\Robot In A Can Bundle\public\tools\Projects" > "F:\AI\eBrainBundle\Robot In A Can Bundle\public\tools\Projects\filelist.txt"
+dir /s /b . > filelist.txt

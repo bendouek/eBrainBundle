@@ -1,0 +1,129 @@
+
+
+=== Introduction_to_RobotInACan
+TITLE: Introduction to The Robot In A Can!
+TEXT: Welcome, young explorer! Today you'll begin your journey into the world of computers and electronics with The Robot In A Can. With this kit you will learn to transform your code into real-world action.
+IMAGE: "\tools\Projects\imgs\svg\PrimaryLogo.svg",50, "Robot In A Can"
+===
+
+
+=== Unboxing_the_Kit
+TITLE: Unboxing the Kit
+TEXT: What's in the Package - Discover the carefully selected components included in your eBrain kit—everything you need to start building.
+IMAGE: "/tools/Projects/imgs/svg/WhatsInTheCan.svg",60, "eBrain package contents"
+TEXT: Kit Contents: 1x eBrain, 2x Motors, 4x Motor Holders, 2x Robot Bodies, 2x Chassis, 2x Wheels, 30x Cables, 1x Battery Pack, 1x Potentiometer, 2x Bulldog Clips, 1x Distance Sensor, 3x LEDs.
+===
+
+
+=== Introduction_to_eBrain
+TITLE: Introduction to eBrain
+TEXT: Your Gateway to Microcontrollers - This is the brain of the kit. It's called the eBrain, and although it doesn't have a screen, it's a computer!
+IMAGE: "/tools/Projects/imgs/eBrain1.6.png",50, "eBrain microcontroller"
+===
+
+=== eBrain_Features
+TITLE: eBrain Features
+TEXT: Designed for Innovators - The eBrain is built for inventors and tinkerers. With it you can build and control tons of electronic projects. 
+[CAROUSEL]
+- SLIDE: "\tools\Projects\imgs\svg\eBrain-01.svg","Microcontroller Board","Interactive Projects","Build systems that respond using actuators and sensors"
+- SLIDE: "\tools\Projects\imgs\svg\eBrain-02.svg","Everyday Computing","Hands-On Learning","Connect circuits and code for real-world interactions. Control it wirelessly."
+- SLIDE: "/tools/Projects/imgs/svg/eBrain-03.svg","Development Board","Prototype Quickly","Test your ideas without a complex setup and spend more time inventing."
+- SLIDE: "\tools\Projects\imgs\svg\eBrain-04.svg","Development Board","Prototype Quickly","It can be programmed seamlessly with Snap Python and Arduino IDE."
+[/CAROUSEL]
+TEXT: Make your ideas come alive!
+===
+
+=== Board_Layout
+TITLE: Board Layout
+TEXT: Let's take a look at this map of the eBrain microcontroller - Understanding your board is key. Look at the chip and see all those electronic parts, let's go over what's on the board.
+IMAGE: "/tools/Projects/imgs/svg/WhatsOnTheBoard.svg",70, "eBrain board layout"
+TEXT:
+TEXT: Parts of the eBrain: 
+TEXT: (1.) Locate the On/Off Switch - this switch can be delicate be careful!
+===
+
+=== Board_Layout
+TITLE: Board Layout
+TEXT: (2.) Servo Motor Bay -- Control up to 4 Servo motors
+TEXT: (3.) Stepper Motor Bay -- You can move 2 stepper motors 
+TEXT: (4.) GPIO Bay -- This connects directly to the computer!
+TEXT: (5.) USB Port -- USB connector (under the logo) for power, and updating the board
+TEXT: (6.) Patch Bay -- Allows you to connect to the built-in components
+TEXT: (7.) Light Sensor  -- A Sensor that detects light
+TEXT: (8.) RGB LED -- A Light that can change color! 
+TEXT: (9.) Buttons -- Very useful for many projects, like a game controller!
+IMAGE: "/tools/Projects/imgs/svg/WhatsOnTheBoard.svg",70, "eBrain board layout"
+===
+
+=== Board_Layout
+TITLE: Board Layout
+TEXT: (10.) Breadboard -- A tool for building circuits (it's glued on and isn't an electronic)
+TEXT: (11.) Power -- For connecting the battery pack
+TEXT:
+TEXT: (12.) eBrain Core -- THIS IS THE MICROCOMPUTER -- check out the squiggly copper trace, that is the WiFi antenna that allows you to communicate with the eBrain through radio waves (WiFi)
+IMAGE: "/tools/Projects/imgs/svg/WhatsOnTheBoard.svg",70, "eBrain board layout"
+===
+
+===Quiz1
+TITLE: Computer Question
+[QUIZ]
+QUESTION: "is the eBrain a Computer?"
+OPTIONS: "Yes","No"
+ANSWER: "Yes"
+[/QUIZ]
+[QUIZ]
+QUESTION: "Do all computers have screens??"
+OPTIONS: "Yes","No"
+ANSWER: "No"
+[/QUIZ]
+===
+
+
+
+
+
+
+
+
+=== What_is_a_Computer
+TITLE: What is a computer?
+TEXT: Computers are all around us. We use them to communicate, play games, navigate with GPS, and even control robots! They are also sometimes smaller and simpler than we might expect, you can find computers in a car or a washing machine, even your microwave has a computer to control it. What exactly is a computer, and how does it work?
+IMAGE: "\tools\Projects\imgs\theory\applications.png",50, "Your image caption"
+===
+
+=== What_Computers_Do
+TITLE: What Computers Do
+TEXT: A computer is a machine that takes inputs, processes them, and produces outputs. This simple idea is the foundation of all computing. Input, Processing, Output. What do you think this means? Let's try some experiments and come back to this.
+IMAGE: "\tools\Projects\imgs\theory\computersdo.png",50, "Your image caption"
+===
+
+
+
+
+
+
+
+
+=== Programming_with_Snap!
+TITLE: Programming with Snap!
+TEXT: Visual, Block-Based Coding - Snap! offers an intuitive, visual approach to programming your eBrain. It lets you build complex logic without typing a single line of code.
+[CODE]
+IMAGE: "/tools/Projects/imgs/snapBasic.png",40, "Click to view code"
+DESCRIPTION: "Click here to try this code in Snap!"
+XMLURL: "../../myProjects/square.xml"
+[/CODE]
+===
+
+=== quiz_intro_eBrain
+TITLE: Quiz: Introduction to eBrain
+TEXT: Let's test your knowledge on the eBrain introduction.
+[QUIZ]
+QUESTION: "What does the eBrain do?"
+OPTIONS: "Transforms code into real-world action","Transforms electricity into code","Stores data","None of the above"
+ANSWER: "Transforms code into real-world action"
+[/QUIZ]
+===
+
+
+
+

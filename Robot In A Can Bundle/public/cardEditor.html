@@ -13,6 +13,13 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
   <style>
+    body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    height: 100vh;
+    font-family: 'Chicago', sans-serif;
+  }
   #container {
     top: 0;
     left: 0;
@@ -35,20 +42,16 @@
     position: fixed;
     overflow-y: scroll;
   }
+  .big {
+    width: 84vw;
+    height: 93vh;
+  }
   .window-body{
     padding: 40px;
   }
   .imgcanvas {
-    width: 40vw;
-    height: 40vh;
+    width: 70vw;
     display: block;
-  }
-  body {
-    margin: 0;
-    padding: 0;
-    display: flex;
-    height: 100vh;
-    font-family: 'Chicago', sans-serif;
   }
   /* Left pane: Editor, Controls, and Image Gallery */
   #editorPane {
@@ -173,7 +176,7 @@
   </div>
     
   <!-- Popup modal -->
-  <div id="popup" class="window popup">
+  <div id="popup" class="window popup big">
     <div class="title-bar">
       <h1 class="title">Camera Tool</h1>
       <button aria-label="Close" onclick="closePopup()"></button>
@@ -192,7 +195,6 @@
       </li>
     </ul>
     <div class="window-body">
-      <p>This pop-up can host your webcam tool interface, which transforms your webcam feed into a pixelated, comic‐dithered image. Use the controls below to capture, save, and add images to your tutorial.</p>
       <div id="controls">
         <button onclick="toggleVideo()" class="btn">Toggle Video</button>
         <button onclick="captureImage()" class="btn">Capture Image</button>
@@ -205,7 +207,7 @@
   </div>
 
     <!-- Modal for captured image preview and saving -->
-  <div id="captureModal" class="window popup">
+  <div id="captureModal" class="window popup big">
     <div class="title-bar">
       <h1 class="title">Save Image?</h1>
       <button aria-label="Close" onclick="closeModal()"></button>
@@ -216,6 +218,7 @@
       </div>
       <div id="modalButtons">
         <button onclick="saveCapturedImage()" class="btn">Save Image</button>
+        <button onclick="closeModal()" class="btn">Cancel</button>
       </div>
     </div>
   </div>
@@ -326,7 +329,7 @@ float rand(vec2 co) {
   return fract(sin(dot(co, vec2(12.9898, 78.233))) * 43758.5453);
 }
 
-// ✅ Bayer dithering function without dynamic array indexing
+// Bayer dithering function without dynamic array indexing
 float getBayerThreshold(int x, int y) {
     if (x == 0 && y == 0) return  0.0 / 17.0;
     if (x == 1 && y == 0) return  8.0 / 17.0;
