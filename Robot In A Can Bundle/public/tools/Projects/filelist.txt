@@ -3,9 +3,11 @@ F:\AI\eBrainBundle\Robot In A Can Bundle\public\tools\Projects\filelist.txt
 F:\AI\eBrainBundle\Robot In A Can Bundle\public\tools\Projects\imgs
 F:\AI\eBrainBundle\Robot In A Can Bundle\public\tools\Projects\updateFiles.bat
 F:\AI\eBrainBundle\Robot In A Can Bundle\public\tools\Projects\xmls
-F:\AI\eBrainBundle\Robot In A Can Bundle\public\tools\Projects\cards\first_circuits.txt
+F:\AI\eBrainBundle\Robot In A Can Bundle\public\tools\Projects\cards\ebrain_intro.txt
+F:\AI\eBrainBundle\Robot In A Can Bundle\public\tools\Projects\cards\first_circuit.txt
 F:\AI\eBrainBundle\Robot In A Can Bundle\public\tools\Projects\cards\ideas.txt
 F:\AI\eBrainBundle\Robot In A Can Bundle\public\tools\Projects\cards\introduction.txt
+F:\AI\eBrainBundle\Robot In A Can Bundle\public\tools\Projects\cards\sample.txt
 F:\AI\eBrainBundle\Robot In A Can Bundle\public\tools\Projects\imgs\bg.png
 F:\AI\eBrainBundle\Robot In A Can Bundle\public\tools\Projects\imgs\captures
 F:\AI\eBrainBundle\Robot In A Can Bundle\public\tools\Projects\imgs\eBrain1.6.png
@@ -31,6 +33,7 @@ F:\AI\eBrainBundle\Robot In A Can Bundle\public\tools\Projects\imgs\snap\inputbu
 F:\AI\eBrainBundle\Robot In A Can Bundle\public\tools\Projects\imgs\snap\potentiometerscript.png
 F:\AI\eBrainBundle\Robot In A Can Bundle\public\tools\Projects\imgs\snap\scaling.png
 F:\AI\eBrainBundle\Robot In A Can Bundle\public\tools\Projects\imgs\snap\snapBasic.png
+F:\AI\eBrainBundle\Robot In A Can Bundle\public\tools\Projects\imgs\snap\triangle.png
 F:\AI\eBrainBundle\Robot In A Can Bundle\public\tools\Projects\imgs\snap\tst.png
 F:\AI\eBrainBundle\Robot In A Can Bundle\public\tools\Projects\imgs\snap\videolight.png
 F:\AI\eBrainBundle\Robot In A Can Bundle\public\tools\Projects\imgs\svg\66AF5971.jpg
@@ -112,6 +115,7 @@ F:\AI\eBrainBundle\Robot In A Can Bundle\public\tools\Projects\imgs\theory\appli
 F:\AI\eBrainBundle\Robot In A Can Bundle\public\tools\Projects\imgs\theory\batteries.jpg
 F:\AI\eBrainBundle\Robot In A Can Bundle\public\tools\Projects\imgs\theory\binary.png
 F:\AI\eBrainBundle\Robot In A Can Bundle\public\tools\Projects\imgs\theory\binaryII.png
+F:\AI\eBrainBundle\Robot In A Can Bundle\public\tools\Projects\imgs\theory\cables.jpg
 F:\AI\eBrainBundle\Robot In A Can Bundle\public\tools\Projects\imgs\theory\computersdo.png
 F:\AI\eBrainBundle\Robot In A Can Bundle\public\tools\Projects\imgs\theory\hacking.png
 F:\AI\eBrainBundle\Robot In A Can Bundle\public\tools\Projects\imgs\theory\input.png

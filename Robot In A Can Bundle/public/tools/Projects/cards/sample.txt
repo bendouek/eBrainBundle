@@ -1,0 +1,8 @@
+===intro
+TEXT: the E brain is a great teacher
+[CODE]
+IMAGE: "\tools\Projects\imgs\snap\snapBasic.png",40, "Click to view code"
+DESCRIPTION: "Your description here"
+XMLURL: "/tools/Projects/xmls/square.xml"
+[/CODE]
+===
