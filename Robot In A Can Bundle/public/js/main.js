@@ -139,11 +139,9 @@ async function tryWebSocketConnection() {
 
 // If WebSocket connection fails, prompt the user to connect via USB
 async function promptUsbConnection() {
-    displayMessage("Please connect via USB.");
-    await delayAS(1200); 
     USBmsg();
-    displayMessage("Click the button in SNAP -> Select 'USBSerial' from the pop-up");
-    await delayAS(3400);
+    displayMessage("Click the button in SNAP -> Select 'USB2.0-Serial (XXX)' from the pop-up");
+    await delayAS(3000);
     displayMessage("Power cycle the eBrain if it doesn't appear.");
     let usbConnected = await waitForUSBConnection(36000, 500);
     return usbConnected;
@@ -156,6 +154,7 @@ async function checkExistingIP() {
       // Check if the response contains a valid IP
       if (rtnMsg && rtnMsg.ip) {
         displayIP(rtnMsg.ip);  // Update the UI with the IP
+        displayRobot(rtnMsg.name);
         resolve(rtnMsg.ip);
       } else {
         reject("No valid IP found");

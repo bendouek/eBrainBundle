@@ -17,7 +17,7 @@
         await screen.orientation.lock("landscape");
         world.setWidth(world.worldCanvas.width);
         world.setHeight(world.worldCanvas.height);
-        world.children[0].refreshIDE();
+        world.children.find(child => child instanceof IDE_Morph).refreshIDE();
         mobileStageSmall();
       }
 
@@ -28,7 +28,7 @@
       async function mobileStageSmall(){
         if (!executed) {
             executed = true;
-            world.children[0].toggleStageSize();
+            world.children.find(child => child instanceof IDE_Morph).toggleStageSize();
         }
       }
 
@@ -36,8 +36,9 @@
         var ide = world.children.find(child => child instanceof IDE_Morph);
         Process.prototype.enableJS = true;
         ide.flatDesign();
+        ide.brightTheme();
         ide.setBlocksScale(1.3);
-        ide.setPaletteWidth(235);
+        ide.setPaletteWidth(250);
         // Only load library from github if NOT hosted
         if (!hasProjectPath()) {
           // Load in library from github
@@ -61,8 +62,6 @@
         } else {
           loadProject();
         }
-
-        addToDemo();
       }
 
       window.addEventListener('message', function(event) {
@@ -106,29 +105,25 @@
           function(button) {
             // Must delay autosave until after a selection is made, otherwise empty project will be auto saved.
             if (button) {
-              ide.openProjectString(storedProject, startAutosave);
+              ide.openProjectString(storedProject);
             } else {
               //load_project_path_if_exists(); // Attempt to load project from the iframe parameter.
-              startAutosave();
             }
           });
         } else {
-          //load_project_path_if_exists(); // Attempt to load project from the iframe parameter.
-          startAutosave();
+
         }
       }
 
       /**
-       * Start project autosave every 15 seconds.
+       * Start project autosave every refresh or close event
        */
       function startAutosave() {
-        var saveInterval = setInterval(function() {
-            var ide = world.children[0];
-            if (!ide.isRunning()) {
-              var xml = ide.serializer.serialize(new Project(ide.scenes, ide.scene));
-              localStorage.setItem("snapIDE" + autosavePath(), xml);
-            }
-        }, 15000);
+        var ide = world.children.find(child => child instanceof IDE_Morph);
+        if (!ide.isRunning()) {
+          var xml = ide.serializer.serialize(new Project(ide.scenes, ide.scene));
+          localStorage.setItem("snapIDE" + autosavePath(), xml);
+        }
       }
 
       function autosavePath() {
@@ -181,69 +176,7 @@
         setTimeout(function() {box.popUp(world)}, 400);
       }
       
-      function addToDemo() {
-        var h, b, c, ci, cb, cm, cd, co, cl, cu, cs, cmd, rings, rc, scripts;
-        // SyntaxElementMorph.prototype.setScale(2.5);
-
-        h = new HatBlockMorph();
-        h.setSpec('When %greenflag pressed');
-
-        b = new ReporterBlockMorph(true);
-        b.setSpec('%bool');
-
-        c = new CommandBlockMorph();
-        c.setSpec('this is a test $globe');
-
-        ci = new CommandBlockMorph();
-        ci.setSpec('block with input %s unit %mult%n number');
-
-        cb = new CommandBlockMorph();
-        cb.setSpec('bool %b ?');
-
-        cd = new CommandBlockMorph();
-        cd.setSpec('direction %dir degrees');
-
-        co = new CommandBlockMorph();
-        co.setSpec('object %obj');
-
-        cl = new CommandBlockMorph();
-        cl.setSpec('list %l');
-
-        cu = new CommandBlockMorph();
-        cu.setSpec('list %upvar');
-
-        cs = new CommandBlockMorph();
-        cs.setSpec('control %b %ca');
-
-        cmd = new CommandBlockMorph();
-        cmd.setSpec('command %cmdRing');
-
-        rings = new CommandBlockMorph();
-        rings.setSpec('reporter %repRing predicate %predRing');
-
-        rc = new ReporterBlockMorph();
-        rc.setSpec('color %clr');
-
-        scripts = new ScriptsMorph();
-
-        BlockMorph.prototype.addToDemoMenu([
-          'Syntax',
-          [
-            [h, 'hat'],
-            [b, 'predicate'],
-            [c, 'with label text'],
-            [ci, 'editable input slots'],
-            [cb, 'Boolean slot'],
-            //[cm, 'menu input'],
-            [cd, 'direction input'],
-            [co, 'object input'],
-            [cl, 'list input'],
-            [cu, 'upvar input'],
-            [cs, 'loop input'],
-            [cmd, 'cmd ring input'],
-            [rings, 'reporter rings input'],
-            [rc, 'color input'],
-            [scripts, 'scripts']
-          ]
-        ]);
+      window.onbeforeunload = closingCode;
+      function closingCode(){
+        startAutosave();
       }

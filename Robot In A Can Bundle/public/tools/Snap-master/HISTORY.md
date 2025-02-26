@@ -2,6 +2,16 @@
 
 ## in development:
 
+## 10.4.6:
+* **Notable Changes:**
+    * SciSnap update, thanks, Eckart!
+    * reduced blocks outline contrast in flat design mode
+
+### 2025-02-05
+* gui: reduced blocks outline contrast in flat design mode
+* SciSnap update, thanks, Eckart!
+* prepared v10.4.6 patch 
+
 ## 10.4.5:
 * **Notable Fixes:**
     * fixed evaluating special strings inside numerical input slots
