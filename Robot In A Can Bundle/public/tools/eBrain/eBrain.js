@@ -475,3 +475,28 @@ watchBoolean(eb, "connected", (newState) => {
   var msg = { 'msg': newState, 'cmd': 'chk' };
   window.parent.postMessage(msg, "*");
 });
+
+
+
+function makeCommand(cmd, params) {
+    let output = { 'cmd': cmd };
+
+    // Parse JSON string if params is not an object
+    if (typeof params === 'string') {
+        try {
+            params = JSON.parse(params);
+        } catch (error) {
+            console.error("Invalid JSON format:", params);
+            return null;
+        }
+    }
+
+    if (typeof params === 'object' && params !== null) {
+        for (let key in params) {
+            output[key] = isNaN(params[key]) ? params[key] : Number(params[key]);
+        }
+    }
+
+    return output;
+}
+

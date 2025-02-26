@@ -572,36 +572,36 @@ const commands = {
   "wifi_status": {},
   "ws_status": {},
   "digital_read": { 
-    "pin": 13 
+    "pin": 4 
   },
   "analog_read": {},
   "digital_write": { 
-    "pin": 13, 
+    "pin": 4, 
     "value": "HIGH" 
   },
   "pwm_write": { 
-    "pin": 13, 
+    "pin": 5, 
     "value": 128 
   },
   "ultrasonic_distance": { 
-    "trig_pin": 12, 
-    "echo_pin": 14 
+    "trig_pin": 4, 
+    "echo_pin": 5 
   },
   "dht11_read": { 
-    "pin": 2 
+    "pin": 16 
   },
   "continuous_servo": { 
-    "pin": 9, 
+    "pin": 16, 
     "speed": 90 
   },
   "regular_servo": { 
-    "pin": 10, 
+    "pin": 16, 
     "angle": 45 
   },
   "move_servos": { 
     "servos": [
-      { "mode": "continuous", "pin": 9, "speed": 90 },
-      { "mode": "regular", "pin": 10, "angle": 45 }
+      { "mode": "continuous", "pin": 16, "speed": 0 },
+      { "mode": "continuous", "pin": 14, "speed": 180 }
     ]
   },
   "stepper_turn": { 
@@ -611,8 +611,8 @@ const commands = {
   },
   "stepper_turn_multi": { 
     "motors": [
-      { "motor": 0, "steps": 50, "direction": 1 },
-      { "motor": 1, "steps": 50, "direction": 0 }
+      { "motor": 0, "steps": 150, "direction": 1 },
+      { "motor": 1, "steps": 150, "direction": 0 }
     ]
   },
   "update_settings": { 
