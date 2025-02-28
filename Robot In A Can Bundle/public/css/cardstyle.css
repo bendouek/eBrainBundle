@@ -4,7 +4,7 @@
   font-weight: 500;
   width: 80vw;
   max-width: 800px;
-  height: 13vh;
+  height: 14vh;
   padding: 20px;
   background: radial-gradient(#F1f1f1, #FFFFFF);
   /*background: radial-gradient(#3A515B, #1A313B);*/
@@ -22,7 +22,9 @@
 /* Media area for images, carousels, audio, quizzes, etc. */
 #media2 {
   color: #1A313B;
-  max-width: 800px;
+  max-width: 820px;
+  max-height: 600px;
+  overflow-y: auto;
 }
 
 #media2 img{
@@ -66,4 +68,25 @@
 .quiz-form {
   font-family: "Roboto", serif;
   font-weight: 400;
+}
+
+.markdown-slide{
+  font-family: "Roboto", serif;
+  font-weight: 300;
+  justify-items: left;
+  padding-right: 10px;
+
+}
+
+.markdown-slide h1{
+  font-size: 1.8em;
+  
+}
+
+.markdown-slide h2{
+  font-size: 1.6em;
+}
+
+.markdown-slide h3{
+  font-size: 1.4em;
 }

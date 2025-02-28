@@ -226,6 +226,8 @@
   <!-- Gallery: Captured images will be added here -->
   <div id="gallery"></div>
 
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
   <script type="text/javascript" src="/js/render.js"></script>
   
   <script>
@@ -587,12 +589,7 @@ void main() {
       console.log(path);
       const editor = document.getElementById('dslEditor');
       const snippet = 'IMAGE: "' + path + '",50, "Your image caption"\n';
-      const start = editor.selectionStart;
-      const end = editor.selectionEnd;
-      const text = editor.value;
-      editor.value = text.substring(0, start) + snippet + text.substring(end);
-      editor.focus();
-      editor.selectionStart = editor.selectionEnd = start + snippet.length;
+      insertFormattedText(snippet);
     }
 
      function insertXMLElement(path) {
@@ -603,17 +600,18 @@ IMAGE: "${path}",40, "Click to view code"
 DESCRIPTION: "Your description here"
 XMLURL: "${path}"
 [/CODE]`;
-        // Output the formatted text (for example, logging it to the console)
-        console.log(formattedText);
-        // Additional functionality (e.g., accessing an editor element)
-        const editor = document.getElementById('dslEditor');
-        // You might insert formattedText into the editor or perform other operations here
-        const start = editor.selectionStart;
-        const end = editor.selectionEnd;
-        const text = editor.value;
-        editor.value = text.substring(0, start) + formattedText + text.substring(end);
-        editor.focus();
-        editor.selectionStart = editor.selectionEnd = start + formattedText.length;
+        insertFormattedText(formattedText);
+      }
+
+
+      function insertMDTemplate(path) {
+        // Create the formatted text using the provided path for the markdown block.
+        const formattedText = 
+`[MD]
+PATH: "${path}"
+[/MD]
+`;
+        insertFormattedText(formattedText);
       }
 
      function insertTXTElement(path) {
@@ -625,22 +623,35 @@ XMLURL: "${path}"
           return response.text();
         })
         .then(txtContent => {
-          console.log("Loaded text content:", txtContent);  // Debug: Check fetched text
-          const editor = document.getElementById('dslEditor');
-          if (!editor) {
-            console.error("Editor element not found!");
-            return;
-          }
-          const start = editor.selectionStart;
-          const end = editor.selectionEnd;
-          const text = editor.value;
-          editor.value = text.substring(0, start) + txtContent + text.substring(end);
-          editor.focus();
-          editor.selectionStart = editor.selectionEnd = start + txtContent.length;
+          insertFormattedText(txtContent);
         })
         .catch(error => {
           console.error("Failed to load the text file:", error);
         });
+    }
+
+    function insertFormattedText(formattedText) {
+      // Log the formatted text.
+      console.log(formattedText);
+      
+      // Get the DSL editor element.
+      const editor = document.getElementById('dslEditor');
+      if (!editor) {
+        console.error("Editor element not found!");
+        return;
+      }
+  
+      // Get current selection positions.
+      const start = editor.selectionStart;
+      const end = editor.selectionEnd;
+      
+      // Insert the formatted text into the editor.
+      const text = editor.value;
+      editor.value = text.substring(0, start) + formattedText + text.substring(end);
+      
+      // Focus the editor and move the cursor after the inserted text.
+      editor.focus();
+      editor.selectionStart = editor.selectionEnd = start + formattedText.length;
     }
 
     // Insert a template snippet for a given element type based on dropdown selection.
@@ -664,6 +675,9 @@ XMLURL: "${path}"
           break;
         case "IFRAME":
           template = "[IFRAME]\nSRC: \"http://example.com/yourmedia\"\nCROP: x=0, y=0, width=600, height=400\nDESCRIPTION: \"Your description here\"\n[/IFRAME]\n";
+          break;
+        case "MD":
+          template = "[MD]\nPATH: \"path/to/markdown.md\"\n[/MD]\n";
           break;
         default:
           template = "";
@@ -771,6 +785,13 @@ function generateGallery(fileContent) {
         // Insert an IMAGE DSL snippet with the original truncated path.
         // Even if it's not an image, you might want to reference it.
         insertXMLElement(truncatedPath);
+      });
+    } else if(ext === "md"){
+      thumbSrc = "/tools/Projects/imgs/md.svg";
+      img.addEventListener('click', () => {
+        // Insert an IMAGE DSL snippet with the original truncated path.
+        // Even if it's not an image, you might want to reference it.
+        insertMDTemplate(truncatedPath);
       });
     } else {
       thumbSrc = "/tools/Projects/imgs/otherimg.png";

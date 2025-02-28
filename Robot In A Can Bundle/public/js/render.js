@@ -47,17 +47,24 @@ function parseDSL(dslText) {
   const lines = dslText.split("\n");
   const slides = [];
   let currentSlide = null;
+  let currentChapter = ""; // Holds the current chapter name.
   
   for (let i = 0; i < lines.length; i++) {
     let line = lines[i].trim();
-    if (line.startsWith("===")) {
-      // Toggle slide boundaries: start or end
+    if (!line) continue;
+    
+    if (line.startsWith("CHAPTER:")) {
+      // Set current chapter for subsequent slides.
+      currentChapter = line.substring("CHAPTER:".length).trim();
+    } else if (line.startsWith("===")) {
+      // Toggle slide boundaries: start or end a slide.
       if (!currentSlide) {
-        // Start a new slide; text after "===" is the slide's id
+        // Start a new slide; text after "===" is the slide's id.
         const id = line.substring(3).trim();
-        currentSlide = { id: id, title: "", text: "", elements: [] };
+        // Include the current chapter in the slide.
+        currentSlide = { id: id, title: "", dialogue: "", elements: [], chapter: currentChapter };
       } else {
-        // End of the current slide; push it and reset
+        // End of the current slide; push it and reset.
         slides.push(currentSlide);
         currentSlide = null;
       }
@@ -66,15 +73,15 @@ function parseDSL(dslText) {
         currentSlide.title = line.substring("TITLE:".length).trim();
       } else if (line.startsWith("TEXT:")) {
         let dialogueLine = line.substring("TEXT:".length).trim();
-        // Append multiple DIALOGUE lines with a newline separator
+        // Append multiple TEXT lines with a newline separator.
         currentSlide.dialogue = currentSlide.dialogue ? currentSlide.dialogue + "\n" + dialogueLine : dialogueLine;
       } else if (line.startsWith("IMAGE:")) {
-        // Standalone image element
+        // Standalone image element.
         const imageElement = parseImageLine(line);
         currentSlide.elements.push(imageElement);
       } else if (line.startsWith("[CAROUSEL]")) {
         const carouselItems = [];
-        i++; // Advance to content inside the block
+        i++; // Advance into block.
         while (i < lines.length && !lines[i].trim().startsWith("[/CAROUSEL]")) {
           let carouselLine = lines[i].trim();
           if (carouselLine.startsWith("- SLIDE:")) {
@@ -140,11 +147,27 @@ function parseDSL(dslText) {
           i++;
         }
         currentSlide.elements.push(iframe);
+      } else if (line.startsWith("[MD]")) {
+        // Markdown block: load markdown file into slide.
+        const md = { type: 'md', path: "", content: "" };
+        i++; // Advance into block.
+        while (i < lines.length && !lines[i].trim().startsWith("[/MD]")) {
+          let mdLine = lines[i].trim();
+          if (mdLine.startsWith("PATH:")) {
+            md.path = mdLine.substring("PATH:".length).trim().replace(/^"|"$/g, '');
+          } else {
+            // Optionally accumulate inline markdown text.
+            md.content += mdLine + "\n";
+          }
+          i++;
+        }
+        currentSlide.elements.push(md);
       }
     }
   }
   return slides;
 }
+
 
 // ===== Utility Functions =====
 
@@ -269,6 +292,30 @@ async function processElements(elements) {
         mediaDiv.appendChild(desc);
       }
       await delay2(1000);
+    }  else if (element.type === 'md') {
+      // Markdown block: load and render a Markdown file into the mediaDiv.
+      const mdContainer = document.createElement('div');
+      mdContainer.classList.add('markdown-slide');
+      mdContainer.innerHTML = "<p>Loading markdown...</p>";
+      mediaDiv.appendChild(mdContainer);
+      
+      try {
+        const response = await fetch(element.path);
+        if (response.ok) {
+          const mdText = await response.text();
+          // Convert markdown to HTML.
+          // Replace the following line with your preferred markdown parser,
+          const htmlContent = convertMarkdownToHTMLElement(mdText);
+
+          mdContainer.innerHTML = htmlContent.toString();
+        } else {
+          mdContainer.innerHTML = "<p>Error loading markdown file.</p>";
+        }
+      } catch (err) {
+        console.error("Markdown fetch error:", err);
+        mdContainer.innerHTML = "<p>Error loading markdown file.</p>";
+      }
+      await delay2(1000);
     }
   }
 }
@@ -334,6 +381,32 @@ function processPostInstant(post) {
         desc.textContent = element.description;
         mediaDiv.appendChild(desc);
       }
+    } else if (element.type === 'md') {
+      // Create a container for the markdown content.
+      const mdContainer = document.createElement('div');
+      mdContainer.classList.add('markdown-slide');
+      mdContainer.innerHTML = "<p>Loading markdown...</p>";
+      mediaDiv.appendChild(mdContainer);
+      
+      // Fetch the markdown file without using async/await.
+      fetch(element.path)
+        .then(response => {
+          if (response.ok) {
+            return response.text();
+          } else {
+            throw new Error("HTTP error " + response.status);
+          }
+        })
+        .then(mdText => {
+          // Optionally, convert markdown to HTML here using a library like marked.
+          // For now, we simply insert the raw markdown.
+          const htmlContent = convertMarkdownToHTMLElement(mdText);
+          mdContainer.innerHTML = htmlContent.toString();
+        })
+        .catch(err => {
+          console.error("Error loading markdown:", err);
+          mdContainer.innerHTML = "<p>Error loading markdown file.</p>";
+        });
     }
   });
 }
@@ -530,6 +603,20 @@ function generateQuizElement(quiz) {
   });
   
   return quizDiv;
+}
+
+
+// Convert Markdown text into an HTML element.
+function convertMarkdownToHTMLElement(mdText) {
+  // Use the marked library to convert Markdown to HTML.
+  // Ensure that marked.js is loaded in your project.
+  const htmlContent = marked.parse(mdText);
+  
+  // Create a container element for the HTML content.
+  const container = document.createElement('div');
+  container.innerHTML = htmlContent;
+  
+  return htmlContent;
 }
 
 
