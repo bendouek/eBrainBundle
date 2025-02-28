@@ -315,6 +315,7 @@ async function processElements(elements) {
         console.error("Markdown fetch error:", err);
         mdContainer.innerHTML = "<p>Error loading markdown file.</p>";
       }
+      addMarkdownCSS();
       await delay2(1000);
     }
   }
@@ -407,6 +408,7 @@ function processPostInstant(post) {
           console.error("Error loading markdown:", err);
           mdContainer.innerHTML = "<p>Error loading markdown file.</p>";
         });
+        addMarkdownCSS();
     }
   });
 }
@@ -641,4 +643,39 @@ function previewLoad(txt) {
   currentSlideIndex = 0;
   displaySlide();
   createSlider();
+}
+
+
+
+function addMarkdownCSS(){
+  document.querySelectorAll('.markdown-slide').forEach(div => {
+    // Only attach a shadow root if one doesn't already exist.
+    if (!div.shadowRoot) {
+      // Attach a shadow root in open mode.
+      const shadow = div.attachShadow({ mode: 'open' });
+      
+      // Create a link element to load the external CSS file.
+      const linkElem = document.createElement('link');
+      linkElem.setAttribute('rel', 'stylesheet');
+      linkElem.setAttribute('href', 'css/Resolute.css'); // Update with your CSS file path.
+      shadow.appendChild(linkElem);
+      
+      // Helper function to recursively remove inline styles and class attributes.
+      function removeStylesAndClasses(node) {
+        if (node.nodeType === Node.ELEMENT_NODE) {
+          node.removeAttribute('style');
+          node.removeAttribute('class');
+        }
+        node.childNodes.forEach(child => removeStylesAndClasses(child));
+      }
+      
+      // Move all current children of the div into the shadow root,
+      // after clearing any inline styles and classes.
+      while (div.firstChild) {
+        let child = div.firstChild;
+        removeStylesAndClasses(child);
+        shadow.appendChild(child);
+      }
+    }
+  });
 }

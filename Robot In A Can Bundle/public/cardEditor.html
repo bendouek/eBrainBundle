@@ -146,6 +146,7 @@
           <option value="IFRAME">IFRAME</option>
         </select>
         <button class="btn" onclick="insertElementTemplate()">Insert Template</button>
+        <button class="btn" onclick="saveEditorContentAsTxt()">Save As</button>
       </div>
       <textarea id="dslEditor" placeholder="Write your DSL here..."></textarea>
       <button class="btn" onclick="renderPreview()">Render Preview</button>
@@ -849,6 +850,20 @@ function getClipboardImage() {
     alert("Failed to read the clipboard.");
   });
 }
+
+function saveEditorContentAsTxt() {
+  const text = document.getElementById('dslEditor').value;
+  const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'dslEditor.txt';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
 
   </script>
 </body>

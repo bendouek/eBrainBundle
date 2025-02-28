@@ -23,8 +23,6 @@
 #media2 {
   color: #1A313B;
   max-width: 820px;
-  max-height: 600px;
-  overflow-y: auto;
 }
 
 #media2 img{
@@ -71,22 +69,11 @@
 }
 
 .markdown-slide{
+  max-height: 600px;
+  overflow-y: auto;
   font-family: "Roboto", serif;
   font-weight: 300;
   justify-items: left;
   padding-right: 10px;
 
-}
-
-.markdown-slide h1{
-  font-size: 1.8em;
-  
-}
-
-.markdown-slide h2{
-  font-size: 1.6em;
-}
-
-.markdown-slide h3{
-  font-size: 1.4em;
 }

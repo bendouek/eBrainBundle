@@ -1,3 +1,5 @@
+CHAPTER: One
+
 === Introduction_to_RobotInACan
 TITLE: Introduction to The Robot In A Can!
 TEXT: Welcome, young explorer! Today you'll begin your journey into the world of computers and electronics with The Robot In A Can. With this kit you will learn to transform your code into real-world action.
@@ -17,6 +19,14 @@ TEXT: Kit Contents: 1x eBrain, 2x Motors, 4x Motor Holders, 2x Robot Bodies, 2x 
 TITLE: Introduction to eBrain
 TEXT: Your Gateway to Microcontrollers - This is the brain of the kit. It's called the eBrain, and although it doesn't have a screen, it's a computer!
 IMAGE: "/tools/Projects/imgs/eBrain1.6.png",50, "eBrain microcontroller"
+===
+
+===Intro_to_computing
+TITLE: How did we invent computers?
+[MD]
+PATH: "\tools\Projects\md\computing_history.md"
+[/MD]
+
 ===
 
 === eBrain_Features

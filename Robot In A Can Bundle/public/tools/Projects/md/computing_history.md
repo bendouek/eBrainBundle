@@ -1,6 +1,3 @@
-# Chapter 1: The History of Computing – From Baskets to Binary
-
-## Introduction
 Computers may seem like magical devices, but at their core, they are simply machines designed to perform calculations at an incredible speed. To truly understand how computers work, we must go back in time and explore how humans have always used tools to help them solve problems. From counting with baskets and pumpkins to the birth of modern computing, our journey will reveal that computers are just an evolution of tools that have been used for centuries to store and process information.
 
 ## Early Counting Tools: Baskets and Pumpkins
