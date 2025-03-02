@@ -1,51 +1,99 @@
-=== Introduction_to_eBrain
-TITLE: Introduction to eBrain
-TEXT: Your Gateway to Microcontrollers - Welcome, young explorer! Today you'll begin your journey into the world of microcontrollers with the eBrain. This remarkable device transforms your code into real-world action.
-IMAGE: "/tools/Projects/imgs/eBrain1.6.png",50, "eBrain microcontroller"
-===
+CHAPTER: Introduction
 
-=== Unboxing_the_Kit
-TITLE: Unboxing the Kit
-TEXT: What's in the Package - Discover the carefully selected components included in your eBrain kit—everything you need to start building.
-IMAGE: "/tools/Projects/imgs/svg/WhatsInTheCan.svg",60, "eBrain package contents"
-TEXT: Kit Contents: 1x eBrain, 2x Motors, 4x Motor Holders, 2x Robot Bodies, 2x Chassis, 2x Wheels, 30x Cables, 1x Battery Pack, 1x Potentiometer, 2x Bulldog Clips, 1x Distance Sensor, 3x LEDs.
+=== Introduction_to_RobotInACan
+TITLE: Introduction to The Robot In A Can!
+TEXT: Welcome, young explorer! Today you'll begin your journey into the world of computers and electronics with The Robot In A Can. With this kit you will learn to transform your code into real-world action.
+IMAGE: "\tools\Projects\imgs\svg\PrimaryLogo.svg",60, "Robot In A Can"
 ===
 
 === eBrain_Features
 TITLE: eBrain Features
-TEXT: Designed for Innovators - The eBrain is built for inventors and tinkerers. It works seamlessly with Snap!, Python, and Arduino IDE, bridging the digital and physical worlds.
+TEXT: Designed for Innovators - The eBrain is built for inventors and tinkerers. With it you can build and control tons of electronic projects. 
 [CAROUSEL]
-- SLIDE: "/tools/Projects/imgs/svg/eBrain-04.svg","Microcontroller Board","Interactive Projects","Build systems that respond to automation."
-- SLIDE: "/tools/Projects/imgs/svg/eBrain-03.svg","Everyday Computing","Hands-On Learning","Connect circuits and code for real-world interactions."
-- SLIDE: "/tools/Projects/imgs/svg/eBrain-02.svg","Development Board","Prototype Quickly","Test your ideas without a complex setup."
+- SLIDE: "\tools\Projects\imgs\svg\eBrain-01.svg","Microcontroller Board","Projects with a Brain","Build projects with sensors and actuators using a real microcomputer."
+- SLIDE: "/tools/Projects/imgs/svg/eBrain-03.svg","Development Board","Prototype Quickly","Test your ideas without a complex setup and spend more time inventing. Control it wirelessly."
+- SLIDE: "\tools\Projects\imgs\svg\eBrain-02.svg","Everyday Computing","Hands-On Learning","Connect circuits and code for real-world interactions. Learn to make code that makes a difference!"
+- SLIDE: "\tools\Projects\imgs\svg\eBrain-04.svg","Skill Levels","For all skill levels","It can be programmed seamlessly with Snap Python and Arduino IDE."
 [/CAROUSEL]
-TEXT: It empowers you to create smart, responsive projects that make your ideas come alive.
+TEXT: Make your ideas come alive!
+===
+
+
+=== Unboxing_the_Kit
+TITLE: Unboxing the Kit - *Your kit might be different*
+TEXT: What's in the Package - Discover the carefully selected components included in your eBrain kit—everything you need to start building.
+IMAGE: "/tools/Projects/imgs/svg/WhatsInTheCan.svg",84, "eBrain package contents"
+TEXT: Kit Contents: 1x eBrain, 2x Motors, 4x Motor Holders, 2x Robot Bodies, 2x Chassis, 2x Wheels, 30x Cables, 1x Battery Pack, 1x Potentiometer, 2x Bulldog Clips, 1x Distance Sensor, 3x LEDs.
+===
+
+=== Introduction_to_eBrain
+TITLE: Introduction to eBrain
+TEXT: Your Gateway to Microcontrollers - This is the brain of the kit. It's called the eBrain, and although it doesn't have a screen, it's a computer!
+IMAGE: "/tools/Projects/imgs/eBrain1.6.png",40, "eBrain microcontroller"
 ===
 
 === Board_Layout
 TITLE: Board Layout
-TEXT: Mapping the Microcontroller - Understanding your board is key. Explore the layout of the eBrain to know where to connect your sensors and peripherals.
+TEXT: Let's take a look at this map of the eBrain microcontroller - Understanding your board is key. Look at the chip and see all those electronic parts, let's go over what's on the board.
 IMAGE: "/tools/Projects/imgs/svg/WhatsOnTheBoard.svg",70, "eBrain board layout"
-TEXT: Parts of the eBrain: On/Off Switch, Servo Motor Bay, Stepper Motor Bay, GPIO Bay, USB FTDI Port, Patch Bay, Light Sensor, RGB LED, Buttons, Breadboard, Power, eBrain Core.
+TEXT:
+TEXT: Parts of the eBrain: 
+TEXT: (1.) Locate the On/Off Switch - this switch can be delicate be careful!
 ===
 
-=== Programming_with_Snap!
-TITLE: Programming with Snap!
-TEXT: Visual, Block-Based Coding - Snap! offers an intuitive, visual approach to programming your eBrain. It lets you build complex logic without typing a single line of code.
-[CODE]
-IMAGE: "/tools/Projects/imgs/snapBasic.png",40, "Click to view code"
-DESCRIPTION: "Click here to try this code in Snap!"
-XMLURL: "../../myProjects/square.xml"
-[/CODE]
+=== Board_Layout
+TITLE: Board Layout
+TEXT: (2.) Servo Motor Bay -- Control up to 4 Servo motors
+TEXT: (3.) Stepper Motor Bay -- You can move 2 stepper motors 
+TEXT: (4.) GPIO Bay -- This connects directly to the computer!
+TEXT: (5.) USB Port -- USB connector (under the logo) for power, and updating the board
+TEXT: (6.) Patch Bay -- Allows you to connect to the built-in components
+TEXT: (7.) Light Sensor  -- A Sensor that detects light
+TEXT: (8.) RGB LED -- A Light that can change color! 
+TEXT: (9.) Buttons -- Very useful for many projects, like a game controller!
+IMAGE: "/tools/Projects/imgs/svg/WhatsOnTheBoard.svg",70, "eBrain board layout"
 ===
 
-=== quiz_intro_eBrain
-TITLE: Quiz: Introduction to eBrain
-TEXT: Let's test your knowledge on the eBrain introduction.
+=== Board_Layout
+TITLE: Board Layout
+TEXT: (10.) Breadboard -- A tool for building circuits (it's glued on and isn't directly connected to the eBrain)
+TEXT: (11.) Power -- For connecting the battery pack
+TEXT:
+TEXT: (12.) eBrain Core -- THIS IS THE MICROCOMPUTER -- check out the squiggly copper trace.
+TEXT: That is the WiFi antenna that allows you to communicate with the eBrain through radio waves (WiFi) 
+TEXT: also notice all the tiny copper legs (little squares) around the edges those are the GPIO... but more on that later.
+IMAGE: "/tools/Projects/imgs/svg/WhatsOnTheBoard.svg",70, "eBrain board layout"
+===
+
+===Quiz_1
+TITLE: Computer Question
+TEXT: What do we know about the eBrain?
 [QUIZ]
-QUESTION: "What does the eBrain do?"
-OPTIONS: "Transforms code into real-world action","Transforms electricity into code","Stores data","None of the above"
-ANSWER: "Transforms code into real-world action"
+QUESTION: "is the eBrain a Computer?"
+OPTIONS: "Yes","No"
+ANSWER: "Yes"
+[/QUIZ]
+[QUIZ]
+QUESTION: "Do all computers have screens?"
+OPTIONS: "Yes","No"
+ANSWER: "No"
+[/QUIZ]
+[QUIZ]
+QUESTION: "What is the squiggly copper trace on the eBrain core?"
+OPTIONS: "A worm","WiFi antenna","electric wire","a battery connector"
+ANSWER: "WiFi antenna"
 [/QUIZ]
 ===
 
+===Intro_to_computing
+TITLE: Counting Technology
+[MD]
+PATH: "\tools\Projects\md\chapter_1_computing.md"
+[/MD]
+TEXT: To understand how we invented the computer we first must understand how we discovered counting, since in a lot of ways the computer is a type of counting machine...
+===
+
+===End_Lesson
+TITLE: END
+TEXT: Choose your next lesson!
+===

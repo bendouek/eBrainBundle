@@ -1,0 +1,87 @@
+===Intro_to_Snap
+TITLE: A Crash Course in Snap!
+IMAGE: "\tools\Projects\imgs\theory\snap.png",50, "An overview of Snap! programming environment"
+TEXT: Welcome to Snap! This visual programming language allows you to create interactive animations, games, and simulations using drag-and-drop blocks instead of traditional text-based coding.
+TEXT: Let's explore the basics of Snap! to understand how to build programs step by step.
+===
+
+===Intro_to_computing
+TITLE: Scripting Area & Palette
+IMAGE: "\tools\Projects\imgs\theory\snapII.png",50, "Understanding the Scripting Area and Palette"
+TEXT: The Scripting Area is where you build your code by connecting blocks together.
+TEXT: The Palette contains different categories of blocks such as Motion, Looks, Sound, Events, and Control.
+TEXT: Drag blocks from the Palette into the Scripting Area to create a program.
+===
+
+===Intro_to_computing
+TITLE: Stage, Sprite, & Sprite Control
+IMAGE: "\tools\Projects\imgs\theory\snapIII.png",50, "Understanding the Stage and Sprites"
+TEXT: The Stage is where all your program’s actions happen. Think of it like the screen where your animations and interactions take place.
+TEXT: Sprites are characters or objects that you can control with code.
+TEXT: The Sprite Control Panel allows you to change a sprite’s appearance, size, position, and properties.
+===
+
+===Intro_to_computing
+TITLE: Hat Blocks - Starting a Program
+IMAGE: "\tools\Projects\imgs\snap\hatblocks.png",50, "Hat Blocks in Snap!"
+IMAGE: "\tools\Projects\imgs\snap\stageandflag.png",50, "The Green Flag starts your code!"
+TEXT: Hat Blocks are special blocks that start a script.
+TEXT: The most common hat block is 'When Green Flag Clicked', which runs the program when you click the Green Flag button.
+TEXT: There are other hat blocks, such as 'When Key Pressed', which allows you to start a script by pressing a key on your keyboard.
+===
+
+===Code_List
+TITLE: Code is Like a List
+IMAGE: "\tools\Projects\imgs\snap\firstprogram.png",65, "An example of a simple Snap! script"
+TEXT: Code works like a list of instructions, telling the computer what to do, in order.
+TEXT: In Snap!, blocks connect together from top to bottom, just like a set of steps in a recipe.
+TEXT: Try building a simple program by dragging and connecting blocks from the Palette to the Scripting Area.
+===
+
+===Looping
+TITLE: Loops - Making Code Repeat
+[CODE]
+IMAGE: "\tools\Projects\imgs\snap\snapBasic.png",65, "Example of a loop in Snap!"
+DESCRIPTION: "Try clicking this code to load it into Snap! See if you can figure out what it does and why?"
+XMLURL: "\tools\Projects\xmls\square.xml"
+[/CODE]
+TEXT: Loops allow you to repeat actions without writing the same code multiple times.
+TEXT: A 'Repeat' block runs the same instruction a set number of times.
+TEXT: The 'Forever' block keeps running the code until you stop the program.
+
+===
+
+===If_Else
+TITLE: If/Else Statements - Making Decisions
+[CODE]
+IMAGE: "\tools\Projects\imgs\snap\if_intro.png",65, "Example of an If/Else statement in Snap!"
+DESCRIPTION: "Change the value from true to false and see what happens."
+XMLURL: "\tools\Projects\xmls\if_example.xml"
+[/CODE]
+TEXT: If/Else statements allow your program to make decisions.
+TEXT: If a condition is true, the program follows one path. If it’s false, it follows another.
+TEXT: This helps create interactive and dynamic programs.
+===
+
+===variable
+TITLE: Making Variables - Storing Information
+TEXT: Variables allow you to store and change values in your program.
+TEXT: Think of a variable like a box where you keep important numbers or words.
+TEXT: You can create a variable, give it a name, and use blocks to update its value dynamically.
+[CAROUSEL]
+- SLIDE: "\tools\Projects\imgs\snap\make_variable1.png","alt","Press Make a Variable","A variable is like a storage box for information"
+- SLIDE: "\tools\Projects\imgs\snap\make_variable2.png","alt","Name your Variable","Here you can put a label on your storage box to know what goes inside."
+- SLIDE: "\tools\Projects\imgs\snap\make_variable3.png","alt","Use the 'Change' Block","This will add 1 to your variable so you can use it as a counter"
+- SLIDE: "\tools\Projects\imgs\snap\make_variable4.png","alt","Make the full code","Click on the sprite to see what happens"
+[/CAROUSEL]
+===
+
+===Intro_to_computing
+TITLE: Counting Technology - The Foundation of Computing
+[MD]
+PATH: "\tools\Projects\md\chapter_2_computing.md"
+[/MD]
+TEXT: To understand how computers work, we must first understand how humans invented counting.
+TEXT: Computers, at their core, are machines that process and store numbers.
+TEXT: Learning to count and organize numbers efficiently was the first step toward modern computing.
+===

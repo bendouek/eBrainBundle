@@ -1,0 +1,53 @@
+===Open_eBrain_Menu
+TITLE: Open the eBrain Menu
+IMAGE: "\tools\eBrain\robot.png",20, "Click on the eBrain icon"
+IMAGE: "\tools\Projects\imgs\snap\connect1.png",50, "Snap! eBrain menu location"
+TEXT: To begin, open Snap! and locate the eBrain icon at the bottom right corner of the screen. Click on this icon to bring up the eBrain connection menu.
+===
+
+===Connect_USB
+TITLE: Connect your eBrain via USB
+IMAGE: "\tools\Projects\imgs\captures\captured_image_usb.png",50, "USB connection setup"
+TEXT: Connect your eBrain device to your computer using a USB cable.
+TEXT: If this is your first time connecting, you must establish the initial connection over USB.
+TEXT: Once the eBrain is successfully linked to your network, future connections can be made wirelessly.
+===
+
+===Click_Connect_Button
+TITLE: Click the Connect Button
+IMAGE: "\tools\Projects\imgs\snap\connect2.png",60, "Connect to eBrain"
+TEXT: In the eBrain menu, click on 'Connect to eBrain' to initiate the connection process.
+===
+
+===Open_USB_Devices
+TITLE: Open USB Devices List
+IMAGE: "\tools\Projects\imgs\snap\connect3.png",60, "View available USB devices"
+TEXT: A popup window will appear. Click the button to view the available USB devices.
+===
+
+===Select_USB_Device
+TITLE: Select Your USB Device
+IMAGE: "\tools\Projects\imgs\snap\connect4.png",50, "Choose the correct USB device"
+TEXT: From the list of devices, select 'USB to Serial' or 'USB2.0-Serial'. This ensures Snap! can communicate with the eBrain device.
+===
+
+
+===Connect_WiFi_Network
+TITLE: Connect the eBrain to Your WiFi Network
+IMAGE: "\tools\Projects\imgs\snap\connect5.png",50, "Enter WiFi credentials"
+TEXT: When prompted, enter your WiFi name (SSID) exactly as it appears, along with your WiFi password.
+TEXT: This step allows the eBrain to connect to your local network and obtain an IP address.
+TEXT:
+TEXT: This window will only appear once. If you enter the wrong details, you can update them later by going to the 'Options' menu and selecting 'Connect to Network'.
+TEXT:
+TEXT: If your eBrain already has an IP address, you can skip this step and instead go to the 'Options' menu and select 'Connect WebSocket'.
+===
+
+
+===Verify_IP_Address
+TITLE: Verify a Valid IP Address
+IMAGE: "\tools\Projects\imgs\snap\connect6.png",75, "Check IP connection status"
+TEXT: If the eBrain has successfully connected to your network, you will see a green IP address displayed on the screen.
+TEXT:
+TEXT: If the IP address does not appear immediately, don’t worry. The eBrain restarts automatically after connecting to a new network. Simply press 'Connect' again so that Snap! can retrieve the eBrain’s IP address.
+===

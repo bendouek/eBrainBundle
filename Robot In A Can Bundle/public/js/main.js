@@ -284,7 +284,7 @@ function showWiFiPopup() {
   overlay.style.display = 'flex';
   overlay.style.justifyContent = 'center';
   overlay.style.alignItems = 'center';
-  overlay.style.zIndex = '1000';
+  overlay.style.zIndex = '8000';
 
   // Create the modal container
   const modal = document.createElement('div');

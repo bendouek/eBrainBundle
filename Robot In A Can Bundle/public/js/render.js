@@ -422,14 +422,16 @@ async function displaySlide() {
 
 // Aborts current slide processing
 function abortCurrentSlide() {
-  abortSlide = true;
-  if (activeInterval) {
-    clearInterval(activeInterval);
-    activeInterval = null;
+  if(!abortSlide){
+    abortSlide = true;
+    if (activeInterval) {
+      clearInterval(activeInterval);
+      activeInterval = null;
+    }
+    nextBtn.disabled = false;
+    terminalDiv.textContent = "";
+    mediaDiv.innerHTML = "";
   }
-  nextBtn.disabled = false;
-  terminalDiv.textContent = "";
-  mediaDiv.innerHTML = "";
 }
 
 // ===== Slide Navigation =====
@@ -442,10 +444,10 @@ function createSlider() {
     btn.innerText = index + 1;
     btn.title = post.title;
     btn.addEventListener('click', function() {
-      abortCurrentSlide();
-      currentSlideIndex = index;
-      displaySlide();
-      updateSlider();
+        abortCurrentSlide();
+        currentSlideIndex = index;
+        displaySlide();
+        updateSlider();
     });
     sliderDiv.appendChild(btn);
   });

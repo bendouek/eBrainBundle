@@ -104,18 +104,6 @@
     box-sizing: border-box;
     overflow-y: auto;
   }
-  #preview h1 {
-    font-size: 24px;
-    border-bottom: 1px solid #ddd;
-    padding-bottom: 5px;
-  }
-  #preview p {
-    margin: 10px 0;
-  }
-  #preview img {
-    max-width: 100%;
-    margin: 5px 0;
-  }
 
   </style>
 </head>
@@ -128,6 +116,7 @@
      <!-- Left Pane: DSL Editor, Controls, File Loader, and Image Gallery -->
     <div id="editorPane">
       <div id="controls">
+        <button class="btn" onclick="loadTextFile()">Load txt</button>
         <!-- File Input for loading the .txt file with image paths -->
         <label>Load Resource Gallery</label>
         <input type="file" id="fileInput" accept=".txt"><br><br><br>
@@ -159,7 +148,6 @@
     <!-- Right Pane: DSL Preview -->
     <div id="previewPane">
       <div id="preview">
-        <center>
           <h1 id="slideTitle2" style="font-size: 2em;"></h1>
           <div id="media2"></div><br>
           <div id="terminal2"></div><br>
@@ -170,7 +158,6 @@
           </div><br><br>
           <!-- Slider: displays numbered squares for each slide -->
           <div id="slider2"></div>
-        </center>
       </div>
     </div>
 
@@ -864,7 +851,24 @@ function saveEditorContentAsTxt() {
   URL.revokeObjectURL(url);
 }
 
-
+function loadTextFile() {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = '.txt';
+    
+    input.addEventListener('change', function(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                insertFormattedText(e.target.result);
+            };
+            reader.readAsText(file);
+        }
+    });
+    
+    input.click();
+}
   </script>
 </body>
 </html>

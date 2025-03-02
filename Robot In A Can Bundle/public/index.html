@@ -212,6 +212,7 @@
           <li role="menu-item" id="socketButton"><a >Connect To eBrain WebSocket</a></li>
           <li role="menu-item" class="divider" id="closeSocketButton"><a>Close WebSocket</a></li>
           <li role="menu-item"><a onclick="toggleAdvanced2()">Connect To A Network</a></li>
+          <li role="menu-item"><a onclick="getIpValue()">Get IP</a></li>
         </ul>
       </li>
       <li role="menu-item" tabindex="0" aria-haspopup="true">
@@ -278,10 +279,12 @@
       <li role="menu-item" tabindex="0" aria-haspopup="true">
         Tutorials
         <ul role="menu">
-          <li role="menu-item" class="divider" onclick="loadCards('/tools/Projects/cards/ebrain_intro.txt')"><a>Introduction</a></li>
-          <li role="menu-item" class="divider" onclick="loadCards('/tools/Projects/cards/first_circuit.txt')"><a>Getting Started</a></li>
-          <li role="menu-item" class="divider" onclick="loadCards('/tools/Projects/cards/sample.txt')"><a>How To Connect</a></li>
-          <li role="menu-item" class="divider"><a>Input & Ouput</a></li>
+          <li role="menu-item" class="divider" onclick="loadCards('/tools/Projects/cards/introduction.txt')"><a>Introduction</a></li>
+          <li role="menu-item" class="divider" onclick="loadCards('/tools/Projects/cards/first_circuits.txt')"><a>Your First Circuits</a></li>
+          <li role="menu-item" class="divider" onclick="loadCards('/tools/Projects/cards/breadboard.txt')"><a>Using The Breadboard</a></li>
+          <li role="menu-item" class="divider" onclick="loadCards('/tools/Projects/cards/snap.txt')"><a>Your First Programs</a></li>
+          <li role="menu-item" class="divider" onclick="loadCards('/tools/Projects/cards/connecting.txt')"><a>How To Connect</a></li>
+          <li role="menu-item" class="divider" onclick="loadCards('/tools/Projects/cards/output.txt')"><a>Input & Ouput</a></li>
           <li role="menu-item" class="divider"><a>Analog Signals</a></li>
           <li role="menu-item" class="divider"><a>PWM</a></li>
           <li role="menu-item" class="divider"><a>Stepper Motors</a></li>
@@ -311,7 +314,7 @@
       </li>
     </ul>
     <div class="window-body">
-       <center>
+      <div id="preview">
         <h1 id="slideTitle2" style="font-size: 2em;"></h1>
         <div id="media2"></div><br>
         <div id="terminal2"></div><br>
@@ -322,7 +325,7 @@
         </div><br><br>
         <!-- Slider: displays numbered squares for each slide -->
         <div id="slider2"></div>
-      </center>
+      </div>
     </div>
   </div>
 
@@ -455,7 +458,7 @@
       }
     }
 
-    loadCards('/tools/Projects/cards/ebrain_intro.txt');
+    loadCards('/tools/Projects/cards/introduction.txt');
   </script>
 </body>
 </html>

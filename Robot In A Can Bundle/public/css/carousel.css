@@ -10,10 +10,7 @@
             display: inline-block; text-align: left;
         }
         .carousel img {
-            width: 100%;
-            max-width: 800px;
-            max-height: 400px;
-            height: auto;
+            height: 260px;
             border: 1px solid #000;
             border-radius: 3px;
             margin: 10px 0px 10px 0px;

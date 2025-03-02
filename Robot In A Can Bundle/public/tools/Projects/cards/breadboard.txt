@@ -1,0 +1,100 @@
+=== Breadboard_Basics
+TITLE: Breadboard Basics
+TEXT: Simplify Your Prototypes - Breadboards let you quickly assemble and modify circuits without soldering, thanks to their conductive clips.
+IMAGE: "/tools/Projects/imgs/svg/eBrain-09.svg",60, "Breadboard illustration"
+TEXT: 
+TEXT: Think of a breadboard as a team of helping hands that hold wires together, joining them so they can send electricity between them.
+===
+
+=== Using_the_Breadboard
+TITLE: Using the Breadboard
+TEXT: The Breadboard ONLY joins wires in the same COLUMN. The columns are marked in the image above, each column is a metal spring that holds the wires.
+IMAGE: "/tools/Projects/imgs/svg/eBrain-13.svg",60, "Breadboard usage illustration"
+===
+
+=== Inside_the_Breadboard
+TITLE: Inside the Breadboard
+TEXT: The Hidden Structure - Peek inside the breadboard to see how its metal clips secure your connections and ensure that the electricity conducts between wires.
+TEXT: The clips are arranged in rows and columns to keep your wiring organized.
+IMAGE: "\tools\Projects\imgs\theory\insidebreadboard.png",50, "Inside the breadboard"
+===
+
+=== Wire_Connectivity
+TITLE: Wire Connectivity
+TEXT: Experiment with Circuits
+TEXT: Connect a wire to the 3.3V Power Supply and another wire to the R in the Patch Bay, as in the picture above.
+TEXT: Use The Breadboard:
+IMAGE: "/tools/Projects/imgs/svg/eBrain-14.svg", 100, "Breadboard wiring diagram"
+TEXT: Place wires in the same column to complete the circuit and light up an LED.
+TEXT: Place wires in different columns to break the circuit.
+===
+
+=== RGB_Color_Mixing
+TITLE: RGB Color Mixing
+TEXT: Experiment with Hues - Mix RGB colors using the breadboard. By connecting a wire to the power source and then using the Breadboard we can split the current to more than one LED at a time. Observe the new hues that are formed.
+IMAGE: "/tools/Projects/imgs/svg/eBrain-15.svg",60, "RGB color mixing on breadboard"
+TEXT: Connect each colored LED to the 3.3V source; Experiment with different combinations to see the resulting colors.
+===
+
+=== RGB_Mixing_Question
+TITLE: RGB Mixing Results
+TEXT: The Final Hues - Discover the outcomes of additive color mixing: which combinations will yield which color?
+IMAGE: "\tools\Projects\imgs\svg\eBrain-16.svg",50, "How do colors mix?"
+
+===
+
+=== RGB_Mixing_Results
+TITLE: RGB Mixing Results
+IMAGE: "/tools/Projects/imgs/svg/eBrain-17.svg",60, "RGB color mixing diagram"
+TEXT: Red + Green = Yellow
+TEXT: Red + Blue = Magenta
+TEXT: Green + Blue = Cyan 
+TEXT: All three = White. 
+TEXT: Note: Additive color mixing differs from mixing paints! (...and the primary colors are different!?)
+===
+
+===Quiz_1
+TITLE: Computer Question
+TEXT: What did we do in this lesson?
+[QUIZ]
+QUESTION: "What is a Breadboard for?"
+OPTIONS: "Electrically joins wires","Cut Bread","To hold cables","It's a part of the computer"
+ANSWER: "Electrically joins wires"
+[/QUIZ]
+===
+
+===LED_and_Breadboard
+IMAGE: "\tools\Projects\imgs\svg\materialschapterone.svg",50, "Your image caption"
+TEXT: Let's try making a more advanced circuit using an LED and the breadboard. You will need:
+TEXT: 4 X AA Batteries, 2 X Patch Cables, 1 X LED (Light Emitting Diode), and of course your eBrain!
+===
+
+
+===Circuits_2
+TITLE: Making Circuits
+[MD]
+PATH: "\tools\Projects\md\circuits_2.md"
+[/MD]
+TEXT: Let's try another challenge with the Breadboard!
+
+===
+
+
+=== Introduction_Review
+TITLE: Let's look at what we know
+IMAGE: "/tools/Projects/imgs/svg/eBrain-09.svg",25, "Breadboard usage illustration"
+IMAGE: "/tools/Projects/imgs/svg/eBrain-08.svg",25, "Patch Bay layout"
+IMAGE: "/tools/Projects/imgs/svg/eBrain-06.svg",25, "Power supply diagram"
+TEXT: Let's review the key components of your eBrain that we know about so far.
+TEXT: 
+TEXT: Power bay: Voltage regulated power supply for your projects.
+TEXT: Patch bay: Connecting the: Buttons, Lights, and Light Sensor.
+TEXT: Breadboard: Holding wires and electric connections together.
+TEXT: RGB LED: Light that can make many colors by mixing Red Green Blue.
+TEXT: Switches: Buttons that send electricity only while pushed.
+===
+
+===End_Lesson_3
+TITLE: END
+TEXT: Choose your next lesson!
+==
