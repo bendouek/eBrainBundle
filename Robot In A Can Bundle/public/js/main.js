@@ -177,7 +177,7 @@ async function attemptSavedNetworkConnection() {
             displayMessage("Acquired valid IP. Trying WebSocket connection...");
             await delayAS(4300);
             connectWS();
-            await delayAS(6300);
+            await delayAS(8300);
             if (isConnected()) {
                 displayMessage("Connected via WebSocket!");
                 return true;
@@ -209,8 +209,6 @@ async function orderOfOpperations() {
         displayMessage("Acquired valid IP. Trying WebSocket connection...");
         await delayAS(4300);
         connectWS();
-        await delayAS(8000);
-        await checkExistingIP();
     }
     else if (ssidSave) {
         // Display a confirmation popup
@@ -219,8 +217,6 @@ async function orderOfOpperations() {
         if (userResponse) {
             // User pressed "OK"
             var result = await attemptSavedNetworkConnection();
-            await delayAS(8000);
-            connectWS();
         } else {
             // User pressed "Cancel"
             await promptManualCredentials();
@@ -277,7 +273,7 @@ async function connectAuto() {
         
     }   
     // Final check after all attempts
-    await delayAS(20000);
+    await delayAS(25000);
     if (!isConnected()) {
         // Step 4 something went wrong and timed-out
          displayMessage("Not Connected - See the Guidebook on How To Connect for more info.");
@@ -308,9 +304,11 @@ function showWiFiPopup() {
   modal.style.boxShadow = '0 2px 10px rgba(0,0,0,0.3)';
   modal.style.width = '300px';
   modal.style.textAlign = 'center';
+  modal.style.position = 'relative';
 
   // Insert your HTML into the modal
   modal.innerHTML = `
+    <button id="closeWifiPopup" style="position:absolute;top:10px;right:10px;">✖</button>
     <button id="wifichkButton" onclick="wifiCheck()">Scan WiFi</button>
     <br/><br/>
     <label for="ssid">SSID:</label>
@@ -321,15 +319,21 @@ function showWiFiPopup() {
     <label for="pass">PASS:</label>
     <input type="text" id="pass-2" name="pass">
     <br/><br/>
-    <button id="wifiButton2" onclick="connectToRouterWithPopUp()">Connect To Router</button>
+    <button id="wifiButton2">Connect To Router</button>
   `;
 
   // Append the modal to the overlay, then the overlay to the document body
   overlay.appendChild(modal);
   document.body.appendChild(overlay);
 
+  // Close button handler
+  document.getElementById('closeWifiPopup').addEventListener('click', function() {
+    document.body.removeChild(overlay);
+  });
+
   // When the Connect To Router button is clicked, close the pop-up
   document.getElementById('wifiButton2').addEventListener('click', function() {
+    connectToRouterWithPopUp();
     document.body.removeChild(overlay);
     // Optionally, you can call connectToRouterWithSavedInfo() or other functions here.
   });

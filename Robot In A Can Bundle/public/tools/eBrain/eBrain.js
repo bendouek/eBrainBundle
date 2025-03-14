@@ -13,6 +13,7 @@ let maxRetries = 5;             // Maximum number of WebSocket reconnection atte
 let retryCount = 0;             // Current WebSocket reconnection attempt count.
 let ebMSG = 0;                  // Global variable to pass ansync information to Snap!
 let snapBlocking = 0;           // Global variable to control block flow of Snap!
+let heartbeatInterval = null;   // Interval for checking if websocket is alive
 
 /**
  * Filters out unwanted Unicode characters from the provided string.
@@ -340,6 +341,7 @@ function connect(url) {
   // Handle successful connection.
   socket.onopen = function () {
     displayMessage("Connected to ESP8266 WebSocket");
+    checkConnection();
     retryCount = 0; // Reset the retry counter upon successful connection.
     if (eb) {
       eb.connected = true;
@@ -361,6 +363,7 @@ function connect(url) {
 
   // Handle connection closure and attempt reconnection if under the retry limit.
   socket.onclose = function (event) {
+    clearInterval(heartbeatInterval);
     displayMessage("WebSocket closed: " + event);
     if (eb) {
       eb.connected = false;
@@ -384,11 +387,16 @@ function displayMessage(msg) {
 }
 
 /**
- * Dummy function for checking connection status (currently not implemented).
+ * Function for checking connection status.
  */
 function checkConnection() {
-
+    heartbeatInterval = setInterval(() => {
+        if (socket.readyState === WebSocket.OPEN) {
+            eb.send_msg({cmd:'version'},function(msg){});
+        }
+    }, 30000); // Send ping every 30 seconds
 }
+
 
 /**
  * Delays the execution of a callback by 3 seconds.
