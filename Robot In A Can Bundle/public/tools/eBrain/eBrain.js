@@ -131,6 +131,7 @@ async function USBconnect() {
   tempButton.style.padding = "10px 20px";
   tempButton.style.fontSize = "16px";
   tempButton.style.border = "8px solid #008000";
+  tempButton.style.borderRadius = "8px";
 
   // Event listener for the button click to initiate connection.
   tempButton.addEventListener("click", async () => {
@@ -418,7 +419,7 @@ window.addEventListener("message", (event) => {
       var msg = { 'msg': 'USB connected: ' + eb.chkConnection(), 'id': event.data.id };
       window.parent.postMessage(msg, "*");
     });
-  } else if (event.data.cmd == "url") {
+  } else if (event.data.cmd == "ws") {
     // Start the WebSocket connection process with the provided URL.
     connect(event.data.msg);
     delay(() => {

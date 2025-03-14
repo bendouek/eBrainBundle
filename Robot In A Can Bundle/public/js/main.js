@@ -133,7 +133,7 @@ async function tryWebSocketConnection() {
     displayMessage("Valid IP found. Trying to connect via WebSocket...");
     await delayAS(2200);
     connectWS();
-    await delayAS(6000);
+    await delayAS(6300);
     return isConnected();
 }
 
@@ -167,15 +167,17 @@ async function checkExistingIP() {
 async function attemptSavedNetworkConnection() {
     if(ssidPassSave  && ssidSave && isConnected()){
         displayMessage("Saved SSID detected. Attempting to connect to the saved network...");
-        connectionWizard(); // Sends the set_wifi command using the saved SSID and password
-        await delayAS(6000);
-        getIpValue();       // Update the displayed IP from the device
-        await delayAS(8000);
+        connectToRouterWithSavedInfo(); // Sends the set_wifi command using the saved SSID and password
+        await delayAS(8300);
+        displayMessage("eBrain may have rebooted to connect, if a valid IP doesn't appear please press the connection button again");
+        await delayAS(1000);
+        await checkExistingIP();      // Update the displayed IP from the device
+        await delayAS(4300);
         if (isValidIP(getDisplayIP())) {
             displayMessage("Acquired valid IP. Trying WebSocket connection...");
-            await delayAS(4000);
+            await delayAS(4300);
             connectWS();
-            await delayAS(6000);
+            await delayAS(6300);
             if (isConnected()) {
                 displayMessage("Connected via WebSocket!");
                 return true;
@@ -185,7 +187,6 @@ async function attemptSavedNetworkConnection() {
             }
         } else {
             displayMessage("Failed to acquire a valid IP from the saved network.");
-            displayMessage("Try connecting again.");
             return false;
         }
     }
@@ -196,77 +197,89 @@ async function promptManualCredentials() {
     displayMessage("No saved network credentials found.");
     showWiFiPopup();
     await delayAS(13000);
-    // At this point, your UI should allow the user to input credentials and trigger connectionWizard()
+    // At this point, your UI should allow the user to input credentials
     // You could await a user event here if desired.
+}
+
+async function orderOfOpperations() {
+    // See if the eBrain has a valid IP address that has changed
+    await checkExistingIP();
+    if (isValidIP(getDisplayIP())){
+        // if it has an IP try to connect to it
+        displayMessage("Acquired valid IP. Trying WebSocket connection...");
+        await delayAS(4300);
+        connectWS();
+        await delayAS(8000);
+        await checkExistingIP();
+    }
+    else if (ssidSave) {
+        // Display a confirmation popup
+        const userResponse = confirm("Saved network detected for SSID: "+ssidSave+", use saved information?");
+        // Perform action based on user's response
+        if (userResponse) {
+            // User pressed "OK"
+            var result = await attemptSavedNetworkConnection();
+            await delayAS(8000);
+            connectWS();
+        } else {
+            // User pressed "Cancel"
+            await promptManualCredentials();
+        }
+        displayMessage("eBrain will reboot after this process and may need to be reconnected via USB to obtain IP.");
+    } else {
+        // Otherwise, prompt the user to manually enter their network details
+        displayMessage("Please enter WiFi credentials to connect eBrain to your network.");
+        await promptManualCredentials();
+        displayMessage("eBrain will reboot after this process and may need to be reconnected via USB to obtain IP.");
+    }
 }
 
 // The main connection wizard that sequences through the steps
 async function connectAuto() {
-    // Step 1: Check if a valid IP exists (from a previous session)
+    // Step 1: Check if a valid IP exists (from a previous session) and try it
     if (isValidIP(getDisplayIP())) {
         // Attempt WebSocket connection using the existing IP
         let wsConnected = await tryWebSocketConnection();
         if (wsConnected) {
-            return; // Successfully connected via WebSocket
+            return true; // Successfully connected via WebSocket
         } else {
             // If WebSocket failed, prompt for USB connection
+            displayMessage("Could not connect to the existing IP address, try connecting over USB");
             let usbConnected = await promptUsbConnection();
             if (usbConnected) {
-                if (ssidSave) {
-                    await attemptSavedNetworkConnection();
-                } else {
-                    // Otherwise, prompt the user to manually enter their network details
-                    displayMessage("Please enter WiFi credentials to connect eBrain to your network.");
-                    await promptManualCredentials();
-                }
+                // try connection
+                orderOfOpperations();
             } else {
                 displayMessage("USB not connected. Please ensure your eBrain is connected via USB.");
             }
         }
     } else {
+        // No IP address set yet
+        // Step 2: Check if we are connected (probably via USB)
         if(isConnected()){
+            // if yes, try and get an IP from the eBrain
             displayMessage("USB Connected - Trying to get IP...");
-            const ip = await checkExistingIP();
-            if(isValidIP(ip)){
-                await delayAS(1200);
-                // Try connecting via WebSocket using the acquired IP.
-                connectWS();
-            } else if (ssidSave) {
-                // Step 3: If saved credentials exist, attempt to use them
-                await attemptSavedNetworkConnection();
-            } else {
-                // Otherwise, prompt the user to manually enter their network details
-                await promptManualCredentials();
-            } 
+            // try connection
+            orderOfOpperations();
         } else {
-            // Step 2: No valid IP found – instruct the user to connect via USB
-            displayMessage("No valid IP found. Connect your eBrain with a USB cable.");
-            await delayAS(3000);
+            // Step 3: No valid IP found and we are not connected to the eBrain yet
+            // Connect over USB then follow the connection procedure
+            displayMessage("No valid IP found, no USB connection. Connect your eBrain with a USB cable.");
             let usbConnected = await promptUsbConnection();
             if (usbConnected) {
-                const ip = await checkExistingIP();
-                if(isValidIP(ip)){
-                    await delayAS(1200);
-                    // Try connecting via WebSocket using the acquired IP.
-                    connectWS();
-
-                } else if (ssidSave) {
-                    // Step 3: If saved credentials exist, attempt to use them
-                    await attemptSavedNetworkConnection();
-                } else {
-                    // Otherwise, prompt the user to manually enter their network details
-                    await promptManualCredentials();
-                }
+                // try connection
+                orderOfOpperations();
             } else {
+                // USB connection didn't work or was canceled by the user
                 displayMessage("USB connection failed. Unplug it and plug it back.");
             }
         }
         
-    }
-    
+    }   
     // Final check after all attempts
     await delayAS(20000);
     if (!isConnected()) {
+        // Step 4 something went wrong and timed-out
          displayMessage("Not Connected - See the Guidebook on How To Connect for more info.");
     }
 }
@@ -318,17 +331,18 @@ function showWiFiPopup() {
   // When the Connect To Router button is clicked, close the pop-up
   document.getElementById('wifiButton2').addEventListener('click', function() {
     document.body.removeChild(overlay);
-    // Optionally, you can call connectionWizard() or other functions here.
+    // Optionally, you can call connectToRouterWithSavedInfo() or other functions here.
   });
 }
 
 // Function to send WiFi credentials to the ESP for connection
-function connectionWizard() {
+function connectToRouterWithSavedInfo() {
     if(ssidPassSave  && ssidSave && isConnected()){
         const ssid = ssidSave;
         const pass = ssidPassSave;
         var message = {"cmd": "set_wifi", "ssid": ssid , "pass": pass};
         // Send the set_wifi command; on success, update the displayed IP
+        displayMessage("eBrain may have rebooted to connect, if a valid IP doesn't appear please press the connection button again");
         send_msg(message, function(rtnMsg){
             displayIP(rtnMsg.msg.sta_ip);
             connectWS();
@@ -346,6 +360,7 @@ function connectToRouterWithGUI() {
     saveToLocalStorage("eBrain_pass", pass);
     var message = {"cmd": "set_wifi", "ssid": ssid , "pass": pass};
     // Send the set_wifi command; on success, update the displayed IP
+    displayMessage("eBrain may have rebooted to connect, if a valid IP doesn't appear please press the connection button again");
     send_msg(message, function(rtnMsg){
         displayIP(rtnMsg.msg.sta_ip);
         connectWS();
@@ -361,6 +376,7 @@ function connectToRouterWithPopUp() {
     saveToLocalStorage("eBrain_pass", pass);
     var message = {"cmd": "set_wifi", "ssid": ssid , "pass": pass};
     // Send the set_wifi command; on success, update the displayed IP
+    displayMessage("eBrain may have rebooted to connect, if a valid IP doesn't appear please press the connection button again");
     send_msg(message, function(rtnMsg){
         displayIP(rtnMsg.msg.sta_ip);
         connectWS();
@@ -391,7 +407,7 @@ function wifiCheck() {
 function connectWS() {
     var url  = "ws://"+getDisplayIP()+":8899/websocket";
     displayMessage("...conecting: " + url);
-    var msg = {'cmd':'url','msg':url};
+    var msg = {'cmd':'ws','msg':url};
     send_msg(msg,function(rtnMsg){});
 }
 
