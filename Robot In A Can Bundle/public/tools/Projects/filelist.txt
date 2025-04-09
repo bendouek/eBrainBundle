@@ -6,6 +6,7 @@ F:\AI\eBrainBundle\Robot In A Can Bundle\public\tools\Projects\updateFiles.bat
 F:\AI\eBrainBundle\Robot In A Can Bundle\public\tools\Projects\xmls
 F:\AI\eBrainBundle\Robot In A Can Bundle\public\tools\Projects\cards\breadboard.txt
 F:\AI\eBrainBundle\Robot In A Can Bundle\public\tools\Projects\cards\cards.txt
+F:\AI\eBrainBundle\Robot In A Can Bundle\public\tools\Projects\cards\connecting.txt
 F:\AI\eBrainBundle\Robot In A Can Bundle\public\tools\Projects\cards\ebrain_intro.txt
 F:\AI\eBrainBundle\Robot In A Can Bundle\public\tools\Projects\cards\first_circuits.txt
 F:\AI\eBrainBundle\Robot In A Can Bundle\public\tools\Projects\cards\ideas.txt
@@ -29,6 +30,7 @@ F:\AI\eBrainBundle\Robot In A Can Bundle\public\tools\Projects\imgs\txtimg.png
 F:\AI\eBrainBundle\Robot In A Can Bundle\public\tools\Projects\imgs\xmlimg.webp
 F:\AI\eBrainBundle\Robot In A Can Bundle\public\tools\Projects\imgs\captures\captured_image_1.png
 F:\AI\eBrainBundle\Robot In A Can Bundle\public\tools\Projects\imgs\captures\captured_image_usb.png
+F:\AI\eBrainBundle\Robot In A Can Bundle\public\tools\Projects\imgs\captures\connection.gif
 F:\AI\eBrainBundle\Robot In A Can Bundle\public\tools\Projects\imgs\snap\analog.png
 F:\AI\eBrainBundle\Robot In A Can Bundle\public\tools\Projects\imgs\snap\blink.png
 F:\AI\eBrainBundle\Robot In A Can Bundle\public\tools\Projects\imgs\snap\clipboard_image.png
@@ -160,8 +162,16 @@ F:\AI\eBrainBundle\Robot In A Can Bundle\public\tools\Projects\md\circuits_1.md
 F:\AI\eBrainBundle\Robot In A Can Bundle\public\tools\Projects\md\circuits_2.md
 F:\AI\eBrainBundle\Robot In A Can Bundle\public\tools\Projects\md\computing_history.md
 F:\AI\eBrainBundle\Robot In A Can Bundle\public\tools\Projects\md\computing_history2.md
+F:\AI\eBrainBundle\Robot In A Can Bundle\public\tools\Projects\xmls\asteroidz.xml
 F:\AI\eBrainBundle\Robot In A Can Bundle\public\tools\Projects\xmls\ebrainblocks.xml
 F:\AI\eBrainBundle\Robot In A Can Bundle\public\tools\Projects\xmls\if_example.xml
 F:\AI\eBrainBundle\Robot In A Can Bundle\public\tools\Projects\xmls\output.xml
+F:\AI\eBrainBundle\Robot In A Can Bundle\public\tools\Projects\xmls\particle.xml
+F:\AI\eBrainBundle\Robot In A Can Bundle\public\tools\Projects\xmls\plotter-v2-3.xml
+F:\AI\eBrainBundle\Robot In A Can Bundle\public\tools\Projects\xmls\sound_meter.xml
+F:\AI\eBrainBundle\Robot In A Can Bundle\public\tools\Projects\xmls\speak_and_listen_blocks.xml
+F:\AI\eBrainBundle\Robot In A Can Bundle\public\tools\Projects\xmls\spectrum.xml
 F:\AI\eBrainBundle\Robot In A Can Bundle\public\tools\Projects\xmls\square.xml
-F:\AI\eBrainBundle\Robot In A Can Bundle\public\tools\Projects\xmls\Ultrasonic.xml
+F:\AI\eBrainBundle\Robot In A Can Bundle\public\tools\Projects\xmls\teachable_machine.xml
+F:\AI\eBrainBundle\Robot In A Can Bundle\public\tools\Projects\xmls\ultrasonic.xml
+F:\AI\eBrainBundle\Robot In A Can Bundle\public\tools\Projects\xmls\weather_api.xml

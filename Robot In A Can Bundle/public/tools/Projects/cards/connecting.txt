@@ -1,7 +1,7 @@
 ===Open_eBrain_Menu
 TITLE: Open the eBrain Menu
-IMAGE: "\tools\eBrain\robot.png",20, "Click on the eBrain icon"
-IMAGE: "\tools\Projects\imgs\snap\connect1.png",50, "Snap! eBrain menu location"
+IMAGE: "\tools\Projects\imgs\captures\connection.gif",100, "Your image caption"
+
 TEXT: To begin, open Snap! and locate the eBrain icon at the bottom right corner of the screen. Click on this icon to bring up the eBrain connection menu.
 ===
 
