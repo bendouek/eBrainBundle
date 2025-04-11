@@ -621,7 +621,7 @@ const commands = {
   "move_servos": { 
     "servos": [
       { "mode": "continuous", "pin": 16, "speed": 0 },
-      { "mode": "continuous", "pin": 14, "speed": 180 }
+      { "mode": "continuous", "pin": 15, "speed": 180 }
     ]
   },
   "stepper_turn": { 
@@ -636,12 +636,12 @@ const commands = {
     ]
   },
   "update_settings": { 
-    "version": 2, 
+    "version": 4, 
     "slackCalibration": 14, 
     "moveCalibration": 1.0, 
     "turnCalibration": 1.0, 
-    "wheelDiameter": 70.0, 
-    "wheelDistance": 150.0, 
+    "wheelDiameter": 81.48, 
+    "wheelDistance": 120.5, 
     "wifi_ssid": "example_ssid", 
     "wifi_pass": "example_pass", 
     "robot_name": "eBrain" 
